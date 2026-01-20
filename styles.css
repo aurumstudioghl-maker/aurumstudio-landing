@@ -789,7 +789,7 @@ body {
 =========================== */
 
 :root {
-  --font-body: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
   --font-display: "Playfair Display", ui-serif, Georgia, "Times New Roman", serif;
 }
 
