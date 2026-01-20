@@ -3004,3 +3004,8 @@ footer.footer .legal-links a {
   font-weight: 500;
   letter-spacing: 0;
 }
+
+.site-footer,
+.site-footer * {
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+}
