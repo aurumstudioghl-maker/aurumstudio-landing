@@ -2972,16 +2972,35 @@ header.hero {
   fill: currentColor !important;
   stroke: none !important;
 }
-.legal-links{
-  display:flex;
-  gap:14px;
-  flex-wrap:wrap;
-  align-items:center;
+
+.legal-links {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: center;
 }
-.legal-links a{
-  color: rgba(255,255,255,.62);
+
+.legal-links a {
+  color: rgba(255, 255, 255, .62);
   text-decoration: none;
 }
-.legal-links a:hover{
+
+.legal-links a:hover {
   color: var(--gold2);
+}
+
+/* === Unificar tipografía de enlaces legales en TODOS los footers === */
+.site-footer,
+.site-footer *,
+footer.footer,
+footer.footer * {
+  font-family: var(--font-body) !important;
+}
+
+.site-footer .legal-links a,
+footer.footer .legal-links a {
+  font-family: var(--font-body) !important;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
 }
