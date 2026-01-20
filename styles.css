@@ -2931,3 +2931,45 @@ header.hero {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
+/* === FIX: social icons juntos (top + footer) === */
+.social {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  justify-content: flex-end !important;
+  width: auto !important;
+}
+
+.social__link {
+  margin: 0 !important;
+}
+
+/* En el footer, que no se separen por el ancho */
+.social--bottom {
+  width: auto !important;
+  justify-content: flex-end !important;
+}
+
+/* Por defecto: icons tipo stroke (Instagram queda perfecto) */
+.social__link svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Facebook: versión fill (relleno) para que no se vea raro */
+.social__link svg.icon-fill {
+  fill: currentColor !important;
+  stroke: none !important;
+}
+
+.social__link svg.icon-fill path {
+  fill: currentColor !important;
+  stroke: none !important;
+}
