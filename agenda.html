@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Aurum Studio | Reserva tu sesión</title>
+    <meta name="description" content="Reserva tu sesión privada con Aurum Studio." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+
+<body>
+    <div class="agenda-page">
+
+        <nav class="nav">
+            <strong class="logo">AURUM STUDIO</strong>
+            <div class="nav-actions">
+                <a class="btn ghost small" href="index.html">Volver</a>
+                <a class="btn primary small" href="mailto:aurumstudio@gmail.com">Contacto</a>
+            </div>
+        </nav>
+
+        <header class="agenda-head">
+            <h1>Reserva tu Sesión Aquí</h1>
+            <p>Selecciona fecha y hora. Solo verás disponibilidad real (Calendly bloquea automáticamente horas ya
+                ocupadas en tu Google Calendar).</p>
+        </header>
+
+        <section class="schedule-card">
+            <div class="schedule-topnote">
+                <span style="color:var(--gold)">●</span>
+                <span>Si no encuentras hueco, escribe a <strong>enrique@aurumstudio.es</strong> y te abrimos uno.</span>
+            </div>
+
+            <!-- Calendly inline -->
+            <!-- Calendly -->
+            <div class="calendly-shell">
+                <div class="booking-grid">
+                    <!-- Calendly -->
+                    <div class="booking-cal">
+                        <div class="calendly-inline-widget"
+                            data-url="https://calendly.com/aurumstudioghl/30min?hide_gdpr_banner=1"
+                            style="min-width:320px;height:760px;">
+                        </div>
+                    </div>
+
+
+                    <!-- Panel de instrucciones -->
+                    <aside class="booking-info">
+                        <div class="info-card">
+                            <div class="info-kicker">Antes de reservar</div>
+                            <h3 class="info-title">Para sacar el máximo provecho del tiempo necesitamos que:</h3>
+
+                            <ul class="info-list">
+                                <li>Te presentes un par de minutos antes para entrar a la llamada con calma y sin
+                                    estrés.</li>
+                                <li>Estés en un ambiente tranquilo y silencioso, con buena conexión de internet.</li>
+                                <li>Puedas enchufar la cámara para hacer la conversación más personal y agradable (de lo
+                                    contrario, probablemente reagendaremos la reunión).</li>
+                            </ul>
+
+                            <div class="info-divider"></div>
+
+                            <p class="info-strong">Esto NO es una llamada de coaching.</p>
+                            <p class="info-muted">
+                                En esta llamada veremos si puedo ayudarte y, en caso de poder hacerlo, comenzaremos a
+                                trabajar juntos para ayudarte a lograr tus objetivos.
+                            </p>
+                        </div>
+                    </aside>
+                </div>
+
+        </section>
+
+    </div>
+    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    <script>
+        window.addEventListener("message", function (e) {
+            const msg = e.data;
+            if (!msg || typeof msg !== "string") return;
+            if (msg.includes("calendly")) {
+                console.log("[TRACK] calendly_message", msg);
+            }
+        });
+    </script>
+
+    <script>
+        (function () {
+            const send = (event, payload = {}) => {
+                // Consola (para probar)
+                console.log("[TRACK]", event, payload);
+
+                // GA4 (si lo instalas)
+                if (window.gtag) {
+                    window.gtag("event", event, payload);
+                }
+
+                // Meta Pixel (si lo instalas)
+                if (window.fbq) {
+                    window.fbq("trackCustom", event, payload);
+                }
+            };
+
+            // Clicks en CTA / VSL / etc.
+            document.addEventListener("click", (e) => {
+                const el = e.target.closest("[data-track]");
+                if (!el) return;
+
+                const event = el.getAttribute("data-track");
+                const text = (el.textContent || "").trim().slice(0, 80);
+                const href = el.getAttribute("href") || "";
+                send(event, { text, href, page: location.pathname });
+            });
+
+            // Submit de formulario (si existe)
+            document.addEventListener("submit", (e) => {
+                const form = e.target.closest("form[data-track='form_submit']");
+                if (!form) return;
+
+                send("form_submit", { page: location.pathname });
+            });
+        })();
+    </script>
+
+</body>
+
+
+</html>
