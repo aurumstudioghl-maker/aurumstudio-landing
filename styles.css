@@ -328,19 +328,6 @@ input::placeholder {
   border-top: 1px solid var(--line);
 }
 
-.sticky-cta {
-  position: fixed;
-  right: 18px;
-  bottom: 96px;
-  z-index: 999;
-  padding: 12px 16px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, var(--gold2), var(--gold));
-  color: #0b0b0c;
-  font-weight: 800;
-  box-shadow: 0 14px 34px rgba(214, 181, 109, .22);
-}
-
 @media (max-width:520px) {
   .hero-content {
     margin-top: 92px
@@ -2227,28 +2214,20 @@ header.hero {
 }
 
 .social__link {
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(215, 181, 109, .25);
-  background: rgba(0, 0, 0, .25);
-  backdrop-filter: blur(10px);
-  transition: transform .15s ease, border-color .15s ease, background .15s ease;
-}
-
-.social__link:hover {
-  transform: translateY(-1px);
-  border-color: rgba(215, 181, 109, .5);
-  background: rgba(0, 0, 0, .35);
+  color: rgba(215, 181, 109, .95);
 }
 
 .social__link svg {
   width: 18px;
   height: 18px;
-  fill: rgba(215, 181, 109, .95);
+  display: block;
+  fill: currentColor;
 }
+
+.social__link svg path {
+  fill: currentColor;
+}
+
 
 /* TOP: esquina (fijo) */
 .social--top {
@@ -2908,3 +2887,15 @@ header.hero {
 .social__link:hover {
   color: var(--gold);
 }
+/* NAV full width (FAQ y botones a la derecha de la pantalla) */
+.nav{
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 28px clamp(20px, 6vw, 72px);
+}
+
+.nav-actions{
+  margin-left: auto;
+}
+ 
