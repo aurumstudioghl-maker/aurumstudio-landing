@@ -595,12 +595,6 @@ form {
 }
 
 /* Sticky CTA no tapa contenido en pantallas pequeñas */
-@media (max-width: 520px) {
-  .sticky-cta {
-    right: 12px;
-    bottom: 12px;
-  }
-}
 
 /* Quitar “bandas”/recuadros de fondo: el fondo vive en body */
 .section,
@@ -2845,49 +2839,48 @@ header.hero {
 
 /* --- FIX NAV MOBILE: evita solapes --- */
 @media (max-width: 768px) {
-  .sticky-cta {
-    right: 12px;
-    bottom: 86px;
+  .nav {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 14px 14px;
   }
-}
 
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    /* clave para que pueda encoger */
+    flex: 1 1 auto;
+  }
 
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 0;
-  /* clave para que pueda encoger */
-  flex: 1 1 auto;
-}
+  /* El chip es el que suele reventar el layout en móvil */
+  .nav-chip {
+    max-width: 52vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-/* El chip es el que suele reventar el layout en móvil */
-.nav-chip {
-  max-width: 52vw;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+  .nav-actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
 
-.nav-actions {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
+  .btn.small {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
 
-.btn.small {
-  padding: 10px 12px;
-  font-size: 14px;
-}
-
-/* Si llevas iconos arriba a la derecha, reduce tamaño */
-.nav .social,
-.nav .social a,
-.nav .social button {
-  transform: scale(.9);
-  transform-origin: right top;
-}
+  /* Si llevas iconos arriba a la derecha, reduce tamaño */
+  .nav .social,
+  .nav .social a,
+  .nav .social button {
+    transform: scale(.9);
+    transform-origin: right top;
+  }
 }
 
 /* Si AÚN se pisa, en móviles muy pequeños escondemos el chip */
@@ -2895,4 +2888,23 @@ header.hero {
   .nav-chip {
     display: none;
   }
+}
+
+.social__link {
+  color: rgba(247, 210, 122, .92);
+}
+
+.social__link svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.social__link:hover {
+  color: var(--gold);
 }
