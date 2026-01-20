@@ -2972,3 +2972,16 @@ header.hero {
   fill: currentColor !important;
   stroke: none !important;
 }
+.legal-links{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.legal-links a{
+  color: rgba(255,255,255,.62);
+  text-decoration: none;
+}
+.legal-links a:hover{
+  color: var(--gold2);
+}
