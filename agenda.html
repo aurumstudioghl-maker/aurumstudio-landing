@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Aurum Studio | Reserva tu sesión</title>
-    <meta name="description" content="Reserva tu sesión privada con Aurum Studio." />
+    <title>Aurum Studio | Reserva tu sesion</title>
+    <meta name="description" content="Reserva tu sesion privada con Aurum Studio." />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,8 +15,8 @@
         rel="stylesheet" />
 
     <link rel="stylesheet" href="styles.css" />
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
 </head>
-
 
 <body>
     <div class="agenda-page">
@@ -24,15 +24,17 @@
         <nav class="nav">
             <strong class="logo">AURUM STUDIO</strong>
             <div class="nav-actions">
-                <a class="btn ghost small" href="index.html">Volver</a>
-                <a class="btn primary small" href="mailto:aurumstudio@gmail.com">Contacto</a>
+                <a class="btn ghost small" href="index.html" data-track="cta_back">Volver</a>
+                <a class="btn primary small" href="mailto:enrique@aurumstudio.es" data-track="cta_email">Contacto</a>
             </div>
         </nav>
 
         <header class="agenda-head">
-            <h1>Reserva tu Sesión Aquí</h1>
-            <p>Selecciona fecha y hora. Solo verás disponibilidad real (Calendly bloquea automáticamente horas ya
-                ocupadas en tu Google Calendar).</p>
+            <h1>Reserva tu sesion aqui</h1>
+            <p>
+                Selecciona fecha y hora. Solo veras disponibilidad real
+                (Calendly bloquea automaticamente horas ya ocupadas en tu Google Calendar).
+            </p>
         </header>
 
         <section class="schedule-card">
@@ -41,11 +43,8 @@
                 <span>Si no encuentras hueco, escribe a <strong>enrique@aurumstudio.es</strong> y te abrimos uno.</span>
             </div>
 
-            <!-- Calendly inline -->
-            <!-- Calendly -->
             <div class="calendly-shell">
                 <div class="booking-grid">
-                    <!-- Calendly -->
                     <div class="booking-cal">
                         <div class="calendly-inline-widget"
                             data-url="https://calendly.com/aurumstudioghl/30min?hide_gdpr_banner=1"
@@ -53,85 +52,79 @@
                         </div>
                     </div>
 
-
-                    <!-- Panel de instrucciones -->
                     <aside class="booking-info">
                         <div class="info-card">
                             <div class="info-kicker">Antes de reservar</div>
-                            <h3 class="info-title">Para sacar el máximo provecho del tiempo necesitamos que:</h3>
+                            <h3 class="info-title">Para sacar el maximo provecho del tiempo necesitamos que:</h3>
 
                             <ul class="info-list">
                                 <li>Te presentes un par de minutos antes para entrar a la llamada con calma y sin
-                                    estrés.</li>
-                                <li>Estés en un ambiente tranquilo y silencioso, con buena conexión de internet.</li>
-                                <li>Puedas enchufar la cámara para hacer la conversación más personal y agradable (de lo
-                                    contrario, probablemente reagendaremos la reunión).</li>
+                                    estres.</li>
+                                <li>Estes en un ambiente tranquilo y silencioso, con buena conexion de internet.</li>
+                                <li>
+                                    Puedes encender la camara para que la conversacion sea mas personal (si no,
+                                    probablemente reagendaremos la reunion).
+                                </li>
                             </ul>
 
                             <div class="info-divider"></div>
 
                             <p class="info-strong">Esto NO es una llamada de coaching.</p>
                             <p class="info-muted">
-                                En esta llamada veremos si puedo ayudarte y, en caso de poder hacerlo, comenzaremos a
-                                trabajar juntos para ayudarte a lograr tus objetivos.
+                                En esta llamada veremos si podemos ayudarte y, en caso de encajar, el siguiente paso
+                                para trabajar juntos.
                             </p>
                         </div>
                     </aside>
                 </div>
-
+            </div>
         </section>
 
-    </div>
-    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
-    <script>
-        window.addEventListener("message", function (e) {
-            const msg = e.data;
-            if (!msg || typeof msg !== "string") return;
-            if (msg.includes("calendly")) {
-                console.log("[TRACK] calendly_message", msg);
-            }
-        });
-    </script>
+        <footer class="site-footer" id="footer">
+            <div class="site-footer__inner">
+                <div class="site-footer__brand">© Aurum Studio</div>
+                <div class="social social--bottom">
+                    <a class="social__link" href="https://www.instagram.com/aurumstudio.ai" target="_blank"
+                        rel="noopener" aria-label="Instagram Aurum Studio">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9A3.5 3.5 0 0 0 20 16.5v-9A3.5 3.5 0 0 0 16.5 4h-9Zm10.75 1.75a1 1 0 1 1 0 2 1 1 0 0 1 0-2ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </footer>
 
+    </div>
+
+    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
     <script>
         (function () {
             const send = (event, payload = {}) => {
-                // Consola (para probar)
                 console.log("[TRACK]", event, payload);
-
-                // GA4 (si lo instalas)
-                if (window.gtag) {
-                    window.gtag("event", event, payload);
-                }
-
-                // Meta Pixel (si lo instalas)
-                if (window.fbq) {
-                    window.fbq("trackCustom", event, payload);
-                }
+                if (window.gtag) window.gtag("event", event, payload);
+                if (window.fbq) window.fbq("trackCustom", event, payload);
             };
 
-            // Clicks en CTA / VSL / etc.
             document.addEventListener("click", (e) => {
                 const el = e.target.closest("[data-track]");
                 if (!el) return;
-
                 const event = el.getAttribute("data-track");
                 const text = (el.textContent || "").trim().slice(0, 80);
                 const href = el.getAttribute("href") || "";
                 send(event, { text, href, page: location.pathname });
             });
 
-            // Submit de formulario (si existe)
-            document.addEventListener("submit", (e) => {
-                const form = e.target.closest("form[data-track='form_submit']");
-                if (!form) return;
-
-                send("form_submit", { page: location.pathname });
+            // Calendly posts messages to the parent window
+            window.addEventListener("message", function (e) {
+                const msg = e.data;
+                if (!msg || typeof msg !== "string") return;
+                if (msg.toLowerCase().includes("calendly")) {
+                    send("calendly_message", { msg: msg.slice(0, 200), page: location.pathname });
+                }
             });
         })();
     </script>
-
 </body>
-
 
 </html>

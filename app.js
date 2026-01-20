@@ -54,6 +54,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const data = Object.fromEntries(new FormData(form).entries());
 
+    // Honeypot anti-spam (bots suelen rellenar campos ocultos)
+    if (data.company_website) {
+      form.reset();
+      if (btn) btn.textContent = "Redirigiendo a la agenda…";
+      setTimeout(() => { window.location.href = "agenda.html"; }, 400);
+      return;
+    }
+    delete data.company_website;
+
     try {
       const res = await fetch(MAKE_WEBHOOK_URL, {
         method: "POST",
@@ -71,11 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         window.location.href = "agenda.html";
       }, 700);
-
-
-      // Si prefieres llevarlo directo a Calendly (sin tu página), usa esta línea y borra la de arriba:
-      // window.location.href = "https://calendly.com/aurumstudioghl/30mine";
-
 
       // vuelve a dejar el botón normal tras 2s
       setTimeout(() => {
@@ -95,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
 document.addEventListener("DOMContentLoaded", () => {
   const calendlyButtons = document.querySelectorAll(".js-calendly");
   if (!calendlyButtons.length) return;
