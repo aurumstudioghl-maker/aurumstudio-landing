@@ -3099,3 +3099,20 @@ footer.footer .legal-links a {
     text-align: center;
   }
 }
+
+/* Calendly: que no se descuadre */
+.calendly-inline-widget {
+  width: 100%;
+  min-width: 320px;
+  height: 780px;
+  /* ajusta si quieres */
+  flex: 1 1 auto;
+  /* por si el padre es flex */
+}
+
+.calendly-inline-widget iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border: 0 !important;
+  display: block;
+}
