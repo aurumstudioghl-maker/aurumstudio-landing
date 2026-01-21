@@ -3179,3 +3179,34 @@ footer.footer .legal-links a {
     top: 110px;
   }
 }
+
+/* === Agenda: Calendly + panel derecha === */
+.calendly-shell {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.calendly-shell .booking-layout {
+  display: grid;
+  gap: 22px;
+  align-items: start;
+  grid-template-columns: 1fr;
+  /* móvil / ventana estrecha */
+}
+
+@media (min-width: 820px) {
+  .calendly-shell .booking-layout {
+    grid-template-columns: minmax(0, 1fr) 420px;
+    /* panel a la derecha */
+  }
+
+  .calendly-shell .booking-info {
+    position: sticky;
+    top: 110px;
+  }
+}
+
+.calendly-shell .booking-calendly,
+.calendly-shell .booking-info {
+  min-width: 0;
+}
