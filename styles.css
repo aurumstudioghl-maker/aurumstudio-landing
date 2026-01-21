@@ -3316,3 +3316,38 @@ footer.footer .legal-links a {
     justify-self: center;
   }
 }
+/* ===== Legal pages: left aligned, readable width ===== */
+body.legal-page {
+  text-align: left;
+}
+
+body.legal-page main,
+body.legal-page section,
+body.legal-page .legal,
+body.legal-page .legal-wrap,
+body.legal-page .legal-content,
+body.legal-page .container {
+  text-align: left !important;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 56px 22px;
+}
+
+body.legal-page h1,
+body.legal-page h2,
+body.legal-page h3,
+body.legal-page h4 {
+  text-align: left !important;
+}
+
+body.legal-page p,
+body.legal-page li,
+body.legal-page small {
+  text-align: left !important;
+  line-height: 1.7;
+}
+
+body.legal-page ul,
+body.legal-page ol {
+  padding-left: 1.2rem;
+}
