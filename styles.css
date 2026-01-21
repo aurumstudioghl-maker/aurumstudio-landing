@@ -3182,9 +3182,11 @@ footer.footer .legal-links a {
 
 /* === Agenda: Calendly + panel derecha === */
 .calendly-shell {
-  max-width: 1120px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;  /* <- quita el límite */
+  margin: 0;
 }
+
 
 .calendly-shell .booking-layout {
   display: grid;
@@ -3201,8 +3203,7 @@ footer.footer .legal-links a {
   }
 
   .calendly-shell .booking-info {
-    position: sticky;
-    top: 110px;
+    position: static;
   }
 }
 
