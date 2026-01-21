@@ -3148,3 +3148,34 @@ footer.footer .legal-links a {
   border: 1px solid rgba(214, 181, 109, .35);
   font-size: 12px;
 }
+
+/* Agenda layout: Calendly + info card (2 columnas desktop) */
+.booking-layout {
+  display: grid;
+  gap: 22px;
+  align-items: start;
+}
+
+/* Desktop: card a la derecha */
+@media (min-width: 980px) {
+  .booking-layout {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr);
+  }
+}
+
+/* Evita desbordes raros */
+.booking-calendly {
+  min-width: 0;
+}
+
+.booking-info {
+  min-width: 0;
+}
+
+/* Opcional: que el recuadro se quede visible al hacer scroll */
+@media (min-width: 980px) {
+  .booking-info {
+    position: sticky;
+    top: 110px;
+  }
+}
