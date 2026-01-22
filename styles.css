@@ -3390,3 +3390,106 @@ body.legal-page ol {
 .seo-block .faq p{
   margin: 10px 0 0;
 }
+/* =========================
+   SEO block (centrado + mismo ancho que el resto)
+   ========================= */
+.seo-block{
+  padding: clamp(48px, 6vw, 88px) 0;
+}
+
+.seo-block .seo-inner{
+  width: min(980px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+/* Tipografías y jerarquía (para que encaje con el resto) */
+.seo-block h2,
+.seo-block h3{
+  font-family: "Playfair Display", serif;
+  letter-spacing: -0.01em;
+}
+
+.seo-block p,
+.seo-block li,
+.seo-block summary{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* =========================
+   FAQ (details) - mismo look + glow al tocar
+   ========================= */
+.seo-block details.faq{
+  border: 1px solid rgba(246, 243, 238, 0.10);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-top: 14px;
+  transition: border-color .18s ease, box-shadow .18s ease, background-color .18s ease, transform .18s ease;
+}
+
+/* Quita el marcador nativo */
+.seo-block details.faq > summary{
+  list-style: none;
+}
+.seo-block details.faq > summary::-webkit-details-marker{
+  display: none;
+}
+.seo-block details.faq > summary::marker{
+  content: "";
+}
+
+/* Cabecera clicable */
+.seo-block details.faq > summary{
+  cursor: pointer;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  font-weight: 600;
+  color: rgba(246, 243, 238, 0.92);
+  outline: none;
+}
+
+/* Flecha / icono */
+.seo-block details.faq > summary::after{
+  content: "›";
+  font-size: 22px;
+  line-height: 1;
+  transform: rotate(90deg);
+  opacity: .75;
+  transition: transform .18s ease, opacity .18s ease;
+}
+
+/* Contenido desplegado */
+.seo-block details.faq > *:not(summary){
+  padding: 0 18px 16px 18px;
+  color: rgba(246, 243, 238, 0.78);
+  line-height: 1.7;
+}
+
+/* Glow al pasar / tocar / focus */
+.seo-block details.faq:hover,
+.seo-block details.faq:focus-within,
+.seo-block details.faq:active{
+  border-color: rgba(214, 181, 109, 0.45);
+  box-shadow: 0 0 0 1px rgba(214, 181, 109, 0.18), 0 16px 40px rgba(0,0,0,.35);
+  background: rgba(214, 181, 109, 0.06);
+  transform: translateY(-1px);
+}
+
+/* Estado abierto */
+.seo-block details.faq[open]{
+  border-color: rgba(214, 181, 109, 0.55);
+  background: rgba(214, 181, 109, 0.07);
+}
+.seo-block details.faq[open] > summary::after{
+  transform: rotate(-90deg);
+  opacity: .95;
+}
+
+/* Focus accesible (cuando navegas con teclado) */
+.seo-block details.faq > summary:focus-visible{
+  box-shadow: 0 0 0 3px rgba(214, 181, 109, 0.22);
+  border-radius: 10px;
+}
