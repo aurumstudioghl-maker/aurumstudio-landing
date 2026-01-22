@@ -3351,3 +3351,42 @@ body.legal-page ul,
 body.legal-page ol {
   padding-left: 1.2rem;
 }
+/* SEO text block */
+.seo-block{
+  padding: 64px 0;
+}
+
+.seo-inner{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 22px;
+}
+
+.seo-block h2{
+  font-family: var(--font-display);
+  margin: 18px 0 10px;
+}
+
+.seo-block p{
+  color: var(--muted);
+  line-height: 1.75;
+  margin: 0 0 12px;
+}
+
+.seo-block .faq{
+  margin-top: 12px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  background: rgba(255,255,255,.03);
+}
+
+.seo-block .faq summary{
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.seo-block .faq p{
+  margin: 10px 0 0;
+}
