@@ -4029,3 +4029,18 @@ body.legal-page ol {
   font-size: clamp(28px, 3vw, 44px);
   line-height: 1.15;
 }
+/* ===== ULTRA OVERRIDE: FAQ SIEMPRE EN INTER (preguntas y respuestas) ===== */
+.faq-stack,
+.faq-stack * {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+}
+
+/* Pregunta (summary) un poco más fuerte */
+.faq-stack details.faq > summary {
+  font-weight: 600 !important;
+}
+
+/* Respuesta (p) normal */
+.faq-stack details.faq > p {
+  font-weight: 400 !important;
+}
