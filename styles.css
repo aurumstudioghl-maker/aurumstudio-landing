@@ -4044,3 +4044,104 @@ body.legal-page ol {
 .faq-stack details.faq > p {
   font-weight: 400 !important;
 }
+/* =========================
+   FAQ (NUEVO) — Inter + Glow
+   ========================= */
+
+.faq-wrap{
+  max-width: 920px;
+  margin: 64px auto 0;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.faq-title{
+  font-family: "Playfair Display", serif;
+  font-size: clamp(30px, 3vw, 44px);
+  line-height: 1.15;
+  margin: 0 0 18px;
+}
+
+.faq-list{
+  display: grid;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.faq-item{
+  border: 1px solid rgba(214,181,109,0.35);
+  border-radius: 18px;
+  background: rgba(0,0,0,0.22);
+  overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+}
+
+/* Glow real (hover / focus / open) */
+.faq-item:hover,
+.faq-item:focus-within{
+  border-color: rgba(214,181,109,0.62);
+  background: rgba(214,181,109,0.06);
+  box-shadow:
+    0 0 0 1px rgba(214,181,109,0.18),
+    0 18px 55px rgba(214,181,109,0.14),
+    0 10px 35px rgba(0,0,0,0.55);
+  transform: translateY(-1px);
+}
+
+.faq-item[open]{
+  border-color: rgba(214,181,109,0.65);
+  background: rgba(214,181,109,0.08);
+  box-shadow:
+    0 0 0 1px rgba(214,181,109,0.18),
+    0 18px 55px rgba(214,181,109,0.14),
+    0 10px 35px rgba(0,0,0,0.55);
+}
+
+/* Quitar marcador nativo */
+.faq-item summary{
+  list-style: none;
+}
+.faq-item summary::-webkit-details-marker{
+  display:none;
+}
+
+/* Pregunta (SIEMPRE INTER) */
+.faq-item > summary{
+  cursor: pointer;
+  padding: 20px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+  font-size: 16.5px;
+  font-weight: 600;
+  color: rgba(246,243,238,0.95);
+}
+
+/* Icono */
+.faq-icon{
+  opacity: .85;
+  transform: rotate(0deg);
+  transition: transform .18s ease, opacity .18s ease;
+}
+
+.faq-item[open] > summary .faq-icon{
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+/* Respuesta (SIEMPRE INTER) */
+.faq-a{
+  padding: 0 22px 20px;
+  text-align: left;
+}
+
+.faq-a p{
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+  font-size: 15.8px;
+  line-height: 1.75;
+  color: rgba(246,243,238,0.78);
+}
