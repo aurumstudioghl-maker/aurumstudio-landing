@@ -4174,3 +4174,17 @@ body.legal-page ol {
   margin: 70px 0 18px !important;
 }
 .faq-item { outline: 4px solid red !important; }
+/* ====== FAQ: FORCE INTER (summary + p) ====== */
+.seo-block .faq-wrap .faq-item > summary,
+.seo-block .faq-wrap .faq-item > summary *,
+.seo-block .faq-wrap .faq-item p,
+.seo-block .faq-wrap .faq-item p * {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  font-style: normal !important;
+}
+
+/* Si notas que sigue “serif”, esto lo remata */
+.seo-block .faq-wrap .faq-item > summary{
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+}
