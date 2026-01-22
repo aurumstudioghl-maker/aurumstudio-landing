@@ -3651,3 +3651,124 @@ body.legal-page ol {
     0 18px 40px rgba(0, 0, 0, 0.42);
   transform: translateY(-1px);
 }
+/* === FIX: SEO + FAQ centrado, aire arriba, y tipografía consistente === */
+
+.seo-block{
+  padding: 72px 0;              /* aire arriba/abajo como el resto */
+  text-align: center;           /* centra títulos y párrafos del SEO */
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* Mantén h2 con la misma estética de la landing (serif) */
+.seo-block h2{
+  font-family: "Playfair Display", Georgia, serif;
+}
+
+/* Contenedores centrados en el medio */
+.seo-block .seo-inner,
+.seo-block .faq-stack{
+  max-width: 980px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+/* Separación ENTRE el texto SEO y las FAQ */
+.seo-block .faq-stack{
+  margin-top: 56px;
+}
+
+/* Si el h2 de FAQ lo quieres un pelín separado del primer recuadro */
+.seo-block .faq-stack > h2{
+  margin-bottom: 18px;
+}
+
+/* Las FAQ por dentro van alineadas a la izquierda (más premium y legible) */
+.seo-block details.faq,
+.seo-block details.faq > summary,
+.seo-block details.faq p{
+  text-align: left;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+}
+/* ===== SEO + FAQ: centrado real, aire arriba y glow visible ===== */
+
+.seo-block{
+  padding: 80px 0;
+}
+
+.seo-block .seo-inner{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+  text-align: center; /* centra títulos + párrafos del SEO */
+}
+
+/* Reduce ancho de lectura para que quede “en el medio” como el resto */
+.seo-block .seo-inner > p{
+  max-width: 860px;
+  margin: 14px auto;
+}
+
+/* Aire antes de “Preguntas frecuentes” (para que no vaya pegado) */
+.seo-block .seo-inner > h2#faq{
+  margin-top: 56px;
+  margin-bottom: 18px;
+}
+
+/* FAQ cards: centradas, misma tipografía que la landing */
+.seo-block details.faq{
+  width: 100%;
+  max-width: 980px;
+  margin: 14px auto;
+  padding: 0;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.02);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+  overflow: hidden;
+}
+
+/* Header */
+.seo-block details.faq > summary{
+  padding: 18px 22px;
+  cursor: pointer;
+  list-style: none;
+  text-align: left;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+}
+
+/* Quita marker por defecto */
+.seo-block details.faq > summary::-webkit-details-marker{ display:none; }
+.seo-block details.faq > summary::marker{ content:""; }
+
+/* Cuerpo */
+.seo-block details.faq > p{
+  margin: 0;
+  padding: 0 22px 18px 22px;
+  text-align: left;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+  opacity: .92;
+  line-height: 1.7;
+}
+
+/* Glow al tocar/hover/focus (visible de verdad) */
+.seo-block details.faq:hover,
+.seo-block details.faq:focus-within,
+.seo-block details.faq:active{
+  border-color: rgba(214,181,109,.55);
+  background: rgba(214,181,109,.06);
+  box-shadow:
+    0 0 0 1px rgba(214,181,109,.30),
+    0 22px 70px rgba(214,181,109,.12);
+  transform: translateY(-1px);
+}
+
+/* Estado abierto */
+.seo-block details.faq[open]{
+  border-color: rgba(214,181,109,.60);
+  background: rgba(214,181,109,.08);
+}
