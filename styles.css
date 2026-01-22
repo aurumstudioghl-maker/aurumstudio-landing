@@ -3493,3 +3493,161 @@ body.legal-page ol {
   box-shadow: 0 0 0 3px rgba(214, 181, 109, 0.22);
   border-radius: 10px;
 }
+/* =========================
+   SEO BLOCK — alineación + estética
+   ========================= */
+
+.seo-block {
+  padding: 88px 0;
+}
+
+/* Centra el bloque en la página (como el resto de secciones) */
+.seo-block .seo-inner {
+  width: min(100% - 48px, 980px);
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Párrafos del bloque SEO con ancho agradable (como landing) */
+.seo-block .seo-inner > p {
+  max-width: 72ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* =========================
+   FAQ — mismo look & glow al tocar
+   ========================= */
+
+/* Los acordeones van centrados, pero el texto dentro en lectura normal */
+.seo-block details.faq {
+  text-align: left;
+  max-width: 980px;
+  margin: 12px auto;
+  border-radius: 16px;
+  border: 1px solid rgba(246, 243, 238, 0.10);
+  background: rgba(7, 7, 10, 0.35);
+  overflow: hidden;
+  transition: border-color 200ms ease, background 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+
+/* El clickable */
+.seo-block details.faq > summary {
+  cursor: pointer;
+  padding: 16px 18px;
+  list-style: none;
+  font-family: inherit;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+}
+
+/* Quita el triangulito por defecto (Safari/Chrome) */
+.seo-block details.faq > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* “Glow” al hover/focus/touch + cuando está abierto (mobile friendly) */
+.seo-block details.faq:hover,
+.seo-block details.faq:focus-within,
+.seo-block details.faq[open] {
+  border-color: rgba(214, 181, 109, 0.55);
+  background: rgba(214, 181, 109, 0.06);
+  box-shadow:
+    0 0 0 1px rgba(214, 181, 109, 0.22),
+    0 18px 55px rgba(0, 0, 0, 0.55),
+    0 0 28px rgba(214, 181, 109, 0.18);
+  transform: translateY(-1px);
+}
+
+/* Contenido interior del FAQ */
+.seo-block details.faq > p,
+.seo-block details.faq > div,
+.seo-block details.faq .faq-content {
+  padding: 0 18px 16px;
+  font-family: inherit;
+}
+
+/* Separador sutil cuando está abierto */
+.seo-block details.faq[open] > summary {
+  border-bottom: 1px solid rgba(246, 243, 238, 0.08);
+}
+/* ===== SEO + FAQ: centrado + glow + tipografía igual ===== */
+
+/* Centra el bloque en columna (como el resto de la landing) */
+.seo-block .seo-inner,
+.seo-block .faq-stack {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Asegura tipografías consistentes dentro del bloque */
+.seo-block p,
+.seo-block summary,
+.seo-block details.faq p,
+.seo-block details.faq li {
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* FAQ cards */
+.seo-block details.faq {
+  width: 100%;
+  margin: 14px 0;
+  border-radius: 16px;
+  border: 1px solid rgba(246, 243, 238, 0.12);
+  background: rgba(7, 7, 10, 0.55);
+  overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+}
+
+/* Quita el triangulito nativo */
+.seo-block details.faq > summary::-webkit-details-marker { display: none; }
+
+/* Summary (título de la pregunta) */
+.seo-block details.faq > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 18px 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  font-weight: 600;
+  font-size: 16px;
+  color: rgba(246, 243, 238, 0.92);
+}
+
+/* Flecha */
+.seo-block details.faq > summary::after {
+  content: "▾";
+  opacity: .75;
+  transition: transform .18s ease, opacity .18s ease;
+}
+.seo-block details.faq[open] > summary::after {
+  transform: rotate(-180deg);
+  opacity: 1;
+}
+
+/* Texto interior */
+.seo-block details.faq p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(246, 243, 238, 0.78);
+  margin: 0;
+  padding: 0 22px 18px;
+}
+
+/* Glow al hover / focus / abierto (móvil se ve al abrir) */
+.seo-block details.faq:hover,
+.seo-block details.faq:focus-within,
+.seo-block details.faq[open] {
+  border-color: rgba(214, 181, 109, 0.75);
+  background: rgba(214, 181, 109, 0.08);
+  box-shadow:
+    0 0 0 1px rgba(214, 181, 109, 0.22),
+    0 0 26px rgba(214, 181, 109, 0.16),
+    0 18px 40px rgba(0, 0, 0, 0.42);
+  transform: translateY(-1px);
+}
