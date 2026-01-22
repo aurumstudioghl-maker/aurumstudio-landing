@@ -3983,3 +3983,27 @@ body.legal-page ol {
   font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
   font-weight: 400 !important;
 }
+/* ===== FINAL OVERRIDE: FAQ SIEMPRE EN INTER ===== */
+.faq-stack,
+.faq-stack * {
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+}
+
+/* Pregunta (summary) */
+.faq-stack details.faq > summary {
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  line-height: 1.25 !important;
+}
+
+/* Respuesta (p) */
+.faq-stack details.faq > p {
+  font-weight: 400 !important;
+  font-size: 15.5px !important;
+  line-height: 1.7 !important;
+}
+
+/* (Opcional) si el triángulo/marker se ve raro */
+.faq-stack details.faq > summary::-webkit-details-marker {
+  display: none;
+}
