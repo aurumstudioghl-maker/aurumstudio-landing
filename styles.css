@@ -4173,7 +4173,6 @@ body.legal-page ol {
   font-size: clamp(34px, 3.6vw, 54px) !important;
   margin: 70px 0 18px !important;
 }
-.faq-item { outline: 4px solid red !important; }
 /* ====== FAQ: FORCE INTER (summary + p) ====== */
 .seo-block .faq-wrap .faq-item > summary,
 .seo-block .faq-wrap .faq-item > summary *,
@@ -4187,4 +4186,58 @@ body.legal-page ol {
 .seo-block .faq-wrap .faq-item > summary{
   font-weight: 600 !important;
   letter-spacing: 0 !important;
+}
+/* ===== FAQ limpio (centro + glow + Inter dentro) ===== */
+.faq-wrap{
+  max-width: 880px;
+  margin: 80px auto 0;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.faq-wrap > h2{
+  font-size: clamp(30px, 3.2vw, 46px);
+  line-height: 1.08;
+  margin: 0 0 22px;
+}
+
+/* cada item */
+.faq-wrap .faq-item{
+  width: 100%;
+  text-align: left;
+  margin: 14px 0;
+  border: 1px solid rgba(214, 181, 109, 0.30);
+  border-radius: 16px;
+  background: rgba(0,0,0,0.18);
+  box-shadow: 0 18px 55px rgba(0,0,0,0.55);
+  outline: none !important; /* por si quedaba el rojo */
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+}
+
+.faq-wrap .faq-item:hover,
+.faq-wrap .faq-item:focus-within{
+  border-color: rgba(214, 181, 109, 0.55);
+  background: rgba(214, 181, 109, 0.06);
+  box-shadow: 0 0 0 1px rgba(214, 181, 109, 0.18), 0 18px 55px rgba(0,0,0,0.55);
+  transform: translateY(-1px);
+}
+
+/* pregunta */
+.faq-wrap .faq-item > summary{
+  cursor: pointer;
+  list-style: none;
+  padding: 20px 22px;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+/* respuesta */
+.faq-wrap .faq-item > p{
+  margin: 0;
+  padding: 0 22px 22px;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  font-size: 16px;
+  line-height: 1.8;
+  color: rgba(246,243,238,0.78);
 }
