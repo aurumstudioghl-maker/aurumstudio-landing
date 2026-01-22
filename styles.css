@@ -3971,3 +3971,15 @@ body.legal-page ol {
   border-color: rgba(214, 181, 109, 0.65);
   background: rgba(214, 181, 109, 0.08);
 }
+/* ==== FORCE FAQ FONT (último override) ==== */
+.seo-block .faq-stack details.faq > summary,
+.seo-block .faq-stack details.faq > summary * {
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+  font-weight: 600 !important;
+}
+
+.seo-block .faq-stack details.faq > p,
+.seo-block .faq-stack details.faq > p * {
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+  font-weight: 400 !important;
+}
