@@ -3772,3 +3772,50 @@ body.legal-page ol {
   border-color: rgba(214,181,109,.60);
   background: rgba(214,181,109,.08);
 }
+/* ===== CENTRADO REAL del bloque SEO + FAQ ===== */
+
+/* El bloque completo */
+.seo-block{
+  padding: 80px 0;
+}
+
+/* Contenedor de texto del SEO (si existe) */
+.seo-block .seo-inner{
+  max-width: 980px;
+  margin: 0 auto 32px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* Párrafos del SEO más “en columna” (como el resto de la landing) */
+.seo-block .seo-inner > p{
+  max-width: 860px;
+  margin: 14px auto;
+}
+
+/* ===== TU FAQ REAL (faq-stack) ===== */
+.seo-block .faq-stack{
+  max-width: 980px;
+  margin: 56px auto 0;   /* <-- separación arriba + centrado */
+  padding: 0 24px;
+  box-sizing: border-box;
+  text-align: center;     /* centra el título “Preguntas frecuentes” */
+}
+
+.seo-block .faq-stack > h2{
+  margin: 0 0 18px;
+}
+
+/* Las cards de cada FAQ centradas dentro del stack */
+.seo-block .faq-stack details.faq{
+  width: 100%;
+  margin: 14px auto;
+}
+
+/* Dentro de cada card, el texto sigue alineado a la izquierda (premium) */
+.seo-block .faq-stack details.faq > summary,
+.seo-block .faq-stack details.faq > p{
+  text-align: left;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+}
