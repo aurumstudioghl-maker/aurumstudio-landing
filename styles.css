@@ -3850,3 +3850,124 @@ body.legal-page ol {
   font-size: 15.5px;
   line-height: 1.75;
 }
+/* ===========================
+   SEO + FAQ (override final)
+   =========================== */
+
+/* Bloque SEO centrado como el resto */
+.seo-block {
+  padding: 96px 16px;
+}
+
+.seo-block .seo-inner {
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.seo-block .seo-inner > p {
+  max-width: 860px;
+  margin: 0 auto 16px;
+}
+
+/* Títulos SEO (los 2 h2 de arriba) más grandes */
+.seo-block .seo-inner > h2 {
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-size: clamp(34px, 3.6vw, 54px);
+  line-height: 1.08;
+  margin: 28px auto 18px;
+}
+
+/* Stack de FAQ: centrado + separación del párrafo anterior */
+.faq-stack {
+  max-width: 980px;
+  margin: 72px auto 0;
+  padding: 0 16px;
+  text-align: center;
+}
+
+/* Título FAQ más grande */
+.faq-stack > h2 {
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-size: clamp(32px, 3.2vw, 48px);
+  line-height: 1.1;
+  margin: 0 auto 26px;
+}
+
+/* Cada FAQ */
+.faq-stack details.faq {
+  text-align: left;
+  border: 1px solid rgba(214, 181, 109, 0.35);
+  background: rgba(0, 0, 0, 0.28);
+  border-radius: 18px;
+  margin: 14px auto;
+  overflow: hidden;
+  transform: translateY(0);
+  transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.18s ease, background 0.18s ease;
+}
+
+/* Pregunta (MISMA fuente que el resto: Inter) */
+.faq-stack details.faq > summary {
+  list-style: none;
+  cursor: pointer;
+  position: relative;
+  padding: 20px 56px 20px 22px;
+
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* Quita el triangulito nativo */
+.faq-stack details.faq > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Flecha a la derecha */
+.faq-stack details.faq > summary::after {
+  content: "▾";
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.75;
+  transition: transform 0.18s ease, opacity 0.18s ease;
+  font-size: 16px;
+}
+
+.faq-stack details.faq[open] > summary::after {
+  transform: translateY(-50%) rotate(180deg);
+  opacity: 1;
+}
+
+/* Respuesta (Inter) */
+.faq-stack details.faq > p {
+  margin: 0;
+  padding: 0 22px 20px;
+
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: rgba(246, 243, 238, 0.78);
+}
+
+/* Glow (de verdad) */
+.faq-stack details.faq:hover,
+.faq-stack details.faq:focus-within {
+  border-color: rgba(214, 181, 109, 0.6);
+  background: rgba(214, 181, 109, 0.06);
+  box-shadow:
+    0 0 0 1px rgba(214, 181, 109, 0.14),
+    0 18px 55px rgba(0, 0, 0, 0.55);
+  transform: translateY(-1px);
+}
+
+.faq-stack details.faq[open] {
+  border-color: rgba(214, 181, 109, 0.65);
+  background: rgba(214, 181, 109, 0.08);
+}
