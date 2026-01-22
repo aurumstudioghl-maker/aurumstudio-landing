@@ -4505,3 +4505,123 @@ body.legal-page ol {
   line-height: 1.8 !important;
   color: rgba(246,243,238,.78) !important;
 }
+/* ===========================
+   FAQ — REBUILD (DEBE IR AL FINAL DE styles.css)
+   =========================== */
+
+/* contenedor */
+#faq.faq-wrap{
+  max-width: 760px;
+  margin: 64px auto 0;
+  padding: 0 24px 24px;
+  text-align: center;
+}
+
+/* Fuerza Inter en TODO el bloque FAQ */
+#faq.faq-wrap,
+#faq.faq-wrap *{
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+}
+
+/* Título (igual que headings de la landing) */
+#faq.faq-wrap .faq-title{
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif !important;
+  font-size: clamp(34px, 3.2vw, 54px);
+  line-height: 1.08;
+  margin: 0 0 18px;
+}
+
+/* lista compacta (aquí se arregla el “separado”) */
+#faq.faq-wrap .faq-list{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;              /* separación real entre cajas */
+  margin: 0;
+  padding: 0;
+}
+
+/* caja */
+#faq.faq-wrap details.faq-item{
+  margin: 0;              /* IMPORTANT: sin margins extra */
+  width: 100%;
+  text-align: left;
+  border: 1px solid rgba(214,181,109,.28);
+  border-radius: 16px;
+  background: rgba(0,0,0,.16);
+  box-shadow: 0 18px 55px rgba(0,0,0,.55);
+  overflow: hidden;
+  outline: none !important;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+}
+
+/* glow hover/focus */
+#faq.faq-wrap details.faq-item:hover,
+#faq.faq-wrap details.faq-item:focus-within{
+  border-color: rgba(214,181,109,.60);
+  background: rgba(214,181,109,.06);
+  box-shadow: 0 0 0 1px rgba(214,181,109,.18), 0 18px 55px rgba(0,0,0,.55);
+  transform: translateY(-1px);
+}
+
+/* glow abierto */
+#faq.faq-wrap details.faq-item[open]{
+  border-color: rgba(214,181,109,.65);
+  background: rgba(214,181,109,.07);
+}
+
+/* Quitar marcador nativo (Safari/Chrome/Firefox) */
+#faq.faq-wrap details.faq-item > summary::-webkit-details-marker{ display: none !important; }
+#faq.faq-wrap details.faq-item > summary::marker{ content: "" !important; }
+
+/* MATA cualquier flecha añadida por CSS viejo (esto quita la flecha clonada) */
+#faq.faq-wrap details.faq-item > summary::before,
+#faq.faq-wrap details.faq-item > summary::after{
+  content: none !important;
+}
+
+/* summary */
+#faq.faq-wrap details.faq-item > summary{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  cursor: pointer;
+  padding: 16px 18px;
+  list-style: none;
+}
+
+/* pregunta (tamaño + peso “como la landing”) */
+#faq.faq-wrap .faq-q{
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: rgba(246,243,238,.92);
+}
+
+/* icono (solo UNO: el del HTML) */
+#faq.faq-wrap .faq-icon{
+  flex: 0 0 auto;
+  opacity: .75;
+  transition: transform .18s ease, opacity .18s ease;
+  color: rgba(246,243,238,.92);
+}
+
+/* rotación al abrir */
+#faq.faq-wrap details.faq-item[open] > summary .faq-icon{
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+/* respuesta */
+#faq.faq-wrap .faq-a{
+  padding: 0 18px 16px;
+  text-align: left;
+}
+
+#faq.faq-wrap .faq-a p{
+  margin: 0;
+  font-size: 15.5px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: rgba(246,243,238,.78);
+}
