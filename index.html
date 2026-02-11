@@ -35,10 +35,8 @@
   <link rel="icon" href="/assets/favicon.ico" />
   <link rel="stylesheet" href="/styles.css?v=99" />
 
-  <head>
-    <!-- ... tus meta, title, canonical, OG, fonts, css ... -->
-
-    <script type="application/ld+json">
+  <!-- Schema.org -->
+  <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -48,11 +46,11 @@
     "areaServed": "ES",
     "email": "enrique@aurumstudio.es"
   }
-  <script src="https://cdn.platform.openai.com/deployments/chatkit/chatkit.js" async></script>
   </script>
-  </head>
 
-
+  <!-- ChatKit (Widget) -->
+  <script src="https://cdn.platform.openai.com/deployments/chatkit/chatkit.js" defer></script>
+</head>
 
 <body>
   <!-- Social TOP (esquina) -->
@@ -62,7 +60,6 @@
       <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
       <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line>
     </svg>
-
 
     <a class="social__link" href="https://www.instagram.com/aurumstudio.ai" target="_blank" rel="noopener"
       aria-label="Instagram Aurum Studio">
@@ -79,11 +76,7 @@
         <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
       </svg>
     </a>
-
-
   </div>
-
-
 
   <header class="hero" id="top">
     <nav class="nav">
@@ -95,15 +88,11 @@
         <span class="nav-chip">Auditoría privada para joyerías premium</span>
       </div>
 
-
-
       <div class="nav-actions">
         <a href="#faq" class="btn ghost small">FAQ</a>
         <a href="#qualify" class="btn primary" data-track="cta_agenda">Agenda sesión</a>
       </div>
     </nav>
-
-
 
     <section class="hero-content">
       <div class="kicker">Sistema de captación para joyerías de alto lujo</div>
@@ -147,7 +136,6 @@
             *En joyería de alto ticket, la venta se gana antes de hablar de números.
           </p>
         </div>
-
 
         <div class="hero-bullets">
           <div class="bullet"><span>✓</span> Menos curiosos. Más compradores con intención real.</div>
@@ -259,12 +247,10 @@
       </div>
     </div>
 
-
     <!-- INCLUDE PRO (START) -->
     <section class="section dark" id="include-pro">
       <div class="container">
         <div class="include-pro-panel">
-
           <div class="include-pro-top">
             <h3>¿Quieres que te lo montemos en tu joyería?</h3>
             <p class="muted">Sesión privada: diagnóstico + plan accionable (aunque no trabajemos juntos).</p>
@@ -276,18 +262,12 @@
           </div>
 
           <div class="include-grid">
-            <div class="include-item"><span class="check">✓</span><span class="txt">Estructura de campañas + tracking
-              </span></div>
-            <div class="include-item"><span class="check">✓</span><span class="txt">Creatividades premium (conceptos y
-                guiones)</span></div>
-            <div class="include-item"><span class="check">✓</span><span class="txt">Landing de autoridad + copy de
-                conversión</span></div>
-            <div class="include-item"><span class="check">✓</span><span class="txt">Formulario cualificador (
-                antes de agendar)</span></div>
-            <div class="include-item"><span class="check">✓</span><span class="txt">Agenda + confirmaciones para bajar
-                no-shows</span></div>
-            <div class="include-item"><span class="check">✓</span><span class="txt">Optimización semanal con datos y
-                decisiones</span></div>
+            <div class="include-item"><span class="check">✓</span><span class="txt">Estructura de campañas + tracking</span></div>
+            <div class="include-item"><span class="check">✓</span><span class="txt">Creatividades premium (conceptos y guiones)</span></div>
+            <div class="include-item"><span class="check">✓</span><span class="txt">Landing de autoridad + copy de conversión</span></div>
+            <div class="include-item"><span class="check">✓</span><span class="txt">Formulario cualificador (antes de agendar)</span></div>
+            <div class="include-item"><span class="check">✓</span><span class="txt">Agenda + confirmaciones para bajar no-shows</span></div>
+            <div class="include-item"><span class="check">✓</span><span class="txt">Optimización semanal con datos y decisiones</span></div>
           </div>
 
           <div class="mini-cta">
@@ -297,7 +277,6 @@
             </div>
             <a class="btn primary" href="#qualify" data-track="cta_agenda">Solicitar sesión</a>
           </div>
-
         </div>
       </div>
     </section>
@@ -310,8 +289,7 @@
           <h2>Automatizaciones con IA que filtran curiosos</h2>
           <p>
             En alta joyería, el problema no es el tráfico. Es el tiempo perdido en conversaciones vacías.
-            Automatizamos la cualificación y el seguimiento para que el equipo atienda solo a perfiles con intención
-            real.
+            Automatizamos la cualificación y el seguimiento para que el equipo atienda solo a perfiles con intención real.
           </p>
         </div>
 
@@ -320,8 +298,7 @@
             <div class="auto-kicker">Capa 1</div>
             <h3>Auto-selección elegante</h3>
             <p>
-              El primer contacto no es “un chat infinito”. Son 3 decisiones rápidas (tipo de pieza, rango orientativo y
-              plazo).
+              El primer contacto no es “un chat infinito”. Son 3 decisiones rápidas (tipo de pieza, rango orientativo y plazo).
               Quien no está listo para decidir, se cae aquí sin fricción.
             </p>
             <ul class="auto-list">
@@ -404,7 +381,6 @@
       </div>
     </section>
 
-
     <!-- Proof -->
     <section class="section" id="prueba">
       <div class="container">
@@ -433,8 +409,7 @@
               </div>
             </div>
             <p class="social-quote">
-              “Dejamos de contestar ‘¿precio?’ todo el día. Ahora la gente llega entendiendo el valor y la cita va
-              directa.”
+              “Dejamos de contestar ‘¿precio?’ todo el día. Ahora la gente llega entendiendo el valor y la cita va directa.”
             </p>
             <div class="social-who">
               <span class="who-name">Joyería (Madrid)</span>
@@ -483,26 +458,23 @@
         </div>
       </div>
     </section>
-
   </section>
 
   <div class="sep"></div>
 
-
   <!-- Qualifier chat -->
-<section class="section dark" id="qualify">
-  <h2>Verificación rápida (2–3 min)</h2>
-  <p>Responde a unas preguntas y, si encajas, te abrimos la agenda con nuestros próximos huecos disponibles.</p>
+  <section class="section dark" id="qualify">
+    <h2>Verificación rápida (2–3 min)</h2>
+    <p>Responde a unas preguntas y, si encajas, te abrimos la agenda con nuestros próximos huecos disponibles.</p>
 
-  <div id="my-chat" style="height:650px; max-width:420px; margin:20px auto 0; border-radius:18px; overflow:hidden;"></div>
+    <openai-chatkit id="my-chat"
+      style="height:650px; max-width:420px; margin:20px auto 0; border-radius:18px; overflow:hidden;">
+    </openai-chatkit>
 
-  <p class="form-note" style="max-width:720px; margin:14px auto 0;">
-    *No damos consultoría por chat. Esto es solo para confirmar si tiene sentido la sesión.
-  </p>
-</section>
-
-  <!-- Sticky CTA -->
-
+    <p class="form-note" style="max-width:720px; margin:14px auto 0;">
+      *No damos consultoría por chat. Esto es solo para confirmar si tiene sentido la sesión.
+    </p>
+  </section>
 
   <div class="vsl-modal" data-vsl-modal aria-hidden="true">
     <div class="vsl-modal__backdrop" data-vsl-close></div>
@@ -511,67 +483,46 @@
       <button class="vsl-modal__close" type="button" data-vsl-close aria-label="Cerrar">✕</button>
 
       <div class="vsl-embed">
-        <!-- CAMBIA ESTE LINK cuando tengas el vídeo -->
-        <!-- YouTube ejemplo: https://www.youtube.com/embed/XXXXXXXXXXX -->
-        <!-- Vimeo ejemplo:   https://player.vimeo.com/video/XXXXXXXXX -->
         <iframe data-vsl-iframe src="https://www.youtube.com/embed/XXXXXXXXXXX" title="VSL Aurum Studio" frameborder="0"
           allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </div>
+
   <script src="/app.js"></script>
+
+  <!-- Tracking -->
   <script>
     (function () {
       const send = (event, payload = {}) => {
-        // Consola (para probar)
         console.log("[TRACK]", event, payload);
-
-        // GA4 (si lo instalas)
-        if (window.gtag) {
-          window.gtag("event", event, payload);
-        }
-
-        // Meta Pixel (si lo instalas)
-        if (window.fbq) {
-          window.fbq("trackCustom", event, payload);
-        }
+        if (window.gtag) window.gtag("event", event, payload);
+        if (window.fbq) window.fbq("trackCustom", event, payload);
       };
 
-      // Clicks en CTA / VSL / etc.
       document.addEventListener("click", (e) => {
         const el = e.target.closest("[data-track]");
         if (!el) return;
-
         const event = el.getAttribute("data-track");
         const text = (el.textContent || "").trim().slice(0, 80);
         const href = el.getAttribute("href") || "";
         send(event, { text, href, page: location.pathname });
       });
-
-      // Submit de formulario (si existe)
-      document.addEventListener("submit", (e) => {
-        const form = e.target.closest("form[data-track='form_submit']");
-        if (!form) return;
-
-        send("form_submit", { page: location.pathname });
-      });
     })();
   </script>
+
   <section class="seo-block" aria-label="Marketing para joyerías de lujo">
     <div class="seo-inner">
       <h2>Marketing para joyerías de lujo: cómo generamos citas premium</h2>
 
       <p>
         En joyería de alto valor, el problema casi nunca es el producto. El problema es el sistema: estás pagando
-        tráfico
-        para llevarlo a Instagram o a un WhatsApp sin filtro, y terminas hablando con curiosos que solo preguntan
-        precio.
-        Aurum Studio diseña un proceso de captación pensado para lujo: menos volumen, más intención.
+        tráfico para llevarlo a Instagram o a un WhatsApp sin filtro, y terminas hablando con curiosos que solo preguntan
+        precio. Aurum Studio diseña un proceso de captación pensado para lujo: menos volumen, más intención.
       </p>
 
       <p>
-        Nuestro objetivo es simple: que tu equipo invierta el tiempo únicamente en conversaciones con compradores
-        reales.
+        Nuestro objetivo es simple: que tu equipo invierta el tiempo únicamente en conversaciones con compradores reales.
         Para eso combinamos estrategia, anuncios y cualificación. Así reduces preguntas de “¿cuánto cuesta?” y aumentas
         las citas con clientes que entienden el valor de una pieza, una marca y una experiencia premium.
       </p>
@@ -616,8 +567,7 @@
           </summary>
           <div class="faq-a">
             <p>
-              No es imprescindible. El sistema está pensado para depender de un embudo controlado (anuncios + landing +
-              filtro),
+              No es imprescindible. El sistema está pensado para depender de un embudo controlado (anuncios + landing + filtro),
               no de “viralidad”.
             </p>
           </div>
@@ -651,12 +601,8 @@
       </div>
     </div>
 
-
-
-
     <footer class="site-footer">
       <div class="footer-brand">© Aurum Studio</div>
-
       <span class="made-by">Made by AurumLabs</span>
 
       <div class="legal-links">
@@ -665,80 +611,78 @@
       </div>
     </footer>
 
-<script>
-(function () {
-  // ✅ Cambia esto por tu backend real (Vercel/Cloudflare/Render/etc.)
-  const API_BASE = "https://TU-DOMINIO-DE-BACKEND.com";
+    <!-- ChatKit init (IMPORTANTE) -->
+    <script>
+      (function () {
+        // ✅ PON AQUÍ tu backend real (Vercel):
+        // Ejemplo: https://aurum-chatkit-api.vercel.app
+        const API_BASE = "https://aurum-chatkit-api.vercel.app";
 
-  const USER_KEY = "aurum_uid_v1";
-  const QUALIFIED_KEY = "aurumQualified";
+        const USER_KEY = "aurum_uid_v1";
+        const QUALIFIED_KEY = "aurumQualified";
 
-  function getOrCreateUserId() {
-    let id = localStorage.getItem(USER_KEY);
-    if (!id) {
-      id = "u_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
-      localStorage.setItem(USER_KEY, id);
-    }
-    return id;
-  }
-
-  async function getClientSecret(currentClientSecret) {
-    // Puedes usar 1 endpoint único si quieres; aquí lo separo en start/refresh
-    const endpoint = currentClientSecret ? "/api/chatkit/refresh" : "/api/chatkit/start";
-
-    const res = await fetch(API_BASE + endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        userId: getOrCreateUserId(),
-        currentClientSecret: currentClientSecret || null
-      })
-    });
-
-    if (!res.ok) {
-      console.error("ChatKit session error:", res.status);
-      return null;
-    }
-
-    const data = await res.json();
-    return data.client_secret;
-  }
-
-  function initChat() {
-    const el = document.getElementById("my-chat");
-    if (!el) return;
-
-    // ChatKit carga async; esperamos a que el elemento tenga setOptions
-    if (typeof el.setOptions !== "function") {
-      return setTimeout(initChat, 80);
-    }
-
-    async function handleWidgetAction(action) {
-      // ✅ Acción client-side que mandará el botón "Ir a agenda" dentro del chat
-      if (action && action.type === "aurum.go_agenda") {
-        sessionStorage.setItem(QUALIFIED_KEY, "1");
-        window.location.href = "/agenda.html";
-      }
-    }
-
-    el.setOptions({
-      api: {
-        async getClientSecret(existing) {
-          // existing = client secret anterior si ChatKit intenta refresh
-          return await getClientSecret(existing);
+        function getOrCreateUserId() {
+          let id = localStorage.getItem(USER_KEY);
+          if (!id) {
+            id = (crypto && crypto.randomUUID) ? crypto.randomUUID() : ("u_" + Date.now() + "_" + Math.random().toString(16).slice(2));
+            localStorage.setItem(USER_KEY, id);
+          }
+          return id;
         }
-      },
-      widgets: {
-        onAction: handleWidgetAction
-      },
-      theme: "dark"
-    });
-  }
 
-  initChat();
-})();
-</script>
+        async function postJSON(url, body) {
+          const res = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body || {})
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok) throw new Error((data && JSON.stringify(data)) || ("HTTP " + res.status));
+          return data;
+        }
 
+        async function getClientSecret(currentClientSecret) {
+          const userId = getOrCreateUserId();
+
+          if (!currentClientSecret) {
+            const data = await postJSON(API_BASE + "/api/chatkit/start", { userId });
+            return data.client_secret;
+          } else {
+            const data = await postJSON(API_BASE + "/api/chatkit/refresh", { userId, currentClientSecret });
+            return data.client_secret;
+          }
+        }
+
+        async function initChatKit() {
+          if (!API_BASE || API_BASE.includes("TU_BACKEND")) {
+            console.error("ChatKit: API_BASE no configurado (pon tu URL real de Vercel).");
+            return;
+          }
+
+          await customElements.whenDefined("openai-chatkit");
+          const el = document.getElementById("my-chat");
+          if (!el) return;
+
+          el.setOptions({
+            api: { getClientSecret },
+
+            // Tool del Agent Builder (Client tool): open_agenda({ qualified: boolean })
+            onClientTool: ({ name, params }) => {
+              if (name === "open_agenda" && params && params.qualified === true) {
+                sessionStorage.setItem(QUALIFIED_KEY, "1");
+                window.location.href = "/agenda.html";
+                return { ok: true };
+              }
+              return { ok: false };
+            }
+          });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+          initChatKit().catch(err => console.error("ChatKit init error:", err));
+        });
+      })();
+    </script>
 </body>
 
 </html>
