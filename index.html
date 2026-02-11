@@ -262,12 +262,18 @@
           </div>
 
           <div class="include-grid">
-            <div class="include-item"><span class="check">✓</span><span class="txt">Estructura de campañas + tracking</span></div>
-            <div class="include-item"><span class="check">✓</span><span class="txt">Creatividades premium (conceptos y guiones)</span></div>
-            <div class="include-item"><span class="check">✓</span><span class="txt">Landing de autoridad + copy de conversión</span></div>
-            <div class="include-item"><span class="check">✓</span><span class="txt">Formulario cualificador (antes de agendar)</span></div>
-            <div class="include-item"><span class="check">✓</span><span class="txt">Agenda + confirmaciones para bajar no-shows</span></div>
-            <div class="include-item"><span class="check">✓</span><span class="txt">Optimización semanal con datos y decisiones</span></div>
+            <div class="include-item"><span class="check">✓</span><span class="txt">Estructura de campañas +
+                tracking</span></div>
+            <div class="include-item"><span class="check">✓</span><span class="txt">Creatividades premium (conceptos y
+                guiones)</span></div>
+            <div class="include-item"><span class="check">✓</span><span class="txt">Landing de autoridad + copy de
+                conversión</span></div>
+            <div class="include-item"><span class="check">✓</span><span class="txt">Formulario cualificador (antes de
+                agendar)</span></div>
+            <div class="include-item"><span class="check">✓</span><span class="txt">Agenda + confirmaciones para bajar
+                no-shows</span></div>
+            <div class="include-item"><span class="check">✓</span><span class="txt">Optimización semanal con datos y
+                decisiones</span></div>
           </div>
 
           <div class="mini-cta">
@@ -289,7 +295,8 @@
           <h2>Automatizaciones con IA que filtran curiosos</h2>
           <p>
             En alta joyería, el problema no es el tráfico. Es el tiempo perdido en conversaciones vacías.
-            Automatizamos la cualificación y el seguimiento para que el equipo atienda solo a perfiles con intención real.
+            Automatizamos la cualificación y el seguimiento para que el equipo atienda solo a perfiles con intención
+            real.
           </p>
         </div>
 
@@ -298,7 +305,8 @@
             <div class="auto-kicker">Capa 1</div>
             <h3>Auto-selección elegante</h3>
             <p>
-              El primer contacto no es “un chat infinito”. Son 3 decisiones rápidas (tipo de pieza, rango orientativo y plazo).
+              El primer contacto no es “un chat infinito”. Son 3 decisiones rápidas (tipo de pieza, rango orientativo y
+              plazo).
               Quien no está listo para decidir, se cae aquí sin fricción.
             </p>
             <ul class="auto-list">
@@ -409,7 +417,8 @@
               </div>
             </div>
             <p class="social-quote">
-              “Dejamos de contestar ‘¿precio?’ todo el día. Ahora la gente llega entendiendo el valor y la cita va directa.”
+              “Dejamos de contestar ‘¿precio?’ todo el día. Ahora la gente llega entendiendo el valor y la cita va
+              directa.”
             </p>
             <div class="social-who">
               <span class="who-name">Joyería (Madrid)</span>
@@ -468,8 +477,9 @@
     <p>Responde a unas preguntas y, si encajas, te abrimos la agenda con nuestros próximos huecos disponibles.</p>
 
     <openai-chatkit id="my-chat"
-      style="height:650px; max-width:420px; margin:20px auto 0; border-radius:18px; overflow:hidden;">
+      style="height:650px; max-width:420px; margin:20px auto 0; border-radius:18px; overflow:hidden; display:block;">
     </openai-chatkit>
+
 
     <p class="form-note" style="max-width:720px; margin:14px auto 0;">
       *No damos consultoría por chat. Esto es solo para confirmar si tiene sentido la sesión.
@@ -517,12 +527,14 @@
 
       <p>
         En joyería de alto valor, el problema casi nunca es el producto. El problema es el sistema: estás pagando
-        tráfico para llevarlo a Instagram o a un WhatsApp sin filtro, y terminas hablando con curiosos que solo preguntan
+        tráfico para llevarlo a Instagram o a un WhatsApp sin filtro, y terminas hablando con curiosos que solo
+        preguntan
         precio. Aurum Studio diseña un proceso de captación pensado para lujo: menos volumen, más intención.
       </p>
 
       <p>
-        Nuestro objetivo es simple: que tu equipo invierta el tiempo únicamente en conversaciones con compradores reales.
+        Nuestro objetivo es simple: que tu equipo invierta el tiempo únicamente en conversaciones con compradores
+        reales.
         Para eso combinamos estrategia, anuncios y cualificación. Así reduces preguntas de “¿cuánto cuesta?” y aumentas
         las citas con clientes que entienden el valor de una pieza, una marca y una experiencia premium.
       </p>
@@ -567,7 +579,8 @@
           </summary>
           <div class="faq-a">
             <p>
-              No es imprescindible. El sistema está pensado para depender de un embudo controlado (anuncios + landing + filtro),
+              No es imprescindible. El sistema está pensado para depender de un embudo controlado (anuncios + landing +
+              filtro),
               no de “viralidad”.
             </p>
           </div>
@@ -611,78 +624,81 @@
       </div>
     </footer>
 
-    <!-- ChatKit init (IMPORTANTE) -->
-    <script>
-      (function () {
-        // ✅ PON AQUÍ tu backend real (Vercel):
-        // Ejemplo: https://aurum-chatkit-api.vercel.app
-        const API_BASE = "https://aurum-chatkit-api.vercel.app";
+<script>
+(function () {
+  const API_BASE = "https://aurum-chatkit-api.vercel.app"; // tu Vercel
+  const USER_KEY = "aurum_uid_v1";
+  const QUALIFIED_KEY = "aurumQualified";
 
-        const USER_KEY = "aurum_uid_v1";
-        const QUALIFIED_KEY = "aurumQualified";
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-        function getOrCreateUserId() {
-          let id = localStorage.getItem(USER_KEY);
-          if (!id) {
-            id = (crypto && crypto.randomUUID) ? crypto.randomUUID() : ("u_" + Date.now() + "_" + Math.random().toString(16).slice(2));
-            localStorage.setItem(USER_KEY, id);
+  function getOrCreateUserId() {
+    let id = localStorage.getItem(USER_KEY);
+    if (!id) {
+      id = "u_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
+      localStorage.setItem(USER_KEY, id);
+    }
+    return id;
+  }
+
+  async function getClientSecret(currentClientSecret) {
+    const endpoint = currentClientSecret ? "/api/chatkit/refresh" : "/api/chatkit/start";
+
+    const res = await fetch(API_BASE + endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: getOrCreateUserId(),
+        currentClientSecret: currentClientSecret || null
+      })
+    });
+
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.client_secret;
+  }
+
+  async function initChat() {
+    const chat = document.getElementById("my-chat");
+    if (!chat) return;
+
+    // Espera a que el web component esté listo
+    for (let i = 0; i < 200 && typeof chat.setOptions !== "function"; i++) {
+      await sleep(50);
+    }
+    if (typeof chat.setOptions !== "function") return;
+
+    // ✅ Manejo documentado de acciones del widget (client-side) :contentReference[oaicite:0]{index=0}
+    chat.setOptions({
+      api: {
+        async getClientSecret(existing) {
+          return await getClientSecret(existing);
+        }
+      },
+      widgets: {
+        onAction(action) {
+          if (action && action.type === "aurum.go_agenda") {
+            sessionStorage.setItem(QUALIFIED_KEY, "1");
+            window.location.href = "/agenda.html";
           }
-          return id;
         }
+      }
+    });
 
-        async function postJSON(url, body) {
-          const res = await fetch(url, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(body || {})
-          });
-          const data = await res.json().catch(() => ({}));
-          if (!res.ok) throw new Error((data && JSON.stringify(data)) || ("HTTP " + res.status));
-          return data;
-        }
+    // ✅ Auto-arranque: dispara conversación sin mostrar “start”
+    for (let i = 0; i < 50; i++) {
+      if (typeof chat.sendUserMessage === "function") {
+        try { await chat.sendUserMessage("\u200B"); } catch (e) {}
+        break;
+      }
+      await sleep(100);
+    }
+  }
 
-        async function getClientSecret(currentClientSecret) {
-          const userId = getOrCreateUserId();
+  window.addEventListener("DOMContentLoaded", initChat);
+})();
+</script>
 
-          if (!currentClientSecret) {
-            const data = await postJSON(API_BASE + "/api/chatkit/start", { userId });
-            return data.client_secret;
-          } else {
-            const data = await postJSON(API_BASE + "/api/chatkit/refresh", { userId, currentClientSecret });
-            return data.client_secret;
-          }
-        }
-
-        async function initChatKit() {
-          if (!API_BASE || API_BASE.includes("TU_BACKEND")) {
-            console.error("ChatKit: API_BASE no configurado (pon tu URL real de Vercel).");
-            return;
-          }
-
-          await customElements.whenDefined("openai-chatkit");
-          const el = document.getElementById("my-chat");
-          if (!el) return;
-
-          el.setOptions({
-            api: { getClientSecret },
-
-            // Tool del Agent Builder (Client tool): open_agenda({ qualified: boolean })
-            onClientTool: ({ name, params }) => {
-              if (name === "open_agenda" && params && params.qualified === true) {
-                sessionStorage.setItem(QUALIFIED_KEY, "1");
-                window.location.href = "/agenda.html";
-                return { ok: true };
-              }
-              return { ok: false };
-            }
-          });
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-          initChatKit().catch(err => console.error("ChatKit init error:", err));
-        });
-      })();
-    </script>
 </body>
 
 </html>
