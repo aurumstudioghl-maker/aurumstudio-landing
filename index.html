@@ -624,73 +624,85 @@
       </div>
     </footer>
 
-<script>
-  (function () {
-    const API_BASE = "https://aurum-chatkit-api.vercel.app"; // tu dominio estable de Vercel
-    const USER_KEY = "aurum_uid_v1";
-    const QUALIFIED_KEY = "aurumQualified";
-    const STARTED_KEY = "aurum_chat_started_v1";
+    <script>
+      (function () {
+        const API_BASE = "https://aurum-chatkit-api.vercel.app"; // tu Vercel (backend ChatKit)
+        const CALENDLY_URL = "https://calendly.com/aurumstudioghl/30min"; // <-- pon tu Calendly real
 
-    function getOrCreateUserId() {
-      let id = localStorage.getItem(USER_KEY);
-      if (!id) {
-        id = "u_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
-        localStorage.setItem(USER_KEY, id);
-      }
-      return id;
-    }
+        const USER_KEY = "aurum_uid_v1";
+        const QUALIFIED_KEY = "aurumQualified";
+        const STARTED_KEY = "aurumChatStarted_v1";
 
-    async function getClientSecret(currentClientSecret) {
-      const endpoint = currentClientSecret ? "/api/chatkit/refresh" : "/api/chatkit/start";
-      const res = await fetch(API_BASE + endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userId: getOrCreateUserId(),
-          currentClientSecret: currentClientSecret || null
-        })
-      });
-      if (!res.ok) return null;
-      const data = await res.json();
-      return data.client_secret;
-    }
+        function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-    async function initChat() {
-      /** @type {any} */
-      const chat = document.getElementById("my-chat");
-      if (!chat) return;
-
-      // Espera a que el web component esté listo
-      while (typeof chat.setOptions !== "function") {
-        await new Promise(r => setTimeout(r, 60));
-      }
-
-      chat.setOptions({
-        api: {
-          async getClientSecret(existing) {
-            return await getClientSecret(existing);
+        function getOrCreateUserId() {
+          let id = localStorage.getItem(USER_KEY);
+          if (!id) {
+            id = "u_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
+            localStorage.setItem(USER_KEY, id);
           }
-        },
-        widgets: {
-          onAction(action) {
-            if (action && action.type === "aurum.go_agenda") {
-              sessionStorage.setItem(QUALIFIED_KEY, "1");
-              window.location.href = "/agenda.html";
-            }
+          return id;
+        }
+
+        async function getClientSecret(currentClientSecret) {
+          const endpoint = currentClientSecret ? "/api/chatkit/refresh" : "/api/chatkit/start";
+          const res = await fetch(API_BASE + endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              userId: getOrCreateUserId(),
+              currentClientSecret: currentClientSecret || null
+            })
+          });
+
+          if (!res.ok) return null;
+          const data = await res.json();
+          return data.client_secret;
+        }
+
+        async function initChat() {
+          const chat = document.getElementById("my-chat");
+          if (!chat) return;
+
+          // Espera a que el web component esté listo (setOptions existe)
+          for (let i = 0; i < 80; i++) {
+            if (typeof chat.setOptions === "function") break;
+            await sleep(80);
+          }
+          if (typeof chat.setOptions !== "function") return;
+
+          chat.setOptions({
+            api: {
+              async getClientSecret(existing) {
+                return await getClientSecret(existing);
+              }
+            },
+
+            // ✅ Captura acciones de widgets (action button)
+            widgets: {
+              onAction(action) {
+                const t = action && (action.type || action.name);
+                if (t === "aurum.go_agenda") {
+                  sessionStorage.setItem(QUALIFIED_KEY, "1");
+                  window.location.href = CALENDLY_URL;
+                }
+              }
+            },
+
+            theme: "dark"
+          });
+
+          // ✅ Auto-arranque (solo 1 vez por sesión)
+          if (!sessionStorage.getItem(STARTED_KEY) && typeof chat.sendUserMessage === "function") {
+            sessionStorage.setItem(STARTED_KEY, "1");
+            try { await chat.sendUserMessage("\u200B"); } catch (e) { }
           }
         }
-      });
 
-      // Auto-arranque (solo una vez por sesión)
-      if (!sessionStorage.getItem(STARTED_KEY) && typeof chat.sendUserMessage === "function") {
-        sessionStorage.setItem(STARTED_KEY, "1");
-        try { await chat.sendUserMessage("\u200B"); } catch (e) {}
-      }
-    }
+        window.addEventListener("DOMContentLoaded", initChat);
+      })();
+    </script>
 
-    window.addEventListener("DOMContentLoaded", initChat);
-  })();
-</script>
 
 
 </body>
