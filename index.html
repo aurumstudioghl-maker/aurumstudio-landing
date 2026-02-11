@@ -48,6 +48,7 @@
     "areaServed": "ES",
     "email": "enrique@aurumstudio.es"
   }
+  <script src="https://cdn.platform.openai.com/deployments/chatkit/chatkit.js" async></script>
   </script>
   </head>
 
@@ -98,8 +99,7 @@
 
       <div class="nav-actions">
         <a href="#faq" class="btn ghost small">FAQ</a>
-        <a href="/agenda.html" target="_blank" rel="noopener" class="btn primary" data-track="cta_agenda">Agenda
-          sesión</a>
+        <a href="#qualify" class="btn primary" data-track="cta_agenda">Agenda sesión</a>
       </div>
     </nav>
 
@@ -114,7 +114,7 @@
       </p>
 
       <div class="hero-cta">
-        <a href="#agenda" class="btn primary" data-track="cta_agenda">Ver si encajamos</a>
+        <a href="#qualify" class="btn primary" data-track="cta_agenda">Ver si encajamos</a>
         <a href="#metodo" class="btn ghost">Cómo funciona</a>
       </div>
       <div class="trustbar">
@@ -199,7 +199,7 @@
         <strong>¿Quieres que te lo aterricemos en tu joyería?</strong>
         <span>Sesión privada: diagnóstico + plan accionable.</span>
       </div>
-      <a class="btn primary" href="#agenda" data-track="cta_agenda">Solicitar sesión</a>
+      <a class="btn primary" href="#qualify" data-track="cta_agenda">Solicitar sesión</a>
     </div>
   </section>
 
@@ -295,7 +295,7 @@
               <strong>Si encajas, te decimos el plan exacto.</strong>
               <div class="muted small">Si no, te lo decimos igual. Cero humo.</div>
             </div>
-            <a class="btn primary" href="#agenda" data-track="cta_agenda">Solicitar sesión</a>
+            <a class="btn primary" href="#qualify" data-track="cta_agenda">Solicitar sesión</a>
           </div>
 
         </div>
@@ -489,42 +489,18 @@
   <div class="sep"></div>
 
 
-  <!-- Lead form -->
-  <section class="section dark" id="agenda">
-    <h2>Solicita tu sesión privada</h2>
-    <p>Rellena el formulario y te contactamos para confirmar la agenda.</p>
+  <!-- Qualifier chat -->
+<section class="section dark" id="qualify">
+  <h2>Verificación rápida (2–3 min)</h2>
+  <p>Responde a unas preguntas y, si encajas, te abrimos la agenda con nuestros próximos huecos disponibles.</p>
 
-    <form id="leadForm" data-track="form_submit">
-      <input name="name" placeholder="Nombre" required>
-      <input name="email" type="email" placeholder="Email" required>
-      <input name="phone" placeholder="Teléfono / WhatsApp" required>
-      <input name="city" placeholder="Ciudad" required>
+  <div id="my-chat" style="height:650px; max-width:420px; margin:20px auto 0; border-radius:18px; overflow:hidden;"></div>
 
-      <select name="ticket" required>
-        <option value="">Ticket medio</option>
-        <option>1.000€ – 3.000€</option>
-        <option>3.000€ – 10.000€</option>
-        <option>10.000€+</option>
-      </select>
+  <p class="form-note" style="max-width:720px; margin:14px auto 0;">
+    *No damos consultoría por chat. Esto es solo para confirmar si tiene sentido la sesión.
+  </p>
+</section>
 
-      <select name="ads" required>
-        <option value="">¿Hacéis anuncios ahora?</option>
-        <option>Sí</option>
-        <option>No</option>
-        <option>Lo intentamos pero no funciona</option>
-      </select>
-
-      <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true"
-        style="position:absolute;left:-9999px;top:-9999px;width:0;height:0;opacity:0;pointer-events:none;">
-
-      <button type="submit" class="btn primary full">Solicitar sesión</button>
-      <p class="form-status" id="formStatus" aria-live="polite"></p>
-
-      <div class="form-note">
-        Al enviar, aceptas que te contactemos para coordinar la sesión. Sin spam.
-      </div>
-    </form>
-  </section>
   <!-- Sticky CTA -->
 
 
@@ -689,6 +665,79 @@
       </div>
     </footer>
 
+<script>
+(function () {
+  // ✅ Cambia esto por tu backend real (Vercel/Cloudflare/Render/etc.)
+  const API_BASE = "https://TU-DOMINIO-DE-BACKEND.com";
+
+  const USER_KEY = "aurum_uid_v1";
+  const QUALIFIED_KEY = "aurumQualified";
+
+  function getOrCreateUserId() {
+    let id = localStorage.getItem(USER_KEY);
+    if (!id) {
+      id = "u_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
+      localStorage.setItem(USER_KEY, id);
+    }
+    return id;
+  }
+
+  async function getClientSecret(currentClientSecret) {
+    // Puedes usar 1 endpoint único si quieres; aquí lo separo en start/refresh
+    const endpoint = currentClientSecret ? "/api/chatkit/refresh" : "/api/chatkit/start";
+
+    const res = await fetch(API_BASE + endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: getOrCreateUserId(),
+        currentClientSecret: currentClientSecret || null
+      })
+    });
+
+    if (!res.ok) {
+      console.error("ChatKit session error:", res.status);
+      return null;
+    }
+
+    const data = await res.json();
+    return data.client_secret;
+  }
+
+  function initChat() {
+    const el = document.getElementById("my-chat");
+    if (!el) return;
+
+    // ChatKit carga async; esperamos a que el elemento tenga setOptions
+    if (typeof el.setOptions !== "function") {
+      return setTimeout(initChat, 80);
+    }
+
+    async function handleWidgetAction(action) {
+      // ✅ Acción client-side que mandará el botón "Ir a agenda" dentro del chat
+      if (action && action.type === "aurum.go_agenda") {
+        sessionStorage.setItem(QUALIFIED_KEY, "1");
+        window.location.href = "/agenda.html";
+      }
+    }
+
+    el.setOptions({
+      api: {
+        async getClientSecret(existing) {
+          // existing = client secret anterior si ChatKit intenta refresh
+          return await getClientSecret(existing);
+        }
+      },
+      widgets: {
+        onAction: handleWidgetAction
+      },
+      theme: "dark"
+    });
+  }
+
+  initChat();
+})();
+</script>
 
 </body>
 

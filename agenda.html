@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>Agenda tu sesión privada | Aurum Studio</title>
-  <meta name="description" content="Reserva tu sesión privada con Aurum Studio. Revisamos tu captación actual y te damos un plan para generar más citas con compradores premium.">
+  <meta name="description"
+    content="Reserva tu sesión privada con Aurum Studio. Revisamos tu captación actual y te damos un plan para generar más citas con compradores premium.">
   <meta name="robots" content="index,follow" />
 
   <link rel="canonical" href="https://www.aurumstudio.es/agenda.html" />
@@ -15,118 +16,151 @@
   <meta property="og:locale" content="es_ES" />
   <meta property="og:url" content="https://www.aurumstudio.es/agenda.html" />
   <meta property="og:title" content="Agenda tu sesión privada | Aurum Studio" />
-  <meta property="og:description" content="Reserva tu sesión privada. Revisamos tu captación actual y te damos un plan para generar más citas premium." />
+  <meta property="og:description"
+    content="Reserva tu sesión privada. Revisamos tu captación actual y te damos un plan para generar más citas premium." />
   <meta property="og:image" content="https://www.aurumstudio.es/assets/og-image-1200x630.png" />
 
   <link rel="icon" href="/assets/favicon.ico" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 
-
 <body>
-    <div class="agenda-page">
 
-        <nav class="nav">
-            <strong class="logo">AURUM STUDIO</strong>
-            <div class="nav-actions">
-                <a class="btn ghost small" href="/" data-track="cta_back">Volver</a>
-                <a class="btn primary small" href="mailto:enrique@aurumstudio.es" data-track="cta_email">Contacto</a>
-            </div>
-        </nav>
+  <div class="agenda-page">
 
-        <header class="agenda-head">
-            <h1>Reserva tu sesión aquí</h1>
-            <p>
-                Selecciona fecha y hora. Solo verás disponibilidad real
-                (Calendly bloquea automáticamente horas ya ocupadas en tu Google Calendar).
-            </p>
-        </header>
+    <nav class="nav">
+      <strong class="logo">AURUM STUDIO</strong>
+      <div class="nav-actions">
+        <a class="btn ghost small" href="/" data-track="cta_back">Volver</a>
+        <a class="btn primary small" href="mailto:enrique@aurumstudio.es" data-track="cta_email">Contacto</a>
+      </div>
+    </nav>
 
-        <section class="schedule-card">
-            <div class="schedule-topnote">
-                <span style="color:var(--gold)">●</span>
-                <span>Si no encuentras hueco, escribe a <strong>enrique@aurumstudio.es</strong> y te abrimos uno.</span>
-            </div>
-
-            <div class="calendly-shell">
-                <div class="booking-layout">
-                    <div class="booking-calendly">
-                        <div class="calendly-inline-widget"
-                            data-url="https://calendly.com/aurumstudioghl/30min?hide_gdpr_banner=1&background_color=07070a&text_color=f6f3ee&primary_color=d6b56d"
-                            style="min-width:320px;height:780px;">
-                        </div>
-                        <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
-                    </div>
-
-                    <aside class="booking-info">
-                        <div class="info-card">
-                            <div class="info-kicker">Antes de reservar</div>
-                            <h3 class="info-title">Para sacar el máximo provecho del tiempo necesitamos que:</h3>
-
-                            <ul class="info-list">
-                                <li>Te presentes un par de minutos antes para entrar a la llamada con calma y sin
-                                    estrés.</li>
-                                <li>Estés en un ambiente tranquilo y silencioso, con buena conexión a internet.</li>
-                                <li>Puedes encender la cámara para que la conversación sea más personal (si no,
-                                    probablemente reagendaremos la reunión).</li>
-                            </ul>
-
-                            <div class="info-divider"></div>
-
-                            <p class="info-strong">Esto NO es una llamada de coaching.</p>
-                            <p class="info-muted">
-                                En esta llamada veremos si podemos ayudarte y, en caso de encajar, el siguiente paso
-                                para trabajar juntos.
-                            </p>
-                        </div>
-                    </aside>
-                </div>
-            </div>
-        </section>
-
-
+    <!-- Gate (solo se ve si NO está cualificado) -->
+    <div id="gate" style="max-width:720px;margin:60px auto;text-align:center;">
+      <h1>Agenda</h1>
+      <p>Para acceder a la agenda, primero completa la verificación rápida.</p>
+      <a class="btn primary" href="/#qualify">Ir a la verificación</a>
     </div>
 
-    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
-    <script>
-        (function () {
-            const send = (event, payload = {}) => {
-                console.log("[TRACK]", event, payload);
-                if (window.gtag) window.gtag("event", event, payload);
-                if (window.fbq) window.fbq("trackCustom", event, payload);
-            };
+    <!-- Contenido real (solo se ve si SÍ está cualificado) -->
+    <div id="calendlyWrap" style="display:none;">
 
-            document.addEventListener("click", (e) => {
-                const el = e.target.closest("[data-track]");
-                if (!el) return;
-                const event = el.getAttribute("data-track");
-                const text = (el.textContent || "").trim().slice(0, 80);
-                const href = el.getAttribute("href") || "";
-                send(event, { text, href, page: location.pathname });
-            });
+      <header class="agenda-head">
+        <h1>Reserva tu sesión aquí</h1>
+        <p>
+          Selecciona fecha y hora. Solo verás disponibilidad real
+          (Calendly bloquea automáticamente horas ya ocupadas en tu Google Calendar).
+        </p>
+      </header>
 
-            // Calendly posts messages to the parent window
-            window.addEventListener("message", function (e) {
-                const msg = e.data;
-                if (!msg || typeof msg !== "string") return;
-                if (msg.toLowerCase().includes("calendly")) {
-                    send("calendly_message", { msg: msg.slice(0, 200), page: location.pathname });
-                }
-            });
-        })();
-    </script>
-    <footer class="site-footer">
-        <div class="footer-brand">© Aurum Studio</div>
-
-        <span class="made-by">Made by AurumLabs</span>
-
-        <div class="legal-links">
-            <a href="aviso-legal.html">Aviso legal</a>
-            <a href="politica-privacidad.html">Privacidad</a>
+      <section class="schedule-card">
+        <div class="schedule-topnote">
+          <span style="color:var(--gold)">●</span>
+          <span>Si no encuentras hueco, escribe a <strong>enrique@aurumstudio.es</strong> y te abrimos uno.</span>
         </div>
-    </footer>
 
+        <div class="calendly-shell">
+          <div class="booking-layout">
+            <div class="booking-calendly">
+              <div class="calendly-inline-widget"
+                data-url="https://calendly.com/aurumstudioghl/30min?hide_gdpr_banner=1&background_color=07070a&text_color=f6f3ee&primary_color=d6b56d"
+                style="min-width:320px;height:780px;">
+              </div>
+              <!-- ✅ Script de Calendly: lo cargamos por JS SOLO si ok -->
+            </div>
+
+            <aside class="booking-info">
+              <div class="info-card">
+                <div class="info-kicker">Antes de reservar</div>
+                <h3 class="info-title">Para sacar el máximo provecho del tiempo necesitamos que:</h3>
+
+                <ul class="info-list">
+                  <li>Te presentes un par de minutos antes para entrar a la llamada con calma y sin estrés.</li>
+                  <li>Estés en un ambiente tranquilo y silencioso, con buena conexión a internet.</li>
+                  <li>Puedes encender la cámara para que la conversación sea más personal (si no, probablemente reagendaremos la reunión).</li>
+                </ul>
+
+                <div class="info-divider"></div>
+
+                <p class="info-strong">Esto NO es una llamada de coaching.</p>
+                <p class="info-muted">
+                  En esta llamada veremos si podemos ayudarte y, en caso de encajar, el siguiente paso
+                  para trabajar juntos.
+                </p>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /calendlyWrap -->
+
+  </div><!-- /agenda-page -->
+
+
+  <!-- Gate logic + carga de Calendly (una sola vez y solo si ok) -->
+  <script>
+    (function () {
+      const ok = sessionStorage.getItem("aurumQualified") === "1";
+      const gate = document.getElementById("gate");
+      const calendlyWrap = document.getElementById("calendlyWrap");
+
+      if (ok) {
+        gate.style.display = "none";
+        calendlyWrap.style.display = "block";
+
+        // Cargar Calendly SOLO si el usuario está cualificado
+        const s = document.createElement("script");
+        s.src = "https://assets.calendly.com/assets/external/widget.js";
+        s.async = true;
+        document.body.appendChild(s);
+      } else {
+        gate.style.display = "block";
+        calendlyWrap.style.display = "none";
+      }
+    })();
+  </script>
+
+
+  <!-- Tracking (tu código, intacto) -->
+  <script>
+    (function () {
+      const send = (event, payload = {}) => {
+        console.log("[TRACK]", event, payload);
+        if (window.gtag) window.gtag("event", event, payload);
+        if (window.fbq) window.fbq("trackCustom", event, payload);
+      };
+
+      document.addEventListener("click", (e) => {
+        const el = e.target.closest("[data-track]");
+        if (!el) return;
+        const event = el.getAttribute("data-track");
+        const text = (el.textContent || "").trim().slice(0, 80);
+        const href = el.getAttribute("href") || "";
+        send(event, { text, href, page: location.pathname });
+      });
+
+      // Calendly posts messages to the parent window
+      window.addEventListener("message", function (e) {
+        const msg = e.data;
+        if (!msg || typeof msg !== "string") return;
+        if (msg.toLowerCase().includes("calendly")) {
+          send("calendly_message", { msg: msg.slice(0, 200), page: location.pathname });
+        }
+      });
+    })();
+  </script>
+
+
+  <footer class="site-footer">
+    <div class="footer-brand">© Aurum Studio</div>
+    <span class="made-by">Made by AurumLabs</span>
+    <div class="legal-links">
+      <a href="aviso-legal.html">Aviso legal</a>
+      <a href="politica-privacidad.html">Privacidad</a>
+    </div>
+  </footer>
 
 </body>
-
 </html>
