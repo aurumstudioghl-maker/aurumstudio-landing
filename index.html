@@ -50,6 +50,25 @@
 
   <!-- ChatKit (Widget) -->
   <script src="https://cdn.platform.openai.com/deployments/chatkit/chatkit.js" defer></script>
+  <style>
+    /* Fix ChatKit: evita truncado por estilos globales */
+    openai-chatkit button,
+    openai-chatkit [role="button"] {
+      white-space: normal !important;
+      overflow: visible !important;
+      text-overflow: clip !important;
+      max-width: 100% !important;
+    }
+
+    openai-chatkit p,
+    openai-chatkit span,
+    openai-chatkit div {
+      white-space: normal !important;
+      overflow-wrap: anywhere !important;
+      word-break: break-word !important;
+    }
+  </style>
+
 </head>
 
 <body>
