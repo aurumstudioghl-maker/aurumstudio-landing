@@ -698,35 +698,25 @@
             },
 
             // ✅ Tool del cliente: el agente lo llama y aquí rediriges
+            // ✅ Tool del cliente: el agente lo llama y aquí rediriges
             onClientTool: async (toolCall) => {
-              console.log("[ChatKit toolCall raw]", toolCall);
+              console.log("[ChatKit client tool raw]", toolCall);
 
-              const name =
-                toolCall?.name ||
-                toolCall?.tool?.name ||
-                toolCall?.function?.name;
+              // ChatKit: { name, params }
+              const name = toolCall?.name;
+              const params = toolCall?.params || {};
 
-              let args =
-                toolCall?.arguments ??
-                toolCall?.args ??
-                toolCall?.tool?.arguments ??
-                toolCall?.function?.arguments;
+              console.log("[ChatKit client tool name]", name);
+              console.log("[ChatKit client tool params]", params);
 
-              if (typeof args === "string") {
-                try { args = JSON.parse(args); } catch { args = {}; }
-              }
-
-              console.log("[ChatKit tool name]", name);
-              console.log("[ChatKit tool args]", args);
-
-              if (name === "open_agenda" && args?.qualified === true) {
+              if (name === "open_agenda" && params.qualified === true) {
                 sessionStorage.setItem(QUALIFIED_KEY, "1");
                 window.location.assign(CALENDLY_URL);
-                return { ok: true };
               }
 
               return { ok: true };
             },
+
 
           });
 
