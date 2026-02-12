@@ -701,17 +701,33 @@
             onClientTool: async (toolCall) => {
               console.log("[ChatKit toolCall raw]", toolCall);
 
-              const name = toolCall?.name || toolCall?.tool_name;
-              const args = toolCall?.arguments || toolCall?.args || {};
+              const name =
+                toolCall?.name ||
+                toolCall?.tool?.name ||
+                toolCall?.function?.name;
 
-              if (name === "open_agenda" && (args.qualified === true || args.qualified === "true")) {
+              let args =
+                toolCall?.arguments ??
+                toolCall?.args ??
+                toolCall?.tool?.arguments ??
+                toolCall?.function?.arguments;
+
+              if (typeof args === "string") {
+                try { args = JSON.parse(args); } catch { args = {}; }
+              }
+
+              console.log("[ChatKit tool name]", name);
+              console.log("[ChatKit tool args]", args);
+
+              if (name === "open_agenda" && args?.qualified === true) {
                 sessionStorage.setItem(QUALIFIED_KEY, "1");
-                window.location.assign(CALENDLY_URL); // <-- tu calendly
+                window.location.assign(CALENDLY_URL);
                 return { ok: true };
               }
 
               return { ok: true };
-            }
+            },
+
           });
 
 
