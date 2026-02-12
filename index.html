@@ -700,13 +700,30 @@
             // ✅ Captura acciones de widgets (action button)
             widgets: {
               onAction(action) {
-                const t = action && (action.type || action.name);
+                // Debug: mira exactamente qué llega desde el widget
+                console.log("[ChatKit action raw]", action);
+
+                const t =
+                  (action && (action.type || action.name || action.actionType)) ||
+                  (action && action.payload && action.payload.actionType) ||
+                  "";
+
+                console.log("[ChatKit action type]", t);
+
                 if (t === "aurum.go_agenda") {
                   sessionStorage.setItem(QUALIFIED_KEY, "1");
-                  window.location.href = CALENDLY_URL;
+
+                  // Por si el navegador bloquea cosas raras, fuerza navegación directa
+                  window.location.assign(CALENDLY_URL);
+
+                  // (Opcional) devuelve algo por si ChatKit espera respuesta
+                  return { ok: true };
                 }
+
+                return { ok: true };
               }
             },
+
 
             theme: "dark"
           });
