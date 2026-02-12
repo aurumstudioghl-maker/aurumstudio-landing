@@ -697,36 +697,23 @@
               }
             },
 
-            // ✅ Captura acciones de widgets (action button)
-            widgets: {
-              onAction(action) {
-                // Debug: mira exactamente qué llega desde el widget
-                console.log("[ChatKit action raw]", action);
+            // ✅ Tool del cliente: el agente lo llama y aquí rediriges
+            onClientTool: async (toolCall) => {
+              console.log("[ChatKit toolCall raw]", toolCall);
 
-                const t =
-                  (action && (action.type || action.name || action.actionType)) ||
-                  (action && action.payload && action.payload.actionType) ||
-                  "";
+              const name = toolCall?.name || toolCall?.tool_name;
+              const args = toolCall?.arguments || toolCall?.args || {};
 
-                console.log("[ChatKit action type]", t);
-
-                if (t === "aurum.go_agenda") {
-                  sessionStorage.setItem(QUALIFIED_KEY, "1");
-
-                  // Por si el navegador bloquea cosas raras, fuerza navegación directa
-                  window.location.assign(CALENDLY_URL);
-
-                  // (Opcional) devuelve algo por si ChatKit espera respuesta
-                  return { ok: true };
-                }
-
+              if (name === "open_agenda" && (args.qualified === true || args.qualified === "true")) {
+                sessionStorage.setItem(QUALIFIED_KEY, "1");
+                window.location.assign(CALENDLY_URL); // <-- tu calendly
                 return { ok: true };
               }
-            },
 
-
-            theme: "dark"
+              return { ok: true };
+            }
           });
+
 
           // ✅ Auto-arranque (solo 1 vez por sesión)
           if (!sessionStorage.getItem(STARTED_KEY) && typeof chat.sendUserMessage === "function") {
