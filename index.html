@@ -553,8 +553,7 @@
       <p>
         Nuestro objetivo es simple: que tu equipo invierta el tiempo únicamente en conversaciones con compradores
         reales. Para eso combinamos estrategia, anuncios y cualificación. Así reduces preguntas de “¿cuánto cuesta?” y
-        aumentas
-        las citas con clientes que entienden el valor de una pieza, una marca y una experiencia premium.
+        aumentas las citas con clientes que entienden el valor de una pieza, una marca y una experiencia premium.
       </p>
 
       <h2>Nuestro sistema: anuncios → landing → cualificación → agenda</h2>
@@ -631,20 +630,20 @@
         </details>
       </div>
     </div>
+
+    <footer class="site-footer">
+      <div class="footer-brand">© Aurum Studio</div>
+      <span class="made-by">Made by AurumLabs</span>
+
+      <div class="legal-links">
+        <a href="aviso-legal.html">Aviso legal</a>
+        <a href="politica-privacidad.html">Privacidad</a>
+      </div>
+    </footer>
   </section>
 
-  <footer class="site-footer">
-    <div class="footer-brand">© Aurum Studio</div>
-    <span class="made-by">Made by AurumLabs</span>
-
-    <div class="legal-links">
-      <a href="aviso-legal.html">Aviso legal</a>
-      <a href="politica-privacidad.html">Privacidad</a>
-    </div>
-  </footer>
-
   <script>
-    (function () {
+    (() => {
       const API_BASE = "https://aurum-chatkit-api.vercel.app";
       const CALENDLY_URL = "https://calendly.com/aurumstudioghl/30min";
 
@@ -652,89 +651,103 @@
       const QUALIFIED_KEY = "aurumQualified";
       const STARTED_KEY = "aurumChatStarted_v1";
 
-      function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+      const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
       function getOrCreateUserId() {
         let id = localStorage.getItem(USER_KEY);
         if (!id) {
-          id = "u_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
+          id = `u_${Math.random().toString(16).slice(2)}_${Date.now().toString(16)}`;
           localStorage.setItem(USER_KEY, id);
         }
         return id;
       }
 
-      async function getClientSecret(currentClientSecret) {
-        const endpoint = currentClientSecret ? "/api/chatkit/refresh" : "/api/chatkit/start";
-        const res = await fetch(API_BASE + endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            userId: getOrCreateUserId(),
-            currentClientSecret: currentClientSecret || null
-          })
-        });
+      async function fetchClientSecret(currentClientSecret) {
+        try {
+          const endpoint = currentClientSecret ? "/api/chatkit/refresh" : "/api/chatkit/start";
 
-        if (!res.ok) return null;
-        const data = await res.json();
-        return data.client_secret;
+          const res = await fetch(`${API_BASE}${endpoint}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              userId: getOrCreateUserId(),
+              currentClientSecret: currentClientSecret ?? null,
+            }),
+          });
+
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const data = await res.json();
+
+          // IMPORTANTE: a veces viene como { client_secret: { value, expires_at } }
+          const secret =
+            data?.client_secret?.value ??
+            data?.client_secret ??
+            data?.clientSecret?.value ??
+            data?.clientSecret ??
+            null;
+
+          if (!secret) throw new Error("Missing client secret in response");
+          return secret;
+        } catch (err) {
+          console.error("[ChatKit] getClientSecret FAILED:", err);
+          return null;
+        }
       }
 
       async function initChat() {
         const chat = document.getElementById("my-chat");
-        if (!chat) return;
-
-        // Espera a que el web component esté listo
-        for (let i = 0; i < 80; i++) {
-          if (typeof chat.setOptions === "function") break;
-          await sleep(80);
+        if (!chat) {
+          console.error('[ChatKit] No existe #my-chat en el DOM');
+          return;
         }
-        if (typeof chat.setOptions !== "function") return;
+
+        // Espera a que el web component esté listo (chatkit.js define setOptions)
+        for (let i = 0; i < 120; i++) {
+          if (typeof chat.setOptions === "function") break;
+          await sleep(50);
+        }
+
+        if (typeof chat.setOptions !== "function") {
+          console.error("[ChatKit] chatkit.js no cargó (setOptions undefined). Mira Network: chatkit.js");
+          return;
+        }
 
         chat.setOptions({
-          api: {
-            async getClientSecret(existing) {
-              return await getClientSecret(existing);
-            }
-          },
+          api: { getClientSecret: fetchClientSecret },
 
-          // ✅ Esta es la forma correcta: el agente llama tools y tú los capturas aquí
-          onClientTool: async (toolCall) => {
-            const name =
-              toolCall?.name ||
-              toolCall?.tool?.name ||
-              toolCall?.function?.name;
+          clientTools: {
+            open_agenda: async (params) => {
+              let p = params ?? {};
+              if (typeof p === "string") {
+                try { p = JSON.parse(p); } catch { p = {}; }
+              }
 
-            let args =
-              toolCall?.arguments ??
-              toolCall?.args ??
-              toolCall?.tool?.arguments ??
-              toolCall?.function?.arguments;
+              const qualified =
+                p?.qualified === true ||
+                p?.qualified === "true" ||
+                p?.qualified === 1 ||
+                p?.qualified === "1";
 
-            if (typeof args === "string") {
-              try { args = JSON.parse(args); } catch { args = {}; }
-            }
+              console.log("[clientTools.open_agenda] params:", p, "qualified:", qualified);
 
-            console.log("[ChatKit tool]", name, args);
+              if (!qualified) return { ok: false };
 
-            if (name === "open_agenda" && args?.qualified === true) {
               sessionStorage.setItem(QUALIFIED_KEY, "1");
-              window.location.href = CALENDLY_URL;
+              window.location.assign(CALENDLY_URL);
               return { ok: true };
-            }
-
-            return { ok: true };
-          }
+            },
+          },
         });
 
-        // Auto-arranque (solo 1 vez por sesión)
+        // Auto-arranque 1 vez
         if (!sessionStorage.getItem(STARTED_KEY) && typeof chat.sendUserMessage === "function") {
           sessionStorage.setItem(STARTED_KEY, "1");
-          try { await chat.sendUserMessage("\u200B"); } catch (e) { }
+          try { await chat.sendUserMessage("\u200B"); } catch { }
         }
       }
 
       if (document.readyState === "loading") {
-        window.addEventListener("DOMContentLoaded", initChat);
+        document.addEventListener("DOMContentLoaded", initChat);
       } else {
         initChat();
       }
