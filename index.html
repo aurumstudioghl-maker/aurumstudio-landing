@@ -645,8 +645,8 @@
 
     <script>
       (function () {
-        const API_BASE = "https://aurum-chatkit-api.vercel.app"; // tu Vercel (backend ChatKit)
-        const CALENDLY_URL = "https://calendly.com/aurumstudioghl/30min"; // <-- pon tu Calendly real
+        const API_BASE = "https://aurum-chatkit-api.vercel.app";
+        const CALENDLY_URL = "https://calendly.com/aurumstudioghl/30min";
 
         const USER_KEY = "aurum_uid_v1";
         const QUALIFIED_KEY = "aurumQualified";
@@ -683,7 +683,7 @@
           const chat = document.getElementById("my-chat");
           if (!chat) return;
 
-          // Espera a que el web component esté listo (setOptions existe)
+          // Espera a que el web component esté listo
           for (let i = 0; i < 80; i++) {
             if (typeof chat.setOptions === "function") break;
             await sleep(80);
@@ -697,40 +697,65 @@
               }
             },
 
-            // ✅ Tool del cliente: el agente lo llama y aquí rediriges
-            // ✅ Tool del cliente: el agente lo llama y aquí rediriges
-            onClientTool: async (toolCall) => {
-              console.log("[ChatKit client tool raw]", toolCall);
+            // ✅ AQUÍ: tool del cliente (esto ES lo que te faltaba)
+            clientTools: {
+              // El nombre debe coincidir EXACTO con el tool que has creado en Agent Builder
+              open_agenda: async (params) => {
+                let p = params || {};
+                if (typeof p === "string") {
+                  try { p = JSON.parse(p); } catch { p = {}; }
+                }
 
-              // ChatKit: { name, params }
-              const name = toolCall?.name;
-              const params = toolCall?.params || {};
+                const qualified =
+                  p?.qualified === true ||
+                  p?.qualified === "true" ||
+                  p?.qualified === 1 ||
+                  p?.qualified === "1";
 
-              console.log("[ChatKit client tool name]", name);
-              console.log("[ChatKit client tool params]", params);
+                console.log("[clientTools.open_agenda] params:", p);
 
-              if (name === "open_agenda" && params.qualified === true) {
-                sessionStorage.setItem(QUALIFIED_KEY, "1");
-                window.location.assign(CALENDLY_URL);
+                if (qualified) {
+                  sessionStorage.setItem(QUALIFIED_KEY, "1");
+
+                  // Navegación “a prueba de tonterías”
+                  window.location.href = CALENDLY_URL;
+                  setTimeout(() => { window.location.assign(CALENDLY_URL); }, 150);
+
+                  return { ok: true };
+                }
+
+                return { ok: false, reason: "not-qualified" };
               }
-
-              return { ok: true };
             },
 
-
+            // (Opcional) fallback si algún día vuelves a usar Actions/Buttons
+            widgets: {
+              onAction(action) {
+                const t = action?.type || action?.name;
+                if (t === "aurum.go_agenda") {
+                  sessionStorage.setItem(QUALIFIED_KEY, "1");
+                  window.location.href = CALENDLY_URL;
+                }
+              }
+            }
           });
 
-
-          // ✅ Auto-arranque (solo 1 vez por sesión)
+          // Auto-arranque (solo 1 vez por sesión)
           if (!sessionStorage.getItem(STARTED_KEY) && typeof chat.sendUserMessage === "function") {
             sessionStorage.setItem(STARTED_KEY, "1");
             try { await chat.sendUserMessage("\u200B"); } catch (e) { }
           }
         }
 
-        window.addEventListener("DOMContentLoaded", initChat);
+        // ✅ Esto evita que a veces no se ejecute si el script carga tarde
+        if (document.readyState === "loading") {
+          window.addEventListener("DOMContentLoaded", initChat);
+        } else {
+          initChat();
+        }
       })();
     </script>
+
 
 
 
