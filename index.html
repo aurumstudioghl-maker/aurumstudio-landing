@@ -631,19 +631,18 @@
         </details>
       </div>
     </div>
-
-    <footer class="site-footer">
-      <div class="footer-brand">© Aurum Studio</div>
-      <span class="made-by">Made by AurumLabs</span>
-
-      <div class="legal-links">
-        <a href="aviso-legal.html">Aviso legal</a>
-        <a href="politica-privacidad.html">Privacidad</a>
-      </div>
-    </footer>
   </section>
 
-  <!-- ✅ ChatKit init (SIEMPRE fuera del section) -->
+  <footer class="site-footer">
+    <div class="footer-brand">© Aurum Studio</div>
+    <span class="made-by">Made by AurumLabs</span>
+
+    <div class="legal-links">
+      <a href="aviso-legal.html">Aviso legal</a>
+      <a href="politica-privacidad.html">Privacidad</a>
+    </div>
+  </footer>
+
   <script>
     (function () {
       const API_BASE = "https://aurum-chatkit-api.vercel.app";
@@ -675,12 +674,7 @@
           })
         });
 
-        if (!res.ok) {
-          const txt = await res.text().catch(() => "");
-          console.error("[ChatKit] client_secret error:", res.status, txt);
-          return null;
-        }
-
+        if (!res.ok) return null;
         const data = await res.json();
         return data.client_secret;
       }
@@ -690,15 +684,11 @@
         if (!chat) return;
 
         // Espera a que el web component esté listo
-        for (let i = 0; i < 140; i++) {
+        for (let i = 0; i < 80; i++) {
           if (typeof chat.setOptions === "function") break;
           await sleep(80);
         }
-
-        if (typeof chat.setOptions !== "function") {
-          console.error("[ChatKit] setOptions no disponible (el widget no ha cargado).");
-          return;
-        }
+        if (typeof chat.setOptions !== "function") return;
 
         chat.setOptions({
           api: {
@@ -707,26 +697,32 @@
             }
           },
 
-          // ✅ Tool del cliente: debe llamarse EXACTO como en Agent Builder
-          clientTools: {
-            open_agenda: async (params) => {
-              let p = params || {};
-              if (typeof p === "string") { try { p = JSON.parse(p); } catch { p = {}; } }
+          // ✅ Esta es la forma correcta: el agente llama tools y tú los capturas aquí
+          onClientTool: async (toolCall) => {
+            const name =
+              toolCall?.name ||
+              toolCall?.tool?.name ||
+              toolCall?.function?.name;
 
-              const qualified =
-                p?.qualified === true ||
-                p?.qualified === "true" ||
-                p?.qualified === 1 ||
-                p?.qualified === "1";
+            let args =
+              toolCall?.arguments ??
+              toolCall?.args ??
+              toolCall?.tool?.arguments ??
+              toolCall?.function?.arguments;
 
-              console.log("[clientTools.open_agenda] params:", p);
+            if (typeof args === "string") {
+              try { args = JSON.parse(args); } catch { args = {}; }
+            }
 
-              if (!qualified) return { ok: false, reason: "not-qualified" };
+            console.log("[ChatKit tool]", name, args);
 
+            if (name === "open_agenda" && args?.qualified === true) {
               sessionStorage.setItem(QUALIFIED_KEY, "1");
               window.location.href = CALENDLY_URL;
               return { ok: true };
             }
+
+            return { ok: true };
           }
         });
 
