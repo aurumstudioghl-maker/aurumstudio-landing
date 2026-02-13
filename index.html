@@ -49,7 +49,7 @@
   </script>
 
   <!-- ChatKit (Widget) -->
-  <script src="https://cdn.platform.openai.com/deployments/chatkit/chatkit.js" defer></script>
+  <script src="https://cdn.platform.openai.com/deployments/chatkit/chatkit.js" async></script>
   <style>
     /* Fix ChatKit: evita truncado por estilos globales */
     openai-chatkit button,
@@ -547,14 +547,13 @@
       <p>
         En joyería de alto valor, el problema casi nunca es el producto. El problema es el sistema: estás pagando
         tráfico para llevarlo a Instagram o a un WhatsApp sin filtro, y terminas hablando con curiosos que solo
-        preguntan
-        precio. Aurum Studio diseña un proceso de captación pensado para lujo: menos volumen, más intención.
+        preguntan precio. Aurum Studio diseña un proceso de captación pensado para lujo: menos volumen, más intención.
       </p>
 
       <p>
         Nuestro objetivo es simple: que tu equipo invierta el tiempo únicamente en conversaciones con compradores
-        reales.
-        Para eso combinamos estrategia, anuncios y cualificación. Así reduces preguntas de “¿cuánto cuesta?” y aumentas
+        reales. Para eso combinamos estrategia, anuncios y cualificación. Así reduces preguntas de “¿cuánto cuesta?” y
+        aumentas
         las citas con clientes que entienden el valor de una pieza, una marca y una experiencia premium.
       </p>
 
@@ -642,122 +641,109 @@
         <a href="politica-privacidad.html">Privacidad</a>
       </div>
     </footer>
+  </section>
 
-    <script>
-      (function () {
-        const API_BASE = "https://aurum-chatkit-api.vercel.app";
-        const CALENDLY_URL = "https://calendly.com/aurumstudioghl/30min";
+  <!-- ✅ ChatKit init (SIEMPRE fuera del section) -->
+  <script>
+    (function () {
+      const API_BASE = "https://aurum-chatkit-api.vercel.app";
+      const CALENDLY_URL = "https://calendly.com/aurumstudioghl/30min";
 
-        const USER_KEY = "aurum_uid_v1";
-        const QUALIFIED_KEY = "aurumQualified";
-        const STARTED_KEY = "aurumChatStarted_v1";
+      const USER_KEY = "aurum_uid_v1";
+      const QUALIFIED_KEY = "aurumQualified";
+      const STARTED_KEY = "aurumChatStarted_v1";
 
-        function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+      function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-        function getOrCreateUserId() {
-          let id = localStorage.getItem(USER_KEY);
-          if (!id) {
-            id = "u_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
-            localStorage.setItem(USER_KEY, id);
-          }
-          return id;
+      function getOrCreateUserId() {
+        let id = localStorage.getItem(USER_KEY);
+        if (!id) {
+          id = "u_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
+          localStorage.setItem(USER_KEY, id);
+        }
+        return id;
+      }
+
+      async function getClientSecret(currentClientSecret) {
+        const endpoint = currentClientSecret ? "/api/chatkit/refresh" : "/api/chatkit/start";
+        const res = await fetch(API_BASE + endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userId: getOrCreateUserId(),
+            currentClientSecret: currentClientSecret || null
+          })
+        });
+
+        if (!res.ok) {
+          const txt = await res.text().catch(() => "");
+          console.error("[ChatKit] client_secret error:", res.status, txt);
+          return null;
         }
 
-        async function getClientSecret(currentClientSecret) {
-          const endpoint = currentClientSecret ? "/api/chatkit/refresh" : "/api/chatkit/start";
-          const res = await fetch(API_BASE + endpoint, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              userId: getOrCreateUserId(),
-              currentClientSecret: currentClientSecret || null
-            })
-          });
+        const data = await res.json();
+        return data.client_secret;
+      }
 
-          if (!res.ok) return null;
-          const data = await res.json();
-          return data.client_secret;
+      async function initChat() {
+        const chat = document.getElementById("my-chat");
+        if (!chat) return;
+
+        // Espera a que el web component esté listo
+        for (let i = 0; i < 140; i++) {
+          if (typeof chat.setOptions === "function") break;
+          await sleep(80);
         }
 
-        async function initChat() {
-          const chat = document.getElementById("my-chat");
-          if (!chat) return;
+        if (typeof chat.setOptions !== "function") {
+          console.error("[ChatKit] setOptions no disponible (el widget no ha cargado).");
+          return;
+        }
 
-          // Espera a que el web component esté listo
-          for (let i = 0; i < 80; i++) {
-            if (typeof chat.setOptions === "function") break;
-            await sleep(80);
-          }
-          if (typeof chat.setOptions !== "function") return;
-
-          chat.setOptions({
-            api: {
-              async getClientSecret(existing) {
-                return await getClientSecret(existing);
-              }
-            },
-
-            // ✅ AQUÍ: tool del cliente (esto ES lo que te faltaba)
-            clientTools: {
-              // El nombre debe coincidir EXACTO con el tool que has creado en Agent Builder
-              open_agenda: async (params) => {
-                let p = params || {};
-                if (typeof p === "string") {
-                  try { p = JSON.parse(p); } catch { p = {}; }
-                }
-
-                const qualified =
-                  p?.qualified === true ||
-                  p?.qualified === "true" ||
-                  p?.qualified === 1 ||
-                  p?.qualified === "1";
-
-                console.log("[clientTools.open_agenda] params:", p);
-
-                if (qualified) {
-                  sessionStorage.setItem(QUALIFIED_KEY, "1");
-
-                  // Navegación “a prueba de tonterías”
-                  window.location.href = CALENDLY_URL;
-                  setTimeout(() => { window.location.assign(CALENDLY_URL); }, 150);
-
-                  return { ok: true };
-                }
-
-                return { ok: false, reason: "not-qualified" };
-              }
-            },
-
-            // (Opcional) fallback si algún día vuelves a usar Actions/Buttons
-            widgets: {
-              onAction(action) {
-                const t = action?.type || action?.name;
-                if (t === "aurum.go_agenda") {
-                  sessionStorage.setItem(QUALIFIED_KEY, "1");
-                  window.location.href = CALENDLY_URL;
-                }
-              }
+        chat.setOptions({
+          api: {
+            async getClientSecret(existing) {
+              return await getClientSecret(existing);
             }
-          });
+          },
 
-          // Auto-arranque (solo 1 vez por sesión)
-          if (!sessionStorage.getItem(STARTED_KEY) && typeof chat.sendUserMessage === "function") {
-            sessionStorage.setItem(STARTED_KEY, "1");
-            try { await chat.sendUserMessage("\u200B"); } catch (e) { }
+          // ✅ Tool del cliente: debe llamarse EXACTO como en Agent Builder
+          clientTools: {
+            open_agenda: async (params) => {
+              let p = params || {};
+              if (typeof p === "string") { try { p = JSON.parse(p); } catch { p = {}; } }
+
+              const qualified =
+                p?.qualified === true ||
+                p?.qualified === "true" ||
+                p?.qualified === 1 ||
+                p?.qualified === "1";
+
+              console.log("[clientTools.open_agenda] params:", p);
+
+              if (!qualified) return { ok: false, reason: "not-qualified" };
+
+              sessionStorage.setItem(QUALIFIED_KEY, "1");
+              window.location.href = CALENDLY_URL;
+              return { ok: true };
+            }
           }
+        });
+
+        // Auto-arranque (solo 1 vez por sesión)
+        if (!sessionStorage.getItem(STARTED_KEY) && typeof chat.sendUserMessage === "function") {
+          sessionStorage.setItem(STARTED_KEY, "1");
+          try { await chat.sendUserMessage("\u200B"); } catch (e) { }
         }
+      }
 
-        // ✅ Esto evita que a veces no se ejecute si el script carga tarde
-        if (document.readyState === "loading") {
-          window.addEventListener("DOMContentLoaded", initChat);
-        } else {
-          initChat();
-        }
-      })();
-    </script>
-
-
-
+      if (document.readyState === "loading") {
+        window.addEventListener("DOMContentLoaded", initChat);
+      } else {
+        initChat();
+      }
+    })();
+  </script>
 
 </body>
 
