@@ -648,9 +648,15 @@
       const API_BASE = "https://aurum-chatkit-api.vercel.app";
       const CALENDLY_URL = "https://calendly.com/aurumstudioghl/30min";
 
+      // Identidad / sesión
       const USER_KEY = "aurum_uid_v1";
       const QUALIFIED_KEY = "aurumQualified";
       const STARTED_KEY = "aurumChatStarted_v1";
+
+      // Si quieres auto-arranque del chat, usa "\u200B" (invisible).
+      // IMPORTANTE: tus instrucciones del agente deben tratar mensaje vacío/\u200B como “hola”.
+      const AUTO_START_ENABLED = true;
+      const AUTO_START_MESSAGE = "\u200B"; // o "hola" si prefieres forzar saludo explícito
 
       const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -665,6 +671,7 @@
 
       async function getClientSecret(currentClientSecret) {
         const endpoint = currentClientSecret ? "/api/chatkit/refresh" : "/api/chatkit/start";
+
         const res = await fetch(API_BASE + endpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -674,7 +681,11 @@
           })
         });
 
-        if (!res.ok) return null;
+        if (!res.ok) {
+          console.warn("[ChatKit] getClientSecret failed:", res.status);
+          return null;
+        }
+
         const data = await res.json();
         return data.client_secret;
       }
@@ -690,7 +701,7 @@
       function openAgenda(rawParams) {
         const p = normalizeParams(rawParams);
 
-        // ✅ Más permisivo: solo bloquea si viene explícitamente false/0.
+        // Bloquea solo si viene explícitamente "false"/0.
         const blocked =
           p?.qualified === false ||
           p?.qualified === "false" ||
@@ -714,8 +725,8 @@
         const chat = document.getElementById("my-chat");
         if (!chat) return;
 
-        // Espera a que el web component esté listo
-        for (let i = 0; i < 120; i++) {
+        // Espera a que el web component esté listo (chatkit.js carga async)
+        for (let i = 0; i < 160; i++) {
           if (typeof chat.setOptions === "function") break;
           await sleep(50);
         }
@@ -731,7 +742,7 @@
             }
           },
 
-          // ✅ Lo más importante: capturar tool-calls
+          // Captura tool-calls (por si el agente usa herramientas además del widget)
           async onClientTool(toolCall) {
             const name =
               toolCall?.name ||
@@ -748,23 +759,35 @@
 
             console.log("[onClientTool]", name, params);
 
-            if (name === "open_agenda") return openAgenda(params);
+            // Acepta ambos nombres (por robustez)
+            if (name === "open_agenda" || name === "aurum.go_agenda") {
+              return openAgenda(params);
+            }
+
             return { ok: false, reason: "unknown-tool" };
           },
 
-          // (Opcional) fallback por Action (si tu agente devuelve botón)
+          // Captura acciones del widget (tu caso principal: actionType "aurum.go_agenda")
           widgets: {
             onAction(action) {
               const t = action?.type || action?.name;
-              if (t === "aurum.go_agenda") openAgenda({ qualified: true });
+              const payload = action?.payload;
+
+              console.log("[onAction]", t, payload);
+
+              if (t === "aurum.go_agenda") return openAgenda(payload ?? { qualified: true });
+              if (t === "open_agenda") return openAgenda(payload ?? { qualified: true });
             }
           }
         });
 
         // Auto-arranque (solo 1 vez por sesión)
-        if (!sessionStorage.getItem(STARTED_KEY) && typeof chat.sendUserMessage === "function") {
+        if (AUTO_START_ENABLED &&
+          !sessionStorage.getItem(STARTED_KEY) &&
+          typeof chat.sendUserMessage === "function") {
+
           sessionStorage.setItem(STARTED_KEY, "1");
-          try { await chat.sendUserMessage("\u200B"); } catch (e) { }
+          try { await chat.sendUserMessage(AUTO_START_MESSAGE); } catch (e) { }
         }
       }
 
@@ -775,6 +798,7 @@
       }
     })();
   </script>
+
 
 </body>
 
