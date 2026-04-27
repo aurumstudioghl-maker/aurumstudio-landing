@@ -5144,3 +5144,12 @@ body.legal-page ol {
   font-size: 0.95rem !important;
   line-height: 1.56 !important;
 }
+
+/* Founder photo cover final */
+.founder-bio-card__photo {
+  width: 100% !important;
+  height: 460px !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+  border-radius: 30px !important;
+}
