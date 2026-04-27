@@ -5186,3 +5186,10 @@ body.legal-page ol {
   object-position: center 42% !important;
   border-radius: 30px !important;
 }
+
+/* Ajuste fino foto founder: quitar sombra negra y bajar encuadre para manos */
+.founder-bio-card__photo {
+  object-position: center 60% !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
