@@ -5100,3 +5100,32 @@ body.legal-page ol {
     height: 430px !important;
   }
 }
+
+/* ===== HARD FIX founder final ===== */
+.founder-bio-card {
+  border-radius: 34px !important;
+  overflow: hidden !important;
+}
+
+.founder-bio-card__photo {
+  display: block !important;
+  width: 100% !important;
+  height: 520px !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  border-radius: 30px !important;
+  background: rgba(0,0,0,0.42) !important;
+  padding: 0 !important;
+}
+
+.founder-bio-card__content p {
+  color: rgba(246, 243, 238, 0.74) !important;
+  font-size: 0.94rem !important;
+  line-height: 1.58 !important;
+}
+
+.hero-bullets--under-vsl {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
