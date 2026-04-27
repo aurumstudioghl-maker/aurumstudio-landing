@@ -5044,3 +5044,59 @@ body.legal-page ol {
   margin-bottom: 0 !important;
 }
 
+
+/* ===== Founder/bullets refinement ===== */
+
+/* Quitar recuadro general de los bullet points */
+.hero-bullets--under-vsl,
+.hero-left-panel .hero-bullets,
+.hero-split--founder .hero-bullets {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin-top: 16px !important;
+}
+
+/* Mantener solo las tarjetas individuales */
+.hero-bullets--under-vsl .bullet {
+  border: 1px solid rgba(246, 243, 238, 0.08) !important;
+  background: rgba(255, 255, 255, 0.035) !important;
+  box-shadow: none !important;
+}
+
+/* Foto completa, sin cortar cuerpo */
+.founder-bio-card__photo {
+  width: 100% !important;
+  height: 470px !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  border-radius: 28px !important;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(214, 181, 109, 0.12), transparent 42%),
+    rgba(0, 0, 0, 0.34) !important;
+  border: 1px solid rgba(246, 243, 238, 0.16) !important;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.42) !important;
+}
+
+/* Texto más contundente y elegante */
+.founder-bio-card__content {
+  padding: 18px 8px 4px !important;
+}
+
+.founder-bio-card p {
+  font-size: 0.94rem !important;
+  line-height: 1.58 !important;
+  color: rgba(246, 243, 238, 0.72) !important;
+}
+
+.founder-bio-card__role {
+  color: rgba(214, 181, 109, 0.86) !important;
+  font-weight: 600 !important;
+}
+
+@media (max-width: 900px) {
+  .founder-bio-card__photo {
+    height: 430px !important;
+  }
+}
