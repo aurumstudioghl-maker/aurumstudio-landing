@@ -5153,3 +5153,13 @@ body.legal-page ol {
   object-position: center top !important;
   border-radius: 30px !important;
 }
+
+/* FINAL founder image cover */
+.founder-bio-card__photo {
+  width: 100% !important;
+  height: 420px !important;
+  object-fit: cover !important;
+  object-position: center 12% !important;
+  border-radius: 30px !important;
+  background: transparent !important;
+}
