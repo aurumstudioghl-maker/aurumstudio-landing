@@ -4686,3 +4686,15 @@ body.legal-page ol {
     height: 96px;
   }
 }
+
+/* Bullets debajo de la VSL */
+.hero-bullets--under-vsl {
+  margin-top: 18px;
+  display: grid;
+  gap: 10px;
+}
+
+.hero-bullets--under-vsl .bullet {
+  min-height: 56px;
+}
+
