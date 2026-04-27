@@ -5178,3 +5178,11 @@ body.legal-page ol {
   font-size: 0.95rem !important;
   line-height: 1.56 !important;
 }
+
+/* Ajuste real de foto founder: ver más cuerpo y manos */
+.founder-bio-card__photo {
+  height: 430px !important;
+  object-fit: cover !important;
+  object-position: center 42% !important;
+  border-radius: 30px !important;
+}
