@@ -5163,3 +5163,18 @@ body.legal-page ol {
   border-radius: 30px !important;
   background: transparent !important;
 }
+
+/* ===== FINAL founder image crop correction ===== */
+.founder-bio-card__photo {
+  width: 100% !important;
+  height: 620px !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+  border-radius: 30px !important;
+  background: rgba(0,0,0,0.42) !important;
+}
+
+.founder-bio-card__content p {
+  font-size: 0.95rem !important;
+  line-height: 1.56 !important;
+}
