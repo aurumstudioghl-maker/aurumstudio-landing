@@ -542,8 +542,24 @@ src="https://www.facebook.com/tr?id=2463314630795456&ev=PageView&noscript=1"
     (function () {
       const send = (event, payload = {}) => {
         console.log("[TRACK]", event, payload);
+
         if (window.gtag) window.gtag("event", event, payload);
-        if (window.fbq) window.fbq("trackCustom", event, payload);
+
+        if (window.fbq) {
+          // Botones principales hacia auditoría/agenda.
+          // Evento estándar útil para Meta Ads.
+          if (event === "cta_agenda") {
+            window.fbq("track", "Contact", {
+              content_name: "CTA Agenda Aurum Studio",
+              content_category: "Aurum Studio Funnel",
+              funnel: "joyerias_agencia_marketing",
+              ...payload
+            });
+          }
+
+          // Evento personalizado interno para ver qué botón concreto se pulsó.
+          window.fbq("trackCustom", event, payload);
+        }
       };
 
       document.addEventListener("click", (e) => {
@@ -677,6 +693,12 @@ src="https://www.facebook.com/tr?id=2463314630795456&ev=PageView&noscript=1"
 
       const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+      function trackMetaCustom(eventName, payload = {}) {
+        console.log("[META]", eventName, payload);
+        if (window.gtag) window.gtag("event", eventName, payload);
+        if (window.fbq) window.fbq("trackCustom", eventName, payload);
+      }
+
       function getOrCreateUserId() {
         let id = localStorage.getItem(USER_KEY);
         if (!id) {
@@ -731,9 +753,17 @@ src="https://www.facebook.com/tr?id=2463314630795456&ev=PageView&noscript=1"
 
         sessionStorage.setItem(QUALIFIED_KEY, "1");
 
-        // Redirect robusto
-        window.location.assign(CALENDLY_URL);
-        setTimeout(() => { window.location.href = CALENDLY_URL; }, 250);
+        // El lead ha pasado el filtro del agente y se abre la agenda.
+        // No es todavía una reunión agendada; Schedule lo enviaremos cuando la cita se confirme.
+        trackMetaCustom("OpenAgenda", {
+          content_name: "Calendly Aurum Studio",
+          content_category: "Aurum Studio Funnel",
+          funnel: "joyerias_agencia_marketing",
+          page: location.pathname
+        });
+
+        // Pequeña pausa para que el evento salga antes de redirigir a Calendly.
+        setTimeout(() => { window.location.href = CALENDLY_URL; }, 300);
 
         return { ok: true };
       }
