@@ -983,6 +983,43 @@ src="https://www.facebook.com/tr?id=2463314630795456&ev=PageView&noscript=1"
 })();
 </script>
 
+
+<!-- Fill GHL hidden fields with stored UTMs -->
+<script>
+(function () {
+  const fields = [
+    "utm_source",
+    "utm_campaign",
+    "utm_content",
+    "utm_term",
+    "campaign_id",
+    "adset_id",
+    "ad_id"
+  ];
+
+  function fillUtmFields() {
+    fields.forEach(function (f) {
+      const value = localStorage.getItem(f);
+      if (!value) return;
+
+      const inputs = document.querySelectorAll('input[name="' + f + '"], textarea[name="' + f + '"]');
+      inputs.forEach(function (input) {
+        input.value = value;
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+      });
+    });
+  }
+
+  window.addEventListener("load", function () {
+    fillUtmFields();
+    setTimeout(fillUtmFields, 1000);
+    setTimeout(fillUtmFields, 3000);
+  });
+})();
+</script>
+<!-- End Fill GHL hidden fields with stored UTMs -->
+
 </body>
 
 </html>
