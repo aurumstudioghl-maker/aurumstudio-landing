@@ -869,6 +869,60 @@ src="https://www.facebook.com/tr?id=2463314630795456&ev=PageView&noscript=1"
           }
         });
 
+        // Auto-open agenda when the agent confirms qualification.
+        // This avoids requiring the lead to click a button.
+        function initAutoOpenAgendaOnQualification() {
+          const QUALIFIED_PHRASE = "Perfecto, encajas. Te abro los huecos disponibles.";
+          const AUTO_OPEN_KEY = "aurumAgendaAutoOpened_v1";
+
+          function getVisibleChatText() {
+            const chatEl = document.getElementById("my-chat");
+            const parts = [];
+
+            if (document.body && document.body.innerText) {
+              parts.push(document.body.innerText);
+            }
+
+            if (chatEl && chatEl.innerText) {
+              parts.push(chatEl.innerText);
+            }
+
+            if (chatEl && chatEl.shadowRoot && chatEl.shadowRoot.innerText) {
+              parts.push(chatEl.shadowRoot.innerText);
+            }
+
+            return parts.join("\n");
+          }
+
+          function maybeOpenAgenda() {
+            if (sessionStorage.getItem(AUTO_OPEN_KEY)) return;
+
+            const text = getVisibleChatText();
+            if (!text.includes(QUALIFIED_PHRASE)) return;
+
+            sessionStorage.setItem(AUTO_OPEN_KEY, "1");
+
+            console.log("[AUTO_AGENDA] Qualified phrase detected. Opening agenda.");
+
+            openAgenda({
+              qualified: true,
+              source: "agent_auto_qualified_phrase"
+            });
+          }
+
+          const observer = new MutationObserver(maybeOpenAgenda);
+          observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            characterData: true
+          });
+
+          setInterval(maybeOpenAgenda, 800);
+          maybeOpenAgenda();
+        }
+
+        initAutoOpenAgendaOnQualification();
+
         // Auto-arranque (solo 1 vez por sesión)
         if (AUTO_START_ENABLED &&
           !sessionStorage.getItem(STARTED_KEY) &&
