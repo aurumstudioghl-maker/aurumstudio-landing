@@ -48,6 +48,62 @@
   }
   </script>
 
+  <!-- Aurum auto agenda watcher -->
+  <script>
+  (function () {
+    if (window.__aurumFetchAgendaWatcherInstalled) return;
+    window.__aurumFetchAgendaWatcherInstalled = true;
+
+    const QUALIFIED_PHRASES = [
+      "Perfecto, encajas. Te abro los huecos disponibles.",
+      "Te estoy redirigiendo a los huecos disponibles."
+    ];
+
+    function triggerAgenda(source) {
+      if (sessionStorage.getItem("aurumAgendaAutoOpened_v1")) return;
+
+      sessionStorage.setItem("aurumAgendaAutoOpened_v1", "1");
+      console.log("[AUTO_AGENDA_FETCH] Qualified response detected:", source);
+
+      const payload = {
+        qualified: true,
+        source: source || "agent_qualified_response"
+      };
+
+      function run() {
+        if (typeof window.__aurumOpenAgenda === "function") {
+          window.__aurumOpenAgenda(payload);
+        } else {
+          setTimeout(run, 250);
+        }
+      }
+
+      setTimeout(run, 650);
+    }
+
+    const originalFetch = window.fetch;
+    window.fetch = async function () {
+      const response = await originalFetch.apply(this, arguments);
+
+      try {
+        const req = arguments[0];
+        const url = typeof req === "string" ? req : (req && req.url ? req.url : "");
+
+        if (String(url).includes("chatkit") || String(url).includes("openai")) {
+          response.clone().text().then(function (text) {
+            if (QUALIFIED_PHRASES.some(function (phrase) { return text.includes(phrase); })) {
+              triggerAgenda("fetch_response");
+            }
+          }).catch(function () {});
+        }
+      } catch (e) {}
+
+      return response;
+    };
+  })();
+  </script>
+  <!-- End Aurum auto agenda watcher -->
+
   <!-- ChatKit (Widget) -->
   <script src="https://cdn.platform.openai.com/deployments/chatkit/chatkit.js" async></script>
   <style>
@@ -791,6 +847,8 @@ src="https://www.facebook.com/tr?id=2463314630795456&ev=PageView&noscript=1"
 
         return { ok: true };
       }
+
+      window.__aurumOpenAgenda = openAgenda;
 
       async function initChat() {
         const chat = document.getElementById("my-chat");
