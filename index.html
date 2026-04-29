@@ -870,6 +870,102 @@ src="https://www.facebook.com/tr?id=2463314630795456&ev=PageView&noscript=1"
     })();
   </script>
 
+<script>
+(function () {
+  const WEBHOOK_URL = "https://hook.eu1.make.com/iaihl0wsqock11xq0pc8owfanfdvjnhw";
+
+  let userId = localStorage.getItem("aurum_user_id");
+
+  if (!userId) {
+    userId =
+      "aurum_" +
+      Date.now() +
+      "_" +
+      Math.random().toString(36).substring(2, 10);
+
+    localStorage.setItem("aurum_user_id", userId);
+  }
+
+  window.AURUM_USER_ID = userId;
+
+  const video = document.querySelector("video");
+  if (!video) return;
+
+  let started = false;
+  let lastSecond = 0;
+  let maxSecond = 0;
+  let lastEventSentAt = 0;
+
+  function sendVslEvent(eventName) {
+    const now = Date.now();
+
+    if (eventName === "vsl_progress" && now - lastEventSentAt < 5000) return;
+
+    lastEventSentAt = now;
+
+    const payload = {
+      user_id: window.AURUM_USER_ID,
+      event: eventName,
+      current_second: Math.floor(lastSecond),
+      max_second_seen: Math.floor(maxSecond),
+      video_duration: Math.floor(video.duration || 0),
+      percent_seen: video.duration
+        ? Math.round((maxSecond / video.duration) * 100)
+        : null,
+      page_url: window.location.href,
+      referrer: document.referrer || null,
+      user_agent: navigator.userAgent,
+      created_at: new Date().toISOString()
+    };
+
+    console.log("AURUM VSL EVENT:", payload);
+
+    const blob = new Blob([JSON.stringify(payload)], {
+      type: "application/json"
+    });
+
+    navigator.sendBeacon(WEBHOOK_URL, blob);
+  }
+
+  video.addEventListener("play", function () {
+    if (!started) {
+      started = true;
+      sendVslEvent("vsl_started");
+    }
+  });
+
+  video.addEventListener("timeupdate", function () {
+    lastSecond = video.currentTime;
+    maxSecond = Math.max(maxSecond, video.currentTime);
+
+    if (started) {
+      sendVslEvent("vsl_progress");
+    }
+  });
+
+  video.addEventListener("pause", function () {
+    if (started && !video.ended) {
+      sendVslEvent("vsl_paused");
+    }
+  });
+
+  video.addEventListener("ended", function () {
+    sendVslEvent("vsl_completed");
+  });
+
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "hidden" && started && !video.ended) {
+      sendVslEvent("vsl_abandoned");
+    }
+  });
+
+  window.addEventListener("beforeunload", function () {
+    if (started && !video.ended) {
+      sendVslEvent("vsl_abandoned");
+    }
+  });
+})();
+</script>
 
 </body>
 
