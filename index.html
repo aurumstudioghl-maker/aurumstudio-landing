@@ -807,6 +807,14 @@ src="https://www.facebook.com/tr?id=2463314630795456&ev=PageView&noscript=1"
         }
 
         chat.setOptions({
+          composer: {
+            placeholder: "Responde aquí"
+          },
+
+          startScreen: {
+            greeting: "Preselección"
+          },
+
           api: {
             async getClientSecret(existing) {
               return await getClientSecret(existing);
