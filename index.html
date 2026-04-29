@@ -967,6 +967,22 @@ src="https://www.facebook.com/tr?id=2463314630795456&ev=PageView&noscript=1"
 })();
 </script>
 
+
+<script>
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const fields = ["utm_source", "utm_campaign", "utm_content", "utm_term", "campaign_id", "adset_id", "ad_id"];
+
+  fields.forEach(function (f) {
+    const value = params.get(f);
+    if (value) {
+      localStorage.setItem(f, value);
+      console.log("[UTM saved]", f, value);
+    }
+  });
+})();
+</script>
+
 </body>
 
 </html>
