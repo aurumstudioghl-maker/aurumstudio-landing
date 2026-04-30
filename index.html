@@ -711,7 +711,7 @@ src="https://www.facebook.com/tr?id=2463314630795456&ev=PageView&noscript=1"
   <div class="qualifier-actions">
     <button type="button" class="qualifier-back" data-qualifier-back disabled>Anterior</button>
     <button type="button" class="qualifier-next" data-qualifier-next>Siguiente</button>
-    <button type="submit" class="qualifier-submit">Ver huecos disponibles</button>
+    <button type="submit" class="qualifier-submit" hidden>Ver huecos disponibles</button>
   </div>
 
   <div class="qualifier-progress">
@@ -1383,8 +1383,8 @@ src="https://www.facebook.com/tr?id=2463314630795456&ev=PageView&noscript=1"
     });
 
     backBtn.disabled = current === 0;
-    nextBtn.style.display = current === steps.length - 1 ? "none" : "inline-flex";
-    submitBtn.style.display = current === steps.length - 1 ? "inline-flex" : "none";
+    nextBtn.hidden = current === steps.length - 1;
+    submitBtn.hidden = current !== steps.length - 1;
     currentLabel.textContent = String(current + 1);
 
     const bar = form.querySelector("[data-qualifier-bar]");

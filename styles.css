@@ -6013,3 +6013,18 @@ body.legal-page ol {
 
 /* === END AURUM QUALIFIER CLEAN COMPACT FINAL === */
 
+
+/* === Hide qualifier submit until final step === */
+
+#aurum-qualifier-form button[hidden],
+#aurum-qualifier-form .qualifier-submit[hidden] {
+  display: none !important;
+}
+
+/* Cuando el botón final esté oculto, que no ocupe espacio */
+#aurum-qualifier-form .qualifier-actions:has(.qualifier-submit[hidden]) {
+  grid-template-columns: 118px 1fr !important;
+}
+
+/* === End hide qualifier submit until final step === */
+
