@@ -6028,3 +6028,211 @@ body.legal-page ol {
 
 /* === End hide qualifier submit until final step === */
 
+
+/* === AURUM QF2 FINAL CLEAN === */
+
+#aurum-qf2 {
+  width: min(520px, 92vw) !important;
+  margin: 54px auto 0 !important;
+  padding: 28px !important;
+  border-radius: 28px !important;
+  border: 1px solid rgba(214,181,109,.20) !important;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(214,181,109,.14), transparent 32%),
+    linear-gradient(180deg, rgba(18,17,18,.98), rgba(7,7,10,.98)) !important;
+  box-shadow: 0 32px 84px rgba(0,0,0,.48) !important;
+  color: #f6f3ee !important;
+}
+
+#aurum-qf2,
+#aurum-qf2 * {
+  box-sizing: border-box !important;
+}
+
+#aurum-qf2 .qf2-head {
+  margin-bottom: 24px !important;
+}
+
+#aurum-qf2 .qf2-kicker {
+  margin-bottom: 12px !important;
+  text-align: center !important;
+  font-size: 11px !important;
+  line-height: 1 !important;
+  letter-spacing: .18em !important;
+  text-transform: uppercase !important;
+  color: rgba(241,209,138,.78) !important;
+  font-weight: 800 !important;
+}
+
+#aurum-qf2 .qf2-bar {
+  width: 100% !important;
+  height: 4px !important;
+  border-radius: 999px !important;
+  background: rgba(255,255,255,.075) !important;
+  overflow: hidden !important;
+}
+
+#aurum-qf2 .qf2-bar span {
+  display: block !important;
+  width: 9% !important;
+  height: 100% !important;
+  border-radius: 999px !important;
+  background: linear-gradient(90deg, #d6b56d, #f1d18a) !important;
+  transition: width .22s ease !important;
+}
+
+#aurum-qf2 .qf2-step {
+  display: none !important;
+}
+
+#aurum-qf2 .qf2-step.qf2-active {
+  display: block !important;
+}
+
+#aurum-qf2 label {
+  display: block !important;
+  margin: 0 0 20px !important;
+  text-align: center !important;
+  font-family: "Playfair Display", serif !important;
+  font-size: 31px !important;
+  line-height: 1.08 !important;
+  letter-spacing: -.02em !important;
+  color: #f6f3ee !important;
+}
+
+#aurum-qf2 input,
+#aurum-qf2 select {
+  width: 100% !important;
+  height: 56px !important;
+  padding: 0 17px !important;
+  border-radius: 17px !important;
+  border: 1px solid rgba(214,181,109,.30) !important;
+  background: rgba(255,255,255,.045) !important;
+  color: #f6f3ee !important;
+  font-size: 15px !important;
+  outline: none !important;
+}
+
+#aurum-qf2 select option {
+  color: #111 !important;
+}
+
+#aurum-qf2 input:focus,
+#aurum-qf2 select:focus {
+  border-color: rgba(241,209,138,.68) !important;
+  box-shadow: 0 0 0 4px rgba(214,181,109,.09) !important;
+}
+
+#aurum-qf2 small {
+  display: block !important;
+  margin-top: 10px !important;
+  text-align: center !important;
+  color: rgba(246,243,238,.55) !important;
+  font-size: 12.5px !important;
+}
+
+#aurum-qf2 .qf2-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 12px !important;
+}
+
+#aurum-qf2 .qf2-actions {
+  display: grid !important;
+  grid-template-columns: 116px 1fr !important;
+  gap: 12px !important;
+  margin-top: 24px !important;
+}
+
+#aurum-qf2 .qf2-actions button {
+  width: 100% !important;
+  height: 52px !important;
+  border-radius: 999px !important;
+  display: grid !important;
+  place-items: center !important;
+  text-align: center !important;
+  line-height: 1 !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+}
+
+#aurum-qf2 .qf2-back {
+  border: 1px solid rgba(255,255,255,.10) !important;
+  background: rgba(255,255,255,.035) !important;
+  color: rgba(246,243,238,.72) !important;
+}
+
+#aurum-qf2 .qf2-back:disabled {
+  opacity: .30 !important;
+  cursor: not-allowed !important;
+}
+
+#aurum-qf2 .qf2-next,
+#aurum-qf2 .qf2-submit {
+  border: 0 !important;
+  background: linear-gradient(135deg, #f1d18a, #d6b56d) !important;
+  color: #0a0908 !important;
+  box-shadow: 0 14px 34px rgba(214,181,109,.22) !important;
+}
+
+#aurum-qf2 [hidden] {
+  display: none !important;
+}
+
+#aurum-qf2 .qf2-count {
+  margin-top: 20px !important;
+  text-align: center !important;
+  color: rgba(246,243,238,.52) !important;
+  font-size: 12px !important;
+}
+
+#aurum-qf2 .qf2-count span {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 28px !important;
+  height: 28px !important;
+  margin-right: 6px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(214,181,109,.26) !important;
+  color: #f1d18a !important;
+  font-weight: 800 !important;
+}
+
+#aurum-qf2 .qf2-result {
+  margin: 16px 0 0 !important;
+  text-align: center !important;
+  color: #d6b56d !important;
+  font-weight: 700 !important;
+  line-height: 1.45 !important;
+}
+
+#aurum-qf2 .qf2-result.bad {
+  color: rgba(246,243,238,.72) !important;
+}
+
+@media (max-width: 760px) {
+  #aurum-qf2 {
+    width: 94vw !important;
+    margin-top: 42px !important;
+    padding: 24px !important;
+    border-radius: 24px !important;
+  }
+
+  #aurum-qf2 label {
+    font-size: 27px !important;
+  }
+
+  #aurum-qf2 .qf2-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  #aurum-qf2 .qf2-actions {
+    grid-template-columns: 104px 1fr !important;
+  }
+}
+
+/* === END AURUM QF2 FINAL CLEAN === */
+
