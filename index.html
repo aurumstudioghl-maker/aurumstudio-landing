@@ -592,6 +592,10 @@ src="https://www.facebook.com/tr?id=2463314630795456&ev=PageView&noscript=1"
 
     
 <form id="aurum-qualifier-form" class="qualifier-form" autocomplete="on">
+  <div class="qualifier-topline">
+    <span>Preselección privada</span>
+    <div class="qualifier-bar"><i data-qualifier-bar></i></div>
+  </div>
   <div class="qualifier-step is-active" data-step="1">
     <label>¿Qué tipo de negocio sois?</label>
     <select name="tipo_joyeria" required>
@@ -1382,6 +1386,12 @@ src="https://www.facebook.com/tr?id=2463314630795456&ev=PageView&noscript=1"
     nextBtn.style.display = current === steps.length - 1 ? "none" : "inline-flex";
     submitBtn.style.display = current === steps.length - 1 ? "inline-flex" : "none";
     currentLabel.textContent = String(current + 1);
+
+    const bar = form.querySelector("[data-qualifier-bar]");
+    if (bar) {
+      bar.style.width = (((current + 1) / steps.length) * 100) + "%";
+    }
+
     result.textContent = "";
   }
 
