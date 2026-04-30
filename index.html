@@ -780,10 +780,10 @@ src="https://www.facebook.com/tr?id=2463314630795456&ev=PageView&noscript=1"
       }
 
       function getOrCreateUserId() {
-        let id = localStorage.getItem(USER_KEY);
+        let id = sessionStorage.getItem(USER_KEY);
         if (!id) {
           id = "u_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
-          localStorage.setItem(USER_KEY, id);
+          sessionStorage.setItem(USER_KEY, id);
         }
         return id;
       }
