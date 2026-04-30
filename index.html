@@ -2139,7 +2139,67 @@ html body form#aurum-qualifier-form {
         payload.campaign_id = localStorage.getItem("campaign_id") || "";
       } catch(e) {}
 
+
+      payload.form_name = "aurum_preseleccion";
+      payload.lead_source = "Landing Aurum Studio";
+      payload.cualifica = qualifies(payload) ? "SI" : "NO";
+      payload.created_at = new Date().toISOString();
+      payload.page_url = window.location.href;
+      payload.referrer = document.referrer || "";
+      payload.user_agent = navigator.userAgent || "";
+
       return payload;
+    }
+
+
+    var AURUM_PRESELECT_WEBHOOK_URL = "https://hook.eu1.make.com/21s83iy2dkvdascaxn5oimj6oh58vl1x";
+
+    function postPreselectionToMake(payload) {
+      try {
+        if (!AURUM_PRESELECT_WEBHOOK_URL) return;
+
+        var iframeName = "aurum_preselect_make_iframe";
+        var iframe = document.querySelector('iframe[name="' + iframeName + '"]');
+
+        if (!iframe) {
+          iframe = document.createElement("iframe");
+          iframe.name = iframeName;
+          iframe.style.display = "none";
+          iframe.style.width = "0";
+          iframe.style.height = "0";
+          iframe.style.border = "0";
+          document.body.appendChild(iframe);
+        }
+
+        var makeForm = document.createElement("form");
+        makeForm.method = "POST";
+        makeForm.action = AURUM_PRESELECT_WEBHOOK_URL;
+        makeForm.target = iframeName;
+        makeForm.style.display = "none";
+
+        Object.keys(payload || {}).forEach(function(key) {
+          var input = document.createElement("input");
+          input.type = "hidden";
+          input.name = key;
+          input.value = payload[key] == null ? "" : String(payload[key]);
+          makeForm.appendChild(input);
+        });
+
+        var raw = document.createElement("input");
+        raw.type = "hidden";
+        raw.name = "payload_json";
+        raw.value = JSON.stringify(payload || {});
+        makeForm.appendChild(raw);
+
+        document.body.appendChild(makeForm);
+        makeForm.submit();
+
+        setTimeout(function() {
+          makeForm.remove();
+        }, 3000);
+      } catch(e) {
+        console.warn("No se pudo enviar la preselección a Make", e);
+      }
     }
 
     function qualifies(payload) {
@@ -2162,15 +2222,20 @@ html body form#aurum-qualifier-form {
 
       try {
         localStorage.setItem("aurum_preseleccion", JSON.stringify(payload));
-        localStorage.setItem("aurum_agenda_unlocked", "true");
-        localStorage.setItem("aurum_agenda_unlocked_at", new Date().toISOString());
       } catch(e) {}
+
+      postPreselectionToMake(payload);
 
       if (typeof fbq === "function") {
         fbq("trackCustom", "PreselectionCompleted", payload);
       }
 
       if (qualifies(payload)) {
+        try {
+          localStorage.setItem("aurum_agenda_unlocked", "true");
+          localStorage.setItem("aurum_agenda_unlocked_at", new Date().toISOString());
+        } catch(e) {}
+
         msg.style.display = "block";
         msg.textContent = "Solicitud recibida. Te estamos abriendo la agenda privada...";
         if (typeof fbq === "function") {
@@ -2179,7 +2244,7 @@ html body form#aurum-qualifier-form {
         }
         setTimeout(function () {
           window.location.href = "./agenda.html";
-        }, 700);
+        }, 1200);
       } else {
         msg.style.display = "block";
         msg.textContent = "Gracias. Por lo que has indicado, ahora mismo quizá no tiene sentido reservar una sesión estratégica. Si tu situación cambia, vuelve a completar la verificación.";
