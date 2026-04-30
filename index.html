@@ -1803,6 +1803,400 @@ html body form#aurum-qualifier-form {
 </style>
 <!-- END QF2 INLINE FINAL STYLE -->
 
+
+<!-- AURUM_PRESELECCION_FIX_START -->
+<style>
+  .aurum-preselect-card {
+    width: min(760px, calc(100% - 32px));
+    margin: clamp(38px, 4vw, 58px) auto 0;
+    padding: clamp(22px, 3vw, 34px);
+    border: 1px solid rgba(214,181,109,.22);
+    border-radius: 28px;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(214,181,109,.08), transparent 42%),
+      linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.025));
+    box-shadow: 0 28px 90px rgba(0,0,0,.48);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    color: #f6f3ee;
+    text-align: left;
+  }
+
+  .aurum-preselect-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .aurum-preselect-kicker {
+    font-size: 12px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(214,181,109,.9);
+    font-weight: 700;
+  }
+
+  .aurum-preselect-step {
+    font-size: 13px;
+    color: rgba(246,243,238,.58);
+    white-space: nowrap;
+  }
+
+  .aurum-preselect-progress {
+    height: 5px;
+    width: 100%;
+    border-radius: 999px;
+    background: rgba(255,255,255,.08);
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+
+  .aurum-preselect-progress > span {
+    display: block;
+    height: 100%;
+    width: 20%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #d6b56d, #f1d18a);
+    transition: width .28s ease;
+  }
+
+  .aurum-preselect-question {
+    display: none;
+  }
+
+  .aurum-preselect-question.is-active {
+    display: block;
+  }
+
+  .aurum-preselect-question label {
+    display: block;
+    font-size: clamp(20px, 2.1vw, 29px);
+    line-height: 1.16;
+    font-weight: 750;
+    letter-spacing: -.02em;
+    margin-bottom: 18px;
+    color: #f6f3ee;
+  }
+
+  .aurum-preselect-card input,
+  .aurum-preselect-card select {
+    width: 100%;
+    min-height: 58px;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(7,7,10,.72);
+    color: #f6f3ee;
+    padding: 0 18px;
+    font-size: 16px;
+    outline: none;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+  }
+
+  .aurum-preselect-card input::placeholder {
+    color: rgba(246,243,238,.38);
+  }
+
+  .aurum-preselect-card input:focus,
+  .aurum-preselect-card select:focus {
+    border-color: rgba(214,181,109,.62);
+    box-shadow: 0 0 0 4px rgba(214,181,109,.09);
+  }
+
+  .aurum-preselect-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .aurum-preselect-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    align-items: center;
+    margin-top: 26px;
+  }
+
+  .aurum-preselect-btn {
+    height: 52px;
+    border-radius: 999px;
+    border: 1px solid rgba(214,181,109,.24);
+    padding: 0 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform .18s ease, opacity .18s ease, border-color .18s ease;
+  }
+
+  .aurum-preselect-btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .aurum-preselect-btn.secondary {
+    background: rgba(255,255,255,.045);
+    color: rgba(246,243,238,.72);
+  }
+
+  .aurum-preselect-btn.primary {
+    margin-left: auto;
+    background: linear-gradient(135deg, #d6b56d, #f1d18a);
+    color: #07070a;
+    border-color: transparent;
+    box-shadow: 0 14px 34px rgba(214,181,109,.18);
+  }
+
+  .aurum-preselect-btn[disabled] {
+    opacity: .45;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .aurum-preselect-msg {
+    display: none;
+    margin-top: 22px;
+    padding: 16px 18px;
+    border-radius: 18px;
+    background: rgba(214,181,109,.08);
+    border: 1px solid rgba(214,181,109,.18);
+    color: rgba(246,243,238,.82);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 720px) {
+    .aurum-preselect-card {
+      width: min(100% - 22px, 760px);
+      border-radius: 22px;
+      margin-top: 34px;
+      padding: 22px;
+    }
+
+    .aurum-preselect-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .aurum-preselect-actions {
+      flex-direction: column-reverse;
+      align-items: stretch;
+    }
+
+    .aurum-preselect-btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  function ready(fn) {
+    if (document.readyState !== "loading") fn();
+    else document.addEventListener("DOMContentLoaded", fn);
+  }
+
+  ready(function () {
+    if (document.querySelector(".aurum-preselect-card")) return;
+
+    var headings = Array.from(document.querySelectorAll("h1,h2,h3"));
+    var targetHeading = headings.find(function (el) {
+      return (el.textContent || "").toLowerCase().includes("verificación rápida");
+    });
+
+    if (!targetHeading) return;
+
+    var host = targetHeading.closest("section") || targetHeading.parentElement;
+    if (!host) return;
+
+    var card = document.createElement("div");
+    card.className = "aurum-preselect-card";
+    card.innerHTML = `
+      <div class="aurum-preselect-top">
+        <div class="aurum-preselect-kicker">Preselección privada</div>
+        <div class="aurum-preselect-step">Paso <span data-step-current>1</span> de 5</div>
+      </div>
+
+      <div class="aurum-preselect-progress"><span data-progress></span></div>
+
+      <form id="aurumPreselectForm" novalidate>
+        <div class="aurum-preselect-question is-active" data-question>
+          <label>¿Cómo te llamas y cuál es el nombre de tu joyería?</label>
+          <div class="aurum-preselect-grid">
+            <input name="nombre" placeholder="Tu nombre" required>
+            <input name="joyeria" placeholder="Nombre de la joyería" required>
+          </div>
+        </div>
+
+        <div class="aurum-preselect-question" data-question>
+          <label>Déjanos tu web o Instagram para revisar tu posicionamiento.</label>
+          <input name="web_instagram" placeholder="Web o @instagram" required>
+        </div>
+
+        <div class="aurum-preselect-question" data-question>
+          <label>¿Cuál es vuestro ticket medio aproximado?</label>
+          <select name="ticket" required>
+            <option value="">Selecciona una opción</option>
+            <option value="menos_300">Menos de 300 €</option>
+            <option value="300_800">300 € – 800 €</option>
+            <option value="800_1500">800 € – 1.500 €</option>
+            <option value="1500_plus">Más de 1.500 €</option>
+          </select>
+        </div>
+
+        <div class="aurum-preselect-question" data-question>
+          <label>¿Qué objetivo buscas ahora mismo?</label>
+          <select name="objetivo" required>
+            <option value="">Selecciona una opción</option>
+            <option value="mas_citas">Conseguir más citas cualificadas</option>
+            <option value="vender_piezas">Vender piezas de mayor valor</option>
+            <option value="ordenar_captacion">Ordenar la captación y seguimiento</option>
+            <option value="solo_curiosidad">Solo estoy mirando opciones</option>
+          </select>
+        </div>
+
+        <div class="aurum-preselect-question" data-question>
+          <label>¿Qué inversión mensual puedes destinar a captación?</label>
+          <select name="inversion" required>
+            <option value="">Selecciona una opción</option>
+            <option value="menos_500">Menos de 500 €</option>
+            <option value="500_1500">500 € – 1.500 €</option>
+            <option value="1500_3000">1.500 € – 3.000 €</option>
+            <option value="3000_plus">Más de 3.000 €</option>
+          </select>
+        </div>
+
+        <div class="aurum-preselect-question" data-question>
+          <label>Último paso: déjanos tus datos para confirmar la solicitud.</label>
+          <div class="aurum-preselect-grid">
+            <input name="telefono" placeholder="Teléfono" required>
+            <input name="email" type="email" placeholder="Email" required>
+          </div>
+        </div>
+
+        <div class="aurum-preselect-actions">
+          <button type="button" class="aurum-preselect-btn secondary" data-prev disabled>Anterior</button>
+          <button type="button" class="aurum-preselect-btn primary" data-next>Siguiente</button>
+        </div>
+
+        <div class="aurum-preselect-msg" data-msg></div>
+      </form>
+    `;
+
+    host.appendChild(card);
+
+    var form = card.querySelector("#aurumPreselectForm");
+    var questions = Array.from(card.querySelectorAll("[data-question]"));
+    var current = 0;
+    var prev = card.querySelector("[data-prev]");
+    var next = card.querySelector("[data-next]");
+    var currentLabel = card.querySelector("[data-step-current]");
+    var progress = card.querySelector("[data-progress]");
+    var msg = card.querySelector("[data-msg]");
+
+    function render() {
+      questions.forEach(function (q, i) {
+        q.classList.toggle("is-active", i === current);
+      });
+
+      currentLabel.textContent = String(Math.min(current + 1, 5));
+      progress.style.width = ((current + 1) / questions.length * 100) + "%";
+      prev.disabled = current === 0;
+      next.textContent = current === questions.length - 1 ? "Enviar solicitud" : "Siguiente";
+      msg.style.display = "none";
+    }
+
+    function validCurrentStep() {
+      var fields = Array.from(questions[current].querySelectorAll("input,select"));
+      var ok = true;
+
+      fields.forEach(function (field) {
+        if (!field.checkValidity()) {
+          field.reportValidity();
+          ok = false;
+        }
+      });
+
+      return ok;
+    }
+
+    function getPayload() {
+      var data = new FormData(form);
+      var payload = {};
+      data.forEach(function (value, key) {
+        payload[key] = value;
+      });
+
+      try {
+        payload.utm_source = localStorage.getItem("utm_source") || "";
+        payload.utm_campaign = localStorage.getItem("utm_campaign") || "";
+        payload.utm_content = localStorage.getItem("utm_content") || "";
+        payload.utm_term = localStorage.getItem("utm_term") || "";
+        payload.ad_id = localStorage.getItem("ad_id") || "";
+        payload.adset_id = localStorage.getItem("adset_id") || "";
+        payload.campaign_id = localStorage.getItem("campaign_id") || "";
+      } catch(e) {}
+
+      return payload;
+    }
+
+    function qualifies(payload) {
+      var goodTicket = payload.ticket !== "menos_300";
+      var goodIntent = payload.objetivo !== "solo_curiosidad";
+      var goodBudget = payload.inversion !== "menos_500";
+      return goodTicket && goodIntent && goodBudget;
+    }
+
+    next.addEventListener("click", function () {
+      if (!validCurrentStep()) return;
+
+      if (current < questions.length - 1) {
+        current++;
+        render();
+        return;
+      }
+
+      var payload = getPayload();
+
+      try {
+        localStorage.setItem("aurum_preseleccion", JSON.stringify(payload));
+      } catch(e) {}
+
+      if (typeof fbq === "function") {
+        fbq("trackCustom", "PreselectionCompleted", payload);
+      }
+
+      if (qualifies(payload)) {
+        msg.style.display = "block";
+        msg.textContent = "Solicitud recibida. Te estamos abriendo la agenda privada...";
+        if (typeof fbq === "function") {
+          fbq("track", "Contact");
+          fbq("trackCustom", "OpenAgenda", payload);
+        }
+        setTimeout(function () {
+          window.location.href = "./agenda.html";
+        }, 700);
+      } else {
+        msg.style.display = "block";
+        msg.textContent = "Gracias. Por lo que has indicado, ahora mismo quizá no tiene sentido reservar una sesión estratégica. Si tu situación cambia, vuelve a completar la verificación.";
+      }
+    });
+
+    prev.addEventListener("click", function () {
+      if (current > 0) {
+        current--;
+        render();
+      }
+    });
+
+    render();
+  });
+})();
+</script>
+<!-- AURUM_PRESELECCION_FIX_END -->
+
 </body>
 
 </html>
