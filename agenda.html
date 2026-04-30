@@ -162,5 +162,141 @@
     </div>
   </footer>
 
+
+<!-- AURUM_AGENDA_UNLOCK_FIX_START -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+<style>
+  .aurum-agenda-calendly-wrap {
+    width: min(1120px, calc(100% - 32px));
+    margin: 34px auto 80px;
+    border: 1px solid rgba(214,181,109,.20);
+    border-radius: 28px;
+    overflow: hidden;
+    background: rgba(255,255,255,.035);
+    box-shadow: 0 30px 90px rgba(0,0,0,.45);
+  }
+
+  .aurum-agenda-calendly {
+    min-width: 320px;
+    height: 760px;
+  }
+
+  .aurum-agenda-unlocked-note {
+    width: min(760px, calc(100% - 32px));
+    margin: 18px auto 0;
+    text-align: center;
+    color: rgba(246,243,238,.66);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 720px) {
+    .aurum-agenda-calendly-wrap {
+      width: min(100% - 18px, 1120px);
+      border-radius: 22px;
+      margin-top: 26px;
+    }
+
+    .aurum-agenda-calendly {
+      height: 720px;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  function ready(fn) {
+    if (document.readyState !== "loading") fn();
+    else document.addEventListener("DOMContentLoaded", fn);
+  }
+
+  function getPreselection() {
+    try {
+      return JSON.parse(localStorage.getItem("aurum_preseleccion") || "{}");
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function qualifies(payload) {
+    if (!payload) return false;
+
+    var goodTicket = payload.ticket && payload.ticket !== "menos_300";
+    var goodIntent = payload.objetivo && payload.objetivo !== "solo_curiosidad";
+    var goodBudget = payload.inversion && payload.inversion !== "menos_500";
+
+    return Boolean(goodTicket && goodIntent && goodBudget);
+  }
+
+  function unlockAgenda() {
+    var payload = getPreselection();
+    var explicitUnlock = localStorage.getItem("aurum_agenda_unlocked") === "true";
+    var isUnlocked = explicitUnlock || qualifies(payload);
+
+    if (!isUnlocked) return;
+
+    document.body.classList.add("aurum-agenda-is-unlocked");
+
+    var main = document.querySelector("main") || document.body;
+
+    // Oculta el botón de "Ir a la verificación" si existe.
+    Array.from(document.querySelectorAll("a,button")).forEach(function (el) {
+      var txt = (el.textContent || "").trim().toLowerCase();
+      if (txt.includes("ir a la verificación") || txt.includes("verificación")) {
+        el.style.display = "none";
+      }
+    });
+
+    // Cambia el texto superior.
+    var h1 = Array.from(document.querySelectorAll("h1,h2")).find(function (el) {
+      return (el.textContent || "").trim().toLowerCase() === "agenda";
+    });
+
+    if (h1) {
+      var subtitle = h1.nextElementSibling;
+      if (subtitle) {
+        subtitle.textContent = "Verificación completada. Elige el hueco que mejor te encaje.";
+      }
+    }
+
+    if (document.querySelector(".aurum-agenda-calendly-wrap")) return;
+
+    var note = document.createElement("div");
+    note.className = "aurum-agenda-unlocked-note";
+    note.textContent = "Agenda privada de Aurum Studio. Reserva solo si puedes asistir a la sesión.";
+
+    var wrap = document.createElement("div");
+    wrap.className = "aurum-agenda-calendly-wrap";
+    wrap.innerHTML = `
+      <div
+        class="calendly-inline-widget aurum-agenda-calendly"
+        data-url="https://calendly.com/aurumstudioghl/30min?hide_gdpr_banner=1&background_color=07070a&text_color=f6f3ee&primary_color=d6b56d">
+      </div>
+    `;
+
+    main.appendChild(note);
+    main.appendChild(wrap);
+
+    if (typeof Calendly !== "undefined") {
+      Calendly.initInlineWidget({
+        url: "https://calendly.com/aurumstudioghl/30min?hide_gdpr_banner=1&background_color=07070a&text_color=f6f3ee&primary_color=d6b56d",
+        parentElement: wrap.querySelector(".calendly-inline-widget")
+      });
+    }
+  }
+
+  ready(function () {
+    unlockAgenda();
+
+    // Por si Calendly tarda un poco en cargar.
+    setTimeout(unlockAgenda, 600);
+    setTimeout(unlockAgenda, 1400);
+  });
+})();
+</script>
+<!-- AURUM_AGENDA_UNLOCK_FIX_END -->
+
 </body>
 </html>

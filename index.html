@@ -2162,6 +2162,8 @@ html body form#aurum-qualifier-form {
 
       try {
         localStorage.setItem("aurum_preseleccion", JSON.stringify(payload));
+        localStorage.setItem("aurum_agenda_unlocked", "true");
+        localStorage.setItem("aurum_agenda_unlocked_at", new Date().toISOString());
       } catch(e) {}
 
       if (typeof fbq === "function") {
