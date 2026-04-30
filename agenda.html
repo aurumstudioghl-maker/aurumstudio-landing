@@ -1,296 +1,284 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Agenda tu sesión privada | Aurum Studio</title>
-  <meta name="description" content="Agenda privada de Aurum Studio." />
+  <meta name="description" content="Reserva una sesión privada con Aurum Studio para revisar tu sistema actual de captación." />
 
+  <link rel="preconnect" href="https://api.leadconnectorhq.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 
-  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
-
   <style>
-    :root{
-      --bg:#07070a;
-      --bg2:#0b0b10;
-      --text:#f6f3ee;
-      --muted:rgba(246,243,238,.72);
-      --muted-2:rgba(246,243,238,.56);
-      --gold:#d6b56d;
-      --gold2:#f1d18a;
-      --line:rgba(214,181,109,.18);
-      --card:rgba(255,255,255,.04);
-      --card-2:rgba(255,255,255,.02);
-      --shadow:0 34px 90px rgba(0,0,0,.45);
-      --radius:28px;
-      --max:1240px;
+    :root {
+      --bg: #07070a;
+      --bg2: #0b0b10;
+      --text: #f6f3ee;
+      --muted: rgba(246, 243, 238, .68);
+      --muted2: rgba(246, 243, 238, .48);
+      --gold: #d6b56d;
+      --gold2: #f1d18a;
+      --line: rgba(214, 181, 109, .22);
+      --card: rgba(255, 255, 255, .035);
+      --shadow: rgba(0, 0, 0, .48);
     }
 
-    *{ box-sizing:border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
-    html,body{
-      margin:0;
-      padding:0;
+    html, body {
+      margin: 0;
+      min-height: 100%;
       background:
-        radial-gradient(circle at 18% 0%, rgba(214,181,109,.12), transparent 28%),
-        radial-gradient(circle at 85% 0%, rgba(214,181,109,.08), transparent 24%),
-        linear-gradient(180deg, #07070a 0%, #08080c 100%);
-      color:var(--text);
-      font-family:Inter,system-ui,sans-serif;
-      min-height:100%;
+        radial-gradient(circle at 15% 5%, rgba(214, 181, 109, .14), transparent 32%),
+        radial-gradient(circle at 85% 20%, rgba(214, 181, 109, .08), transparent 28%),
+        linear-gradient(180deg, #07070a 0%, #09090d 45%, #050507 100%);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    a{ color:inherit; text-decoration:none; }
-
-    .page{
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(circle at center, black, transparent 78%);
+      opacity: .24;
     }
 
-    .container{
-      width:min(var(--max), calc(100% - 32px));
-      margin:0 auto;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    .topbar{
-      padding:26px 0 12px;
+    .wrap {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
-    .topbar-inner{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
+    header {
+      padding: 38px 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
     }
 
-    .brand{
-      font-size:13px;
-      letter-spacing:.28em;
-      text-transform:uppercase;
-      color:var(--text);
-      opacity:.92;
-      font-weight:700;
+    .brand {
+      font-size: 12px;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: rgba(246, 243, 238, .86);
     }
 
-    .top-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    .btn{
-      min-height:46px;
-      padding:0 18px;
-      border-radius:999px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      font-size:14px;
-      font-weight:700;
-      transition:.18s ease;
-      border:1px solid transparent;
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      background: rgba(255,255,255,.025);
     }
 
-    .btn:hover{
-      transform:translateY(-1px);
+    .pill.gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color: #07070a;
+      border-color: transparent;
+      box-shadow: 0 16px 42px rgba(214,181,109,.18);
     }
 
-    .btn-outline{
-      border-color:rgba(214,181,109,.35);
-      color:var(--gold2);
-      background:rgba(255,255,255,.02);
+    .hero {
+      text-align: center;
+      padding: 54px 0 30px;
     }
 
-    .btn-gold{
-      background:linear-gradient(135deg,var(--gold),var(--gold2));
-      color:#07070a;
-      box-shadow:0 14px 36px rgba(214,181,109,.16);
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+      background: rgba(214, 181, 109, .08);
+      color: var(--gold2);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
     }
 
-    .hero{
-      padding:38px 0 34px;
-      text-align:center;
+    h1 {
+      margin: 0;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(42px, 6vw, 76px);
+      line-height: .94;
+      letter-spacing: -.035em;
+      color: var(--text);
     }
 
-    .hero-inner{
-      max-width:960px;
-      margin:0 auto;
+    .sub {
+      margin: 20px auto 0;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: clamp(16px, 2vw, 19px);
+      line-height: 1.65;
     }
 
-    .hero h1{
-      margin:0;
-      font-family:"Playfair Display", serif;
-      font-size:clamp(42px, 6vw, 78px);
-      line-height:.98;
-      letter-spacing:-.04em;
-      color:var(--text);
+    .note {
+      margin: 14px auto 0;
+      color: var(--muted2);
+      font-size: 14px;
     }
 
-    .hero p{
-      margin:18px auto 0;
-      max-width:860px;
-      font-size:clamp(16px, 1.45vw, 22px);
-      line-height:1.5;
-      color:var(--muted);
-    }
-
-    .hero-note{
-      margin-top:12px;
-      font-size:14px;
-      color:var(--muted-2);
-    }
-
-    .hero-note strong{
-      color:var(--gold);
-      font-weight:700;
-    }
-
-    .agenda-shell{
-      padding-bottom:72px;
-    }
-
-    .agenda-card{
-      width:min(1120px, 100%);
-      margin:0 auto;
-      border:1px solid var(--line);
-      border-radius:var(--radius);
+    .calendar-shell {
+      margin: 36px auto 70px;
+      width: min(980px, 100%);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 14px;
       background:
-        radial-gradient(circle at 50% 0%, rgba(214,181,109,.07), transparent 34%),
-        linear-gradient(180deg, var(--card), var(--card-2));
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(16px);
-      -webkit-backdrop-filter:blur(16px);
-      overflow:hidden;
+        linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.018)),
+        rgba(7,7,10,.78);
+      box-shadow: 0 34px 90px var(--shadow);
+      overflow: hidden;
     }
 
-    .agenda-card-inner{
-      padding:18px;
+    .calendar-frame {
+      width: 100%;
+      min-height: 820px;
+      border: 0;
+      border-radius: 20px;
+      display: block;
+      background: #07070a;
     }
 
-    .calendly-holder{
-      width:100%;
-      min-width:320px;
-      height:760px;
-      border-radius:20px;
-      overflow:hidden;
-      background:#0a0a0f;
+    .below {
+      text-align: center;
+      margin-top: -42px;
+      margin-bottom: 54px;
+      color: var(--muted2);
+      font-size: 14px;
     }
 
-    .locked-box{
-      width:min(860px, calc(100% - 32px));
-      margin:26px auto 80px;
-      padding:38px 28px;
-      border-radius:28px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      box-shadow:var(--shadow);
-      text-align:center;
+    footer {
+      border-top: 1px solid rgba(214, 181, 109, .16);
+      padding: 28px 0;
+      color: rgba(246, 243, 238, .52);
+      font-size: 13px;
     }
 
-    .locked-box h2{
-      margin:0 0 12px;
-      font-family:"Playfair Display", serif;
-      font-size:clamp(30px, 4vw, 48px);
-      line-height:1.03;
-      letter-spacing:-.03em;
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
     }
 
-    .locked-box p{
-      max-width:650px;
-      margin:0 auto;
-      font-size:16px;
-      line-height:1.55;
-      color:var(--muted);
+    .footer-links {
+      display: flex;
+      gap: 18px;
     }
 
-    .locked-box .btn{
-      margin-top:24px;
-    }
-
-    .footer{
-      margin-top:auto;
-      padding:26px 0 34px;
-      border-top:1px solid rgba(255,255,255,.07);
-    }
-
-    .footer-inner{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:16px;
-      flex-wrap:wrap;
-      color:var(--muted-2);
-      font-size:14px;
-    }
-
-    .footer-links{
-      display:flex;
-      gap:18px;
-      flex-wrap:wrap;
-    }
-
-    .footer-links a:hover{
-      color:var(--text);
-    }
-
-    @media (max-width: 900px){
-      .container{
-        width:min(var(--max), calc(100% - 18px));
+    @media (max-width: 760px) {
+      header {
+        padding-top: 28px;
       }
 
-      .hero{
-        padding-top:28px;
+      .brand {
+        letter-spacing: .22em;
+        font-size: 10px;
       }
 
-      .agenda-card{
-        border-radius:22px;
+      .nav {
+        gap: 8px;
       }
 
-      .agenda-card-inner{
-        padding:12px;
+      .pill {
+        min-height: 36px;
+        padding: 0 13px;
+        font-size: 12px;
       }
 
-      .calendly-holder{
-        height:700px;
-        border-radius:16px;
+      .hero {
+        padding-top: 34px;
       }
 
-      .topbar-inner,
-      .footer-inner{
-        flex-direction:column;
-        align-items:flex-start;
+      .calendar-shell {
+        border-radius: 22px;
+        padding: 8px;
+        margin-top: 28px;
       }
 
-      .top-actions{
-        width:100%;
+      .calendar-frame {
+        min-height: 900px;
+        border-radius: 16px;
       }
     }
   </style>
 </head>
-<body>
-  <div class="page">
-    <header class="topbar">
-      <div class="container topbar-inner">
-        <a href="./index.html" class="brand">AURUM STUDIO</a>
 
-        <div class="top-actions">
-          <a class="btn btn-outline" href="./index.html">Volver</a>
-          <a class="btn btn-gold" href="./index.html#contacto">Contacto</a>
-        </div>
-      </div>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="./index.html">Aurum Studio</a>
+      <nav class="nav">
+        <a class="pill" href="./index.html">Volver</a>
+        <a class="pill gold" href="mailto:aurumstudioghl@gmail.com">Contacto</a>
+      </nav>
     </header>
 
-    <main id="main-content"></main>
+    <main>
+      <section class="hero">
+        <div class="eyebrow">Agenda privada</div>
+        <h1>Reserva tu sesión aquí</h1>
+        <p class="sub">
+          Elige el hueco que mejor te encaje para revisar tu sistema actual de captación y ver si tiene sentido trabajar juntos.
+        </p>
+        <p class="note">
+          Reserva solo si puedes asistir a la sesión.
+        </p>
+      </section>
 
-    <footer class="footer">
-      <div class="container footer-inner">
-        <div>© Aurum Studio</div>
+      <section class="calendar-shell" aria-label="Calendario de reserva Aurum Studio">
+        <iframe
+          class="calendar-frame"
+          src="https://api.leadconnectorhq.com/widget/bookings/sesion-privada-aurum-studio"
+          loading="lazy"
+          allow="camera; microphone; fullscreen; payment"
+          title="Sesión Privada Aurum Studio">
+        </iframe>
+      </section>
 
+      <p class="below">
+        Recibirás la confirmación de la cita en el correo que indiques al reservar.
+      </p>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <span>© Aurum Studio</span>
         <div class="footer-links">
           <a href="./aviso-legal.html">Aviso legal</a>
           <a href="./politica-privacidad.html">Privacidad</a>
@@ -298,136 +286,5 @@
       </div>
     </footer>
   </div>
-
-  <script>
-    const CALENDLY_URL =
-      "https://calendly.com/aurumstudioghl/30min?hide_gdpr_banner=1&background_color=07070a&text_color=f6f3ee&primary_color=d6b56d";
-
-    function getPreselection() {
-      try {
-        return JSON.parse(localStorage.getItem("aurum_preseleccion") || "{}");
-      } catch (e) {
-        return {};
-      }
-    }
-
-    function qualifies(payload) {
-      if (!payload) return false;
-
-      const goodTicket = payload.ticket && payload.ticket !== "menos_300";
-      const goodIntent = payload.objetivo && payload.objetivo !== "solo_curiosidad";
-      const goodBudget = payload.inversion && payload.inversion !== "menos_500";
-
-      return Boolean(goodTicket && goodIntent && goodBudget);
-    }
-
-    function isUnlocked() {
-      return true;
-    }
-
-    function renderLocked() {
-      const root = document.getElementById("main-content");
-      root.innerHTML = `
-        <section class="hero">
-          <div class="container hero-inner">
-            <h1>Agenda privada</h1>
-            <p>Antes de abrir la agenda necesitamos validar en 2–3 minutos si tiene sentido la sesión.</p>
-            <div class="hero-note">No damos consultoría por chat. Esto es solo para confirmar si encajas.</div>
-          </div>
-        </section>
-
-        <section>
-          <div class="locked-box">
-            <h2>Primero completa la verificación</h2>
-            <p>
-              Para acceder a la agenda privada de Aurum Studio primero debes completar la verificación rápida.
-              Si encajas, se abrirá automáticamente la reserva de la sesión.
-            </p>
-            <a class="btn btn-gold" href="./index.html#verificacion">Ir a la verificación</a>
-          </div>
-        </section>
-      `;
-    }
-
-    function renderUnlocked() {
-      const root = document.getElementById("main-content");
-      root.innerHTML = `
-        <section class="hero">
-          <div class="container hero-inner">
-            <h1>Reserva tu sesión aquí</h1>
-            <p>
-              Completa tu reserva y elige el hueco que mejor te encaje para revisar tu captación actual
-              y ver si tiene sentido trabajar juntos.
-            </p>
-            <div class="hero-note">
-              <strong>Agenda privada de Aurum Studio.</strong> Reserva solo si puedes asistir a la sesión.
-            </div>
-          </div>
-        </section>
-
-        <section class="agenda-shell">
-          <div class="container">
-            <div class="agenda-card">
-              <div class="agenda-card-inner">
-                <div id="calendly-holder" class="calendly-holder"></div>
-              </div>
-            </div>
-          </div>
-        </section>
-      `;
-
-      const holder = document.getElementById("calendly-holder");
-
-      function init() {
-        if (!holder || typeof Calendly === "undefined") return;
-        if (holder.dataset.loaded === "true") return;
-
-        holder.dataset.loaded = "true";
-        holder.innerHTML = "";
-
-        Calendly.initInlineWidget({
-          url: CALENDLY_URL,
-          parentElement: holder
-        });
-      }
-
-      init();
-      setTimeout(init, 700);
-      setTimeout(init, 1600);
-    }
-
-    renderUnlocked();
-  </script>
-
-<!-- AURUM_AGENDA_ALWAYS_OPEN_START -->
-<script>
-(function () {
-  try {
-    localStorage.setItem("aurum_agenda_unlocked", "true");
-    localStorage.setItem("aurum_agenda_unlocked_at", new Date().toISOString());
-  } catch(e) {}
-
-  function forceAgendaOpen() {
-    if (typeof renderUnlocked === "function") {
-      renderUnlocked();
-    }
-
-    Array.from(document.querySelectorAll("a,button")).forEach(function(el){
-      var txt = (el.textContent || "").toLowerCase();
-      if (txt.includes("ir a la verificación") || txt.includes("primero completa")) {
-        el.style.display = "none";
-      }
-    });
-  }
-
-  if (document.readyState !== "loading") forceAgendaOpen();
-  else document.addEventListener("DOMContentLoaded", forceAgendaOpen);
-
-  setTimeout(forceAgendaOpen, 500);
-  setTimeout(forceAgendaOpen, 1200);
-})();
-</script>
-<!-- AURUM_AGENDA_ALWAYS_OPEN_END -->
-
 </body>
 </html>
