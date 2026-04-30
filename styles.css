@@ -5470,3 +5470,102 @@ body.legal-page ol {
 
 /* === End VSL final clean preview + modal === */
 
+
+/* === VSL definitive clean modal === */
+
+/* Modal centrado real */
+.vsl-modal {
+  display: none;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+}
+
+.vsl-modal.is-open,
+.vsl-modal[open],
+.vsl-modal.active {
+  display: flex !important;
+}
+
+/* Elimina cualquier caja externa */
+.vsl-modal__dialog,
+.vsl-modal__content,
+.vsl-modal__body,
+.vsl-modal .modal-content,
+.vsl-modal .modal-body {
+  width: auto !important;
+  max-width: none !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Vídeo como única pieza visual */
+.vsl-modal .vsl-embed {
+  position: relative !important;
+  width: min(980px, 88vw) !important;
+  height: auto !important;
+  aspect-ratio: 16 / 9 !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
+  background: #000 !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+  border-radius: 16px !important;
+}
+
+/* Iframe full */
+.vsl-modal iframe[data-vsl-iframe] {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border: 0 !important;
+  outline: 0 !important;
+  display: block !important;
+  background: #000 !important;
+  border-radius: 16px !important;
+}
+
+/* Quita pseudo-marcos heredados */
+.vsl-modal .vsl-embed::before,
+.vsl-modal .vsl-embed::after,
+.vsl-modal__dialog::before,
+.vsl-modal__dialog::after,
+.vsl-modal__content::before,
+.vsl-modal__content::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* X limpia, fuera del vídeo */
+.vsl-modal__close {
+  position: absolute !important;
+  top: calc(50% - min(980px, 88vw) * 9 / 32 - 28px) !important;
+  right: calc(50% - min(980px, 88vw) / 2 - 18px) !important;
+  z-index: 9999 !important;
+  background: rgba(0,0,0,.55) !important;
+  border: 1px solid rgba(255,255,255,.16) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 760px) {
+  .vsl-modal .vsl-embed {
+    width: 94vw !important;
+  }
+
+  .vsl-modal__close {
+    top: 14vh !important;
+    right: 4vw !important;
+  }
+}
+
+/* === End VSL definitive clean modal === */
+
