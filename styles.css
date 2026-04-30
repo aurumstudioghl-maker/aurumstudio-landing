@@ -5686,3 +5686,143 @@ body.legal-page ol {
 
 /* === END FORCE VSL INLINE SIZE FINAL === */
 
+
+/* === Aurum Qualifier Form === */
+
+.qualifier-form {
+  width: min(420px, 92vw);
+  min-height: 480px;
+  margin: 0 auto;
+  padding: 28px;
+  border-radius: 28px;
+  border: 1px solid rgba(214, 181, 109, .24);
+  background:
+    radial-gradient(circle at top left, rgba(214,181,109,.14), transparent 35%),
+    linear-gradient(180deg, rgba(20,20,24,.96), rgba(8,8,10,.96));
+  box-shadow: 0 28px 90px rgba(0,0,0,.42);
+  color: #f6f3ee;
+}
+
+.qualifier-step {
+  display: none;
+  min-height: 255px;
+}
+
+.qualifier-step.is-active {
+  display: block;
+}
+
+.qualifier-step label {
+  display: block;
+  margin-bottom: 14px;
+  font-family: "Playfair Display", serif;
+  font-size: 25px;
+  line-height: 1.12;
+  color: #f6f3ee;
+}
+
+.qualifier-step input,
+.qualifier-step select {
+  width: 100%;
+  height: 52px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.055);
+  color: #f6f3ee;
+  padding: 0 15px;
+  font-size: 15px;
+  outline: none;
+}
+
+.qualifier-step select option {
+  color: #101014;
+}
+
+.qualifier-step input:focus,
+.qualifier-step select:focus {
+  border-color: rgba(214,181,109,.72);
+  box-shadow: 0 0 0 4px rgba(214,181,109,.10);
+}
+
+.qualifier-step small {
+  display: block;
+  margin-top: 10px;
+  color: rgba(246,243,238,.58);
+  font-size: 13px;
+}
+
+.qualifier-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.qualifier-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.qualifier-actions button {
+  height: 46px;
+  border-radius: 999px;
+  padding: 0 18px;
+  border: 1px solid rgba(214,181,109,.32);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.qualifier-back {
+  background: transparent;
+  color: #f6f3ee;
+}
+
+.qualifier-back:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+
+.qualifier-next,
+.qualifier-submit {
+  flex: 1;
+  background: linear-gradient(135deg, #f1d18a, #d6b56d);
+  color: #09090b;
+}
+
+.qualifier-submit {
+  display: none;
+}
+
+.qualifier-progress {
+  margin-top: 18px;
+  color: rgba(246,243,238,.56);
+  font-size: 13px;
+  text-align: center;
+}
+
+.qualifier-result {
+  margin-top: 18px;
+  color: #d6b56d;
+  font-weight: 700;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.qualifier-result.is-negative {
+  color: rgba(246,243,238,.72);
+}
+
+@media (max-width: 760px) {
+  .qualifier-form {
+    width: 100%;
+    min-height: 440px;
+    padding: 22px;
+  }
+
+  .qualifier-step label {
+    font-size: 22px;
+  }
+}
+
+/* === End Aurum Qualifier Form === */
+

@@ -105,7 +105,6 @@
   <!-- End Aurum auto agenda watcher -->
 
   <!-- ChatKit (Widget) -->
-  <script src="https://cdn.platform.openai.com/deployments/chatkit/chatkit.js" async></script>
   <style>
     /* Fix ChatKit: evita truncado por estilos globales */
     openai-chatkit button,
@@ -591,9 +590,133 @@ src="https://www.facebook.com/tr?id=2463314630795456&ev=PageView&noscript=1"
     <h2>Verificación rápida (2–3 min)</h2>
     <p>Responde a unas preguntas y, si encajas, te abrimos la agenda con nuestros próximos huecos disponibles.</p>
 
-    <openai-chatkit id="my-chat"
-      style="height:650px; max-width:420px; margin:20px auto 0; border-radius:18px; overflow:hidden; display:block;">
-    </openai-chatkit>
+    
+<form id="aurum-qualifier-form" class="qualifier-form" autocomplete="on">
+  <div class="qualifier-step is-active" data-step="1">
+    <label>¿Qué tipo de negocio sois?</label>
+    <select name="tipo_joyeria" required>
+      <option value="">Selecciona una opción</option>
+      <option value="alta joyeria">Alta joyería</option>
+      <option value="relojeria">Relojería</option>
+      <option value="alianzas">Alianzas</option>
+      <option value="taller personalizado">Taller / personalizado</option>
+      <option value="otro">Otro</option>
+    </select>
+  </div>
+
+  <div class="qualifier-step" data-step="2">
+    <label>¿Cómo te llamas?</label>
+    <input name="nombre" type="text" placeholder="Tu nombre" required>
+  </div>
+
+  <div class="qualifier-step" data-step="3">
+    <label>Nombre de la marca o negocio</label>
+    <input name="nombre_joyeria" type="text" placeholder="Ej. Joyería María" required>
+  </div>
+
+  <div class="qualifier-step" data-step="4">
+    <label>WhatsApp de contacto</label>
+    <input name="telefono" type="tel" placeholder="+34 600 000 000">
+    <small>Lo usamos solo para coordinar la sesión si encaja.</small>
+  </div>
+
+  <div class="qualifier-step" data-step="5">
+    <label>¿En qué ciudad operáis?</label>
+    <input name="ubicacion_joyeria" type="text" placeholder="Ej. Valencia, Madrid, Marbella..." required>
+  </div>
+
+  <div class="qualifier-step" data-step="6">
+    <label>¿Vendéis en tienda física, online o ambas?</label>
+    <select name="canal_venta" required>
+      <option value="">Selecciona una opción</option>
+      <option value="tienda fisica">Tienda física</option>
+      <option value="online">Online</option>
+      <option value="ambas">Ambas</option>
+    </select>
+  </div>
+
+  <div class="qualifier-step" data-step="7">
+    <label>¿Qué queréis conseguir ahora mismo?</label>
+    <select name="objetivo_principal" required>
+      <option value="">Selecciona una opción</option>
+      <option value="mas citas">Más citas</option>
+      <option value="mas ventas">Más ventas</option>
+      <option value="lanzar coleccion">Lanzar colección</option>
+      <option value="clientes mayor valor">Clientes de mayor valor</option>
+      <option value="solo seguidores">Solo seguidores / branding</option>
+      <option value="otro">Otro</option>
+    </select>
+  </div>
+
+  <div class="qualifier-step" data-step="8">
+    <label>Ticket medio aproximado</label>
+    <select name="ticket_medio" required>
+      <option value="">Selecciona una opción</option>
+      <option value="200-500">200–500€</option>
+      <option value="500-1500">500–1500€</option>
+      <option value="1500-5000">1500–5000€</option>
+      <option value="5000+">5000€+</option>
+      <option value="mixto">Mixto</option>
+    </select>
+  </div>
+
+  <div class="qualifier-step" data-step="9">
+    <label>¿Cómo captáis clientes hoy?</label>
+    <select name="captacion_actual" required>
+      <option value="">Selecciona una opción</option>
+      <option value="organico">Orgánico</option>
+      <option value="recomendaciones">Recomendaciones</option>
+      <option value="ads">Anuncios</option>
+      <option value="marketplace">Marketplace</option>
+      <option value="ninguno">Ninguno</option>
+    </select>
+  </div>
+
+  <div class="qualifier-step" data-step="10">
+    <label>Presupuesto mensual para anuncios</label>
+    <select name="presupuesto_ads" required>
+      <option value="">Selecciona una opción</option>
+      <option value="0">0€</option>
+      <option value="300-1000">300–1000€</option>
+      <option value="1000-3000">1000–3000€</option>
+      <option value="3000+">3000€+</option>
+      <option value="no lo se">No lo sé</option>
+    </select>
+  </div>
+
+  <div class="qualifier-step" data-step="11">
+    <label>¿Quién decide y en qué plazo queréis moverlo?</label>
+    <div class="qualifier-grid">
+      <select name="decisor_proyecto" required>
+        <option value="">Decisor</option>
+        <option value="yo">Yo</option>
+        <option value="socio">Socio</option>
+        <option value="gerente">Gerente</option>
+        <option value="otro">Otro</option>
+      </select>
+
+      <select name="plazo" required>
+        <option value="">Plazo</option>
+        <option value="esta semana">Esta semana</option>
+        <option value="2-4 semanas">2–4 semanas</option>
+        <option value="mas de 1 mes">Más de 1 mes</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="qualifier-actions">
+    <button type="button" class="qualifier-back" data-qualifier-back disabled>Anterior</button>
+    <button type="button" class="qualifier-next" data-qualifier-next>Siguiente</button>
+    <button type="submit" class="qualifier-submit">Ver huecos disponibles</button>
+  </div>
+
+  <div class="qualifier-progress">
+    <span data-qualifier-current>1</span>/11
+  </div>
+
+  <p class="qualifier-result" data-qualifier-result></p>
+</form>
+
 
 
     <p class="form-note" style="max-width:720px; margin:14px auto 0;">
@@ -1210,6 +1333,193 @@ src="https://www.facebook.com/tr?id=2463314630795456&ev=PageView&noscript=1"
 })();
 </script>
 <!-- End Inline VSL player -->
+
+
+<!-- Aurum deterministic qualifier form -->
+<script>
+(function () {
+  const form = document.getElementById("aurum-qualifier-form");
+  if (!form) return;
+
+  const steps = Array.from(form.querySelectorAll(".qualifier-step"));
+  const backBtn = form.querySelector("[data-qualifier-back]");
+  const nextBtn = form.querySelector("[data-qualifier-next]");
+  const submitBtn = form.querySelector(".qualifier-submit");
+  const currentLabel = form.querySelector("[data-qualifier-current]");
+  const result = form.querySelector("[data-qualifier-result]");
+
+  let current = 0;
+
+  function getStoredTracking() {
+    const keys = [
+      "utm_source",
+      "utm_medium",
+      "utm_campaign",
+      "utm_content",
+      "utm_term",
+      "campaign_id",
+      "adset_id",
+      "ad_id",
+      "placement",
+      "aurum_user_id"
+    ];
+
+    const out = {};
+    keys.forEach(function (key) {
+      const value = localStorage.getItem(key) || sessionStorage.getItem(key);
+      if (value) out[key] = value;
+    });
+
+    return out;
+  }
+
+  function updateStep() {
+    steps.forEach(function (step, index) {
+      step.classList.toggle("is-active", index === current);
+    });
+
+    backBtn.disabled = current === 0;
+    nextBtn.style.display = current === steps.length - 1 ? "none" : "inline-flex";
+    submitBtn.style.display = current === steps.length - 1 ? "inline-flex" : "none";
+    currentLabel.textContent = String(current + 1);
+    result.textContent = "";
+  }
+
+  function currentStepIsValid() {
+    const active = steps[current];
+    const fields = Array.from(active.querySelectorAll("input, select, textarea"));
+
+    for (const field of fields) {
+      if (!field.checkValidity()) {
+        field.reportValidity();
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  function getPayload() {
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    return {
+      qualified: false,
+      nombre: data.nombre || "no indicado",
+      nombre_joyeria: data.nombre_joyeria || "no indicado",
+      telefono: data.telefono || "no indicado",
+      tipo_joyeria: data.tipo_joyeria || "no indicado",
+      ubicacion_joyeria: data.ubicacion_joyeria || "no indicado",
+      canal_venta: data.canal_venta || "no indicado",
+      objetivo_principal: data.objetivo_principal || "no indicado",
+      ticket_medio: data.ticket_medio || "no indicado",
+      captacion_actual: data.captacion_actual || "no indicado",
+      presupuesto_ads: data.presupuesto_ads || "no indicado",
+      decisor_proyecto: data.decisor_proyecto || "no indicado",
+      plazo: data.plazo || "no indicado",
+      source: "landing_qualifier_form",
+      tracking: getStoredTracking()
+    };
+  }
+
+  function qualifies(payload) {
+    const validBusiness = !["otro", "no indicado"].includes(payload.tipo_joyeria);
+    const validObjective = !["solo seguidores", "no indicado"].includes(payload.objetivo_principal);
+    const validBudget = !["0", "no indicado"].includes(payload.presupuesto_ads);
+    const validDecision = !["no indicado"].includes(payload.decisor_proyecto);
+
+    return validBusiness && validObjective && validBudget && validDecision;
+  }
+
+  function trackQualification(payload) {
+    try {
+      if (window.fbq) {
+        window.fbq("track", "Lead", {
+          content_name: "Aurum Qualifier Form",
+          content_category: "Aurum Studio Funnel",
+          funnel: "joyerias_agencia_marketing",
+          ...payload.tracking
+        });
+
+        window.fbq("trackCustom", "QualifiedLead", {
+          ...payload,
+          tracking: undefined,
+          ...payload.tracking
+        });
+
+        window.fbq("trackCustom", "OpenAgenda", {
+          source: "landing_qualifier_form",
+          qualified: true,
+          ...payload.tracking
+        });
+      }
+    } catch (e) {}
+  }
+
+  function openAgenda(payload) {
+    localStorage.setItem("aurum_qualifier_payload", JSON.stringify(payload));
+
+    if (typeof window.__aurumOpenAgenda === "function") {
+      window.__aurumOpenAgenda(payload);
+      return;
+    }
+
+    window.location.href = "/agenda.html?qualified=1&source=landing_qualifier_form";
+  }
+
+  nextBtn.addEventListener("click", function () {
+    if (!currentStepIsValid()) return;
+    current = Math.min(current + 1, steps.length - 1);
+    updateStep();
+  });
+
+  backBtn.addEventListener("click", function () {
+    current = Math.max(current - 1, 0);
+    updateStep();
+  });
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    if (!currentStepIsValid()) return;
+
+    const payload = getPayload();
+    payload.qualified = qualifies(payload);
+    payload.reason = payload.qualified
+      ? "Negocio del sector joyero con intención comercial y capacidad mínima de inversión."
+      : "No cumple criterios mínimos de encaje para abrir agenda.";
+
+    localStorage.setItem("aurum_qualifier_payload", JSON.stringify(payload));
+
+    if (!payload.qualified) {
+      result.textContent = "Ahora mismo no encaja. Si cambia tu situación, vuelve a intentarlo.";
+      result.classList.add("is-negative");
+
+      try {
+        if (window.fbq) {
+          window.fbq("trackCustom", "NotQualifiedLead", {
+            source: "landing_qualifier_form",
+            reason: payload.reason,
+            ...payload.tracking
+          });
+        }
+      } catch (e) {}
+
+      return;
+    }
+
+    result.textContent = "Encajas. Abriendo agenda...";
+    result.classList.remove("is-negative");
+    trackQualification(payload);
+
+    setTimeout(function () {
+      openAgenda(payload);
+    }, 500);
+  });
+
+  updateStep();
+})();
+</script>
+<!-- End Aurum deterministic qualifier form -->
 
 </body>
 
