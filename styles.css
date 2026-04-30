@@ -5687,25 +5687,53 @@ body.legal-page ol {
 /* === END FORCE VSL INLINE SIZE FINAL === */
 
 
+
 /* === Aurum Qualifier Form === */
 
 .qualifier-form {
-  width: min(420px, 92vw);
-  min-height: 480px;
+  position: relative;
+  overflow: hidden;
+  width: min(480px, 92vw);
+  min-height: 540px;
   margin: 0 auto;
-  padding: 28px;
-  border-radius: 28px;
-  border: 1px solid rgba(214, 181, 109, .24);
+  padding: 34px 28px 24px;
+  border-radius: 30px;
+  border: 1px solid rgba(214, 181, 109, 0.18);
   background:
-    radial-gradient(circle at top left, rgba(214,181,109,.14), transparent 35%),
-    linear-gradient(180deg, rgba(20,20,24,.96), rgba(8,8,10,.96));
-  box-shadow: 0 28px 90px rgba(0,0,0,.42);
+    radial-gradient(circle at top left, rgba(214,181,109,0.18), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(214,181,109,0.08), transparent 28%),
+    linear-gradient(180deg, rgba(16,16,20,0.96), rgba(7,7,10,0.98));
+  box-shadow:
+    0 30px 80px rgba(0,0,0,0.42),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  backdrop-filter: blur(12px);
   color: #f6f3ee;
+}
+
+.qualifier-form::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.03), transparent 18%, transparent 80%, rgba(214,181,109,0.04));
+}
+
+.qualifier-form::after {
+  content: "";
+  position: absolute;
+  top: -120px;
+  right: -80px;
+  width: 240px;
+  height: 240px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(214,181,109,0.12), transparent 65%);
+  pointer-events: none;
 }
 
 .qualifier-step {
   display: none;
-  min-height: 255px;
+  min-height: 285px;
 }
 
 .qualifier-step.is-active {
@@ -5714,24 +5742,42 @@ body.legal-page ol {
 
 .qualifier-step label {
   display: block;
-  margin-bottom: 14px;
+  margin-bottom: 18px;
+  text-align: center;
   font-family: "Playfair Display", serif;
-  font-size: 25px;
-  line-height: 1.12;
+  font-size: 36px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
   color: #f6f3ee;
+  text-wrap: balance;
 }
 
 .qualifier-step input,
-.qualifier-step select {
+.qualifier-step select,
+.qualifier-step textarea {
   width: 100%;
-  height: 52px;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(255,255,255,.055);
+  height: 58px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.045);
   color: #f6f3ee;
-  padding: 0 15px;
+  padding: 0 16px;
   font-size: 15px;
   outline: none;
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease, background .18s ease;
+}
+
+.qualifier-step textarea {
+  min-height: 120px;
+  height: auto;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  resize: vertical;
+}
+
+.qualifier-step input::placeholder,
+.qualifier-step textarea::placeholder {
+  color: rgba(246,243,238,0.42);
 }
 
 .qualifier-step select option {
@@ -5739,16 +5785,20 @@ body.legal-page ol {
 }
 
 .qualifier-step input:focus,
-.qualifier-step select:focus {
-  border-color: rgba(214,181,109,.72);
-  box-shadow: 0 0 0 4px rgba(214,181,109,.10);
+.qualifier-step select:focus,
+.qualifier-step textarea:focus {
+  border-color: rgba(214,181,109,0.70);
+  box-shadow: 0 0 0 4px rgba(214,181,109,0.10);
+  background: rgba(255,255,255,0.06);
 }
 
 .qualifier-step small {
   display: block;
-  margin-top: 10px;
-  color: rgba(246,243,238,.58);
-  font-size: 13px;
+  margin-top: 12px;
+  text-align: center;
+  color: rgba(246,243,238,0.52);
+  font-size: 12.5px;
+  line-height: 1.45;
 }
 
 .qualifier-grid {
@@ -5759,27 +5809,37 @@ body.legal-page ol {
 
 .qualifier-actions {
   display: flex;
+  align-items: center;
   gap: 10px;
-  margin-top: 22px;
+  margin-top: 18px;
 }
 
 .qualifier-actions button {
-  height: 46px;
+  height: 50px;
   border-radius: 999px;
-  padding: 0 18px;
-  border: 1px solid rgba(214,181,109,.32);
+  padding: 0 20px;
+  border: 1px solid rgba(214,181,109,0.22);
   cursor: pointer;
-  font-weight: 800;
+  font-weight: 700;
+  font-size: 14px;
+  transition: transform .16s ease, box-shadow .16s ease, opacity .16s ease, background .16s ease;
+}
+
+.qualifier-actions button:hover {
+  transform: translateY(-1px);
 }
 
 .qualifier-back {
-  background: transparent;
-  color: #f6f3ee;
+  min-width: 96px;
+  background: rgba(255,255,255,0.03);
+  color: rgba(246,243,238,0.78);
+  border-color: rgba(255,255,255,0.08);
 }
 
 .qualifier-back:disabled {
-  opacity: .35;
+  opacity: 0.28;
   cursor: not-allowed;
+  transform: none;
 }
 
 .qualifier-next,
@@ -5787,6 +5847,12 @@ body.legal-page ol {
   flex: 1;
   background: linear-gradient(135deg, #f1d18a, #d6b56d);
   color: #09090b;
+  box-shadow: 0 10px 30px rgba(214,181,109,0.18);
+}
+
+.qualifier-next:hover,
+.qualifier-submit:hover {
+  box-shadow: 0 14px 34px rgba(214,181,109,0.22);
 }
 
 .qualifier-submit {
@@ -5794,35 +5860,75 @@ body.legal-page ol {
 }
 
 .qualifier-progress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 18px;
-  color: rgba(246,243,238,.56);
-  font-size: 13px;
+  color: rgba(246,243,238,0.56);
+  font-size: 12.5px;
   text-align: center;
+}
+
+.qualifier-progress span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 30px;
+  margin-right: 8px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(214,181,109,0.18);
+  background: rgba(255,255,255,0.04);
+  color: #f1d18a;
+  font-weight: 700;
 }
 
 .qualifier-result {
-  margin-top: 18px;
+  margin-top: 16px;
+  text-align: center;
   color: #d6b56d;
   font-weight: 700;
-  line-height: 1.45;
-  text-align: center;
+  line-height: 1.5;
 }
 
 .qualifier-result.is-negative {
-  color: rgba(246,243,238,.72);
+  color: rgba(246,243,238,0.72);
+}
+
+@media (min-width: 761px) {
+  .qualifier-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 @media (max-width: 760px) {
   .qualifier-form {
     width: 100%;
-    min-height: 440px;
-    padding: 22px;
+    min-height: 500px;
+    padding: 26px 20px 22px;
+    border-radius: 24px;
+  }
+
+  .qualifier-step {
+    min-height: 255px;
   }
 
   .qualifier-step label {
-    font-size: 22px;
+    font-size: 29px;
+  }
+
+  .qualifier-actions {
+    gap: 8px;
+  }
+
+  .qualifier-actions button {
+    height: 48px;
+    font-size: 13px;
+    padding: 0 16px;
   }
 }
 
 /* === End Aurum Qualifier Form === */
+
 
