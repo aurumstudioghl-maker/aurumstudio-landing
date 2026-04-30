@@ -5267,3 +5267,55 @@ body.legal-page ol {
 
 /* === End VSL Vimeo responsive fix === */
 
+
+/* === VSL modal clean final === */
+
+/* Quita el recuadro exterior del modal y centra el vídeo */
+.vsl-modal__dialog {
+  width: auto !important;
+  max-width: none !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* El vídeo queda como pieza principal, sin caja redundante */
+.vsl-modal .vsl-embed {
+  width: min(920px, 90vw) !important;
+  aspect-ratio: 16 / 9 !important;
+  height: auto !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+  border-radius: 18px !important;
+}
+
+/* El iframe ocupa todo el espacio disponible */
+.vsl-modal iframe[data-vsl-iframe] {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border: 0 !important;
+  display: block !important;
+  border-radius: 18px !important;
+  background: #000 !important;
+}
+
+/* Botón de cerrar recolocado para que no rompa el encuadre */
+.vsl-modal__close {
+  top: -18px !important;
+  right: -18px !important;
+  z-index: 5 !important;
+}
+
+/* === End VSL modal clean final === */
+
