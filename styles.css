@@ -5319,3 +5319,154 @@ body.legal-page ol {
 
 /* === End VSL modal clean final === */
 
+
+/* === VSL final clean preview + modal === */
+
+/* Preview limpio: sin texto, sin etiqueta, con imagen centrada */
+.vsl-thumb {
+  position: relative !important;
+  width: 100% !important;
+  min-height: 230px !important;
+  aspect-ratio: 16 / 9 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #050506 !important;
+  border-radius: 22px !important;
+  border: 1px solid rgba(214, 181, 109, .22) !important;
+}
+
+/* Miniatura de Vimeo centrada */
+.vsl-thumb::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-image:
+    linear-gradient(90deg, rgba(5,5,6,.72), rgba(5,5,6,.18), rgba(5,5,6,.72)),
+    url("https://vumbnail.com/1188030306.jpg") !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  opacity: .9 !important;
+  transform: scale(1.02) !important;
+}
+
+/* Capa elegante encima del preview */
+.vsl-thumb::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(214,181,109,.10), transparent 32%),
+    linear-gradient(180deg, rgba(0,0,0,.04), rgba(0,0,0,.55)) !important;
+}
+
+/* Oculta cualquier texto antiguo del preview */
+.vsl-thumb .vsl-badge,
+.vsl-thumb .vsl-meta,
+.vsl-thumb strong,
+.vsl-thumb span:not(.vsl-play) {
+  display: none !important;
+}
+
+/* Botón play centrado y limpio */
+.vsl-thumb .vsl-play {
+  position: absolute !important;
+  z-index: 5 !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 68px !important;
+  height: 68px !important;
+  border-radius: 999px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(214, 181, 109, .92) !important;
+  border: 1px solid rgba(255, 238, 190, .45) !important;
+  box-shadow: 0 18px 50px rgba(0,0,0,.42) !important;
+}
+
+.vsl-thumb .vsl-play::before {
+  content: "" !important;
+  width: 0 !important;
+  height: 0 !important;
+  border-top: 12px solid transparent !important;
+  border-bottom: 12px solid transparent !important;
+  border-left: 18px solid #15110a !important;
+  margin-left: 5px !important;
+}
+
+/* Modal sin recuadro exterior */
+.vsl-modal__dialog,
+.vsl-modal__content,
+.vsl-modal__body {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  outline: 0 !important;
+}
+
+/* Vídeo centrado como única pieza visible */
+.vsl-modal .vsl-embed {
+  position: relative !important;
+  width: min(980px, 92vw) !important;
+  aspect-ratio: 16 / 9 !important;
+  height: auto !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border-radius: 18px !important;
+}
+
+.vsl-modal .vsl-embed::before,
+.vsl-modal .vsl-embed::after,
+.vsl-modal__dialog::before,
+.vsl-modal__dialog::after {
+  content: none !important;
+  display: none !important;
+}
+
+.vsl-modal iframe[data-vsl-iframe] {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border: 0 !important;
+  outline: 0 !important;
+  display: block !important;
+  background: #000 !important;
+  border-radius: 18px !important;
+}
+
+/* Cerrar flotante, sin crear caja visual */
+.vsl-modal__close {
+  top: -20px !important;
+  right: -20px !important;
+  z-index: 10 !important;
+}
+
+@media (max-width: 760px) {
+  .vsl-thumb {
+    min-height: 205px !important;
+  }
+
+  .vsl-thumb .vsl-play {
+    width: 58px !important;
+    height: 58px !important;
+  }
+
+  .vsl-modal .vsl-embed {
+    width: 94vw !important;
+  }
+}
+
+/* === End VSL final clean preview + modal === */
+
