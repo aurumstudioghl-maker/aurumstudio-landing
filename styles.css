@@ -5620,3 +5620,69 @@ body.legal-page ol {
 
 /* === End Inline VSL player === */
 
+
+/* === FORCE VSL INLINE SIZE FINAL === */
+
+.hero-split .vsl-wrap {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.hero-split .vsl-wrap .vsl-inline {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 100% !important;
+  height: auto !important;
+  min-height: 270px !important;
+  aspect-ratio: 16 / 9 !important;
+  display: block !important;
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 22px !important;
+  border: 1px solid rgba(214, 181, 109, .22) !important;
+  background: #050506 !important;
+  box-shadow: 0 24px 80px rgba(0,0,0,.35) !important;
+}
+
+.hero-split .vsl-wrap .vsl-inline iframe,
+.hero-split .vsl-wrap .vsl-inline .vsl-inline-frame {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  max-height: 100% !important;
+  display: block !important;
+  border: 0 !important;
+  border-radius: 22px !important;
+  background: #000 !important;
+}
+
+.hero-split .vsl-wrap .vsl-inline .vsl-thumb {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 270px !important;
+  aspect-ratio: 16 / 9 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 22px !important;
+}
+
+.hero-split .vsl-wrap .vsl-inline .vsl-play {
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+@media (max-width: 760px) {
+  .hero-split .vsl-wrap .vsl-inline,
+  .hero-split .vsl-wrap .vsl-inline .vsl-thumb {
+    min-height: 205px !important;
+  }
+}
+
+/* === END FORCE VSL INLINE SIZE FINAL === */
+
