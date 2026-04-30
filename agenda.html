@@ -322,8 +322,7 @@
     }
 
     function isUnlocked() {
-      const payload = getPreselection();
-      return localStorage.getItem("aurum_agenda_unlocked") === "true" || qualifies(payload);
+      return true;
     }
 
     function renderLocked() {
@@ -397,8 +396,38 @@
       setTimeout(init, 1600);
     }
 
-    if (isUnlocked()) renderUnlocked();
-    else renderLocked();
+    renderUnlocked();
   </script>
+
+<!-- AURUM_AGENDA_ALWAYS_OPEN_START -->
+<script>
+(function () {
+  try {
+    localStorage.setItem("aurum_agenda_unlocked", "true");
+    localStorage.setItem("aurum_agenda_unlocked_at", new Date().toISOString());
+  } catch(e) {}
+
+  function forceAgendaOpen() {
+    if (typeof renderUnlocked === "function") {
+      renderUnlocked();
+    }
+
+    Array.from(document.querySelectorAll("a,button")).forEach(function(el){
+      var txt = (el.textContent || "").toLowerCase();
+      if (txt.includes("ir a la verificación") || txt.includes("primero completa")) {
+        el.style.display = "none";
+      }
+    });
+  }
+
+  if (document.readyState !== "loading") forceAgendaOpen();
+  else document.addEventListener("DOMContentLoaded", forceAgendaOpen);
+
+  setTimeout(forceAgendaOpen, 500);
+  setTimeout(forceAgendaOpen, 1200);
+})();
+</script>
+<!-- AURUM_AGENDA_ALWAYS_OPEN_END -->
+
 </body>
 </html>
