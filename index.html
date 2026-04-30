@@ -216,9 +216,13 @@ src="https://www.facebook.com/tr?id=2463314630795456&ev=PageView&noscript=1"
       <div class="hero-split hero-split--founder">
         <div class="hero-left-panel">
           <div class="vsl-wrap" id="vsl">
-            <button class="vsl-thumb" type="button" data-track="vsl_play" data-vsl-open>
-            <span class="vsl-play" aria-hidden="true"></span>
-          </button>
+            
+<div class="vsl-inline" data-vsl-inline>
+  <button class="vsl-thumb vsl-inline-trigger" type="button" data-vsl-inline-play aria-label="Reproducir VSL">
+    <span class="vsl-play" aria-hidden="true"></span>
+  </button>
+</div>
+
 
             <p class="vsl-note">
               *En joyería de alto ticket, la venta se gana antes de hablar de números.
@@ -1143,6 +1147,69 @@ src="https://www.facebook.com/tr?id=2463314630795456&ev=PageView&noscript=1"
 })();
 </script>
 <!-- End Fill GHL hidden fields with stored UTMs -->
+
+
+<!-- Inline VSL player -->
+<script>
+(function () {
+  const VIMEO_ID = "1188030306";
+  const VSL_PLAYED_KEY = "aurum_vsl_played_v1";
+
+  function trackVslPlay() {
+    if (sessionStorage.getItem(VSL_PLAYED_KEY)) return;
+    sessionStorage.setItem(VSL_PLAYED_KEY, "1");
+
+    try {
+      if (window.fbq) {
+        window.fbq("track", "ViewContent", {
+          content_name: "VSL Aurum Studio",
+          content_category: "Aurum Studio Funnel",
+          funnel: "joyerias_agencia_marketing",
+          video_provider: "vimeo",
+          video_id: VIMEO_ID
+        });
+      }
+    } catch (e) {}
+
+    try {
+      if (window.fbq) {
+        window.fbq("trackCustom", "vsl_play", {
+          content_name: "VSL Aurum Studio",
+          video_provider: "vimeo",
+          video_id: VIMEO_ID
+        });
+      }
+    } catch (e) {}
+  }
+
+  function mountInlineVsl() {
+    const wrap = document.querySelector("[data-vsl-inline]");
+    if (!wrap) return;
+
+    trackVslPlay();
+
+    wrap.innerHTML = `
+      <iframe
+        class="vsl-inline-frame"
+        src="https://player.vimeo.com/video/${VIMEO_ID}?autoplay=1&controls=1&title=0&byline=0&portrait=0&badge=0&dnt=1&pip=0"
+        title="VSL Aurum Studio"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+        allowfullscreen>
+      </iframe>
+    `;
+  }
+
+  document.addEventListener("click", function (event) {
+    const trigger = event.target.closest("[data-vsl-inline-play]");
+    if (!trigger) return;
+
+    event.preventDefault();
+    mountInlineVsl();
+  });
+})();
+</script>
+<!-- End Inline VSL player -->
 
 </body>
 

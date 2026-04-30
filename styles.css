@@ -5569,3 +5569,54 @@ body.legal-page ol {
 
 /* === End VSL definitive clean modal === */
 
+
+/* === Inline VSL player === */
+
+.vsl-inline {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 230px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #050506;
+  border: 1px solid rgba(214, 181, 109, .22);
+}
+
+.vsl-inline .vsl-thumb {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 230px !important;
+  aspect-ratio: 16 / 9 !important;
+  border: 0 !important;
+  border-radius: 22px !important;
+}
+
+.vsl-inline-frame {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  border: 0;
+  background: #000;
+  border-radius: 22px;
+}
+
+.vsl-inline .vsl-thumb::before {
+  background-position: center center !important;
+}
+
+.vsl-inline .vsl-play {
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+@media (max-width: 760px) {
+  .vsl-inline,
+  .vsl-inline .vsl-thumb {
+    min-height: 205px !important;
+  }
+}
+
+/* === End Inline VSL player === */
+
