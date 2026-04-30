@@ -5193,3 +5193,77 @@ body.legal-page ol {
   background: transparent !important;
   box-shadow: none !important;
 }
+
+/* === VSL Vimeo responsive fix === */
+
+/* Preview de la VSL en hero */
+.vsl-thumb {
+  position: relative !important;
+  overflow: hidden !important;
+  min-height: 235px !important;
+  background: #060608 !important;
+}
+
+.vsl-thumb::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(90deg, rgba(6,6,8,.78), rgba(6,6,8,.18), rgba(6,6,8,.82)),
+    url("https://vumbnail.com/1188030306.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: .58;
+  transform: scale(1.03);
+}
+
+.vsl-thumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(214,181,109,.18), transparent 34%),
+    linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.72));
+}
+
+.vsl-thumb > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Modal de la VSL */
+.vsl-modal .vsl-embed {
+  position: relative !important;
+  width: min(920px, 88vw) !important;
+  aspect-ratio: 16 / 9 !important;
+  height: auto !important;
+  margin: 0 auto !important;
+  overflow: hidden !important;
+  border-radius: 22px !important;
+  background: #000 !important;
+}
+
+.vsl-modal .vsl-embed iframe,
+.vsl-modal iframe[data-vsl-iframe] {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  border: 0 !important;
+  background: #000 !important;
+}
+
+@media (max-width: 760px) {
+  .vsl-thumb {
+    min-height: 210px !important;
+  }
+
+  .vsl-modal .vsl-embed {
+    width: 92vw !important;
+    aspect-ratio: 16 / 9 !important;
+  }
+}
+
+/* === End VSL Vimeo responsive fix === */
+
