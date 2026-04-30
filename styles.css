@@ -5687,501 +5687,209 @@ body.legal-page ol {
 /* === END FORCE VSL INLINE SIZE FINAL === */
 
 
-
-/* === Aurum Qualifier Form === */
-
-.qualifier-form {
-  position: relative;
-  overflow: hidden;
-  width: min(480px, 92vw);
-  min-height: 540px;
-  margin: 0 auto;
-  padding: 34px 28px 24px;
-  border-radius: 30px;
-  border: 1px solid rgba(214, 181, 109, 0.18);
-  background:
-    radial-gradient(circle at top left, rgba(214,181,109,0.18), transparent 34%),
-    radial-gradient(circle at bottom right, rgba(214,181,109,0.08), transparent 28%),
-    linear-gradient(180deg, rgba(16,16,20,0.96), rgba(7,7,10,0.98));
-  box-shadow:
-    0 30px 80px rgba(0,0,0,0.42),
-    inset 0 1px 0 rgba(255,255,255,0.04);
-  backdrop-filter: blur(12px);
-  color: #f6f3ee;
-}
-
-.qualifier-form::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(135deg, rgba(255,255,255,0.03), transparent 18%, transparent 80%, rgba(214,181,109,0.04));
-}
-
-.qualifier-form::after {
-  content: "";
-  position: absolute;
-  top: -120px;
-  right: -80px;
-  width: 240px;
-  height: 240px;
-  border-radius: 999px;
-  background: radial-gradient(circle, rgba(214,181,109,0.12), transparent 65%);
-  pointer-events: none;
-}
-
-.qualifier-step {
-  display: none;
-  min-height: 285px;
-}
-
-.qualifier-step.is-active {
-  display: block;
-}
-
-.qualifier-step label {
-  display: block;
-  margin-bottom: 18px;
-  text-align: center;
-  font-family: "Playfair Display", serif;
-  font-size: 36px;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  color: #f6f3ee;
-  text-wrap: balance;
-}
-
-.qualifier-step input,
-.qualifier-step select,
-.qualifier-step textarea {
-  width: 100%;
-  height: 58px;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.045);
-  color: #f6f3ee;
-  padding: 0 16px;
-  font-size: 15px;
-  outline: none;
-  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease, background .18s ease;
-}
-
-.qualifier-step textarea {
-  min-height: 120px;
-  height: auto;
-  padding-top: 14px;
-  padding-bottom: 14px;
-  resize: vertical;
-}
-
-.qualifier-step input::placeholder,
-.qualifier-step textarea::placeholder {
-  color: rgba(246,243,238,0.42);
-}
-
-.qualifier-step select option {
-  color: #101014;
-}
-
-.qualifier-step input:focus,
-.qualifier-step select:focus,
-.qualifier-step textarea:focus {
-  border-color: rgba(214,181,109,0.70);
-  box-shadow: 0 0 0 4px rgba(214,181,109,0.10);
-  background: rgba(255,255,255,0.06);
-}
-
-.qualifier-step small {
-  display: block;
-  margin-top: 12px;
-  text-align: center;
-  color: rgba(246,243,238,0.52);
-  font-size: 12.5px;
-  line-height: 1.45;
-}
-
-.qualifier-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-}
-
-.qualifier-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 18px;
-}
-
-.qualifier-actions button {
-  height: 50px;
-  border-radius: 999px;
-  padding: 0 20px;
-  border: 1px solid rgba(214,181,109,0.22);
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 14px;
-  transition: transform .16s ease, box-shadow .16s ease, opacity .16s ease, background .16s ease;
-}
-
-.qualifier-actions button:hover {
-  transform: translateY(-1px);
-}
-
-.qualifier-back {
-  min-width: 96px;
-  background: rgba(255,255,255,0.03);
-  color: rgba(246,243,238,0.78);
-  border-color: rgba(255,255,255,0.08);
-}
-
-.qualifier-back:disabled {
-  opacity: 0.28;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.qualifier-next,
-.qualifier-submit {
-  flex: 1;
-  background: linear-gradient(135deg, #f1d18a, #d6b56d);
-  color: #09090b;
-  box-shadow: 0 10px 30px rgba(214,181,109,0.18);
-}
-
-.qualifier-next:hover,
-.qualifier-submit:hover {
-  box-shadow: 0 14px 34px rgba(214,181,109,0.22);
-}
-
-.qualifier-submit {
-  display: none;
-}
-
-.qualifier-progress {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 18px;
-  color: rgba(246,243,238,0.56);
-  font-size: 12.5px;
-  text-align: center;
-}
-
-.qualifier-progress span {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 30px;
-  height: 30px;
-  margin-right: 8px;
-  padding: 0 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(214,181,109,0.18);
-  background: rgba(255,255,255,0.04);
-  color: #f1d18a;
-  font-weight: 700;
-}
-
-.qualifier-result {
-  margin-top: 16px;
-  text-align: center;
-  color: #d6b56d;
-  font-weight: 700;
-  line-height: 1.5;
-}
-
-.qualifier-result.is-negative {
-  color: rgba(246,243,238,0.72);
-}
-
-@media (min-width: 761px) {
-  .qualifier-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 760px) {
-  .qualifier-form {
-    width: 100%;
-    min-height: 500px;
-    padding: 26px 20px 22px;
-    border-radius: 24px;
-  }
-
-  .qualifier-step {
-    min-height: 255px;
-  }
-
-  .qualifier-step label {
-    font-size: 29px;
-  }
-
-  .qualifier-actions {
-    gap: 8px;
-  }
-
-  .qualifier-actions button {
-    height: 48px;
-    font-size: 13px;
-    padding: 0 16px;
-  }
-}
-
-/* === End Aurum Qualifier Form === */
-
-
-
-/* === Qualifier form polish fix === */
-
-.qualifier-form {
-  margin-top: 30px !important;
-  padding: 42px 30px 26px !important;
-  border-radius: 28px !important;
-  border: 1px solid rgba(214, 181, 109, 0.14) !important;
-  background:
-    radial-gradient(circle at top left, rgba(214,181,109,0.10), transparent 32%),
-    linear-gradient(180deg, rgba(12,12,16,0.96), rgba(7,7,10,0.98)) !important;
-  box-shadow:
-    0 24px 60px rgba(0,0,0,0.34),
-    inset 0 1px 0 rgba(255,255,255,0.03) !important;
-}
-
-.qualifier-step {
-  min-height: 250px !important;
-}
-
-.qualifier-step label {
-  margin-bottom: 20px !important;
-  font-size: 32px !important;
-  line-height: 1.12 !important;
-}
-
-.qualifier-step input,
-.qualifier-step select,
-.qualifier-step textarea {
-  border-radius: 20px !important;
-  border: 1px solid rgba(214,181,109,0.30) !important;
-  background: rgba(255,255,255,0.03) !important;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03) !important;
-}
-
-.qualifier-step input:focus,
-.qualifier-step select:focus,
-.qualifier-step textarea:focus {
-  border-color: rgba(214,181,109,0.58) !important;
-  box-shadow:
-    0 0 0 4px rgba(214,181,109,0.08),
-    inset 0 0 0 1px rgba(214,181,109,0.20) !important;
-}
-
-.qualifier-actions {
-  margin-top: 30px !important;
-  align-items: center !important;
-  gap: 14px !important;
-}
-
-.qualifier-actions button,
-.qualifier-back,
-.qualifier-next,
-.qualifier-submit {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-  line-height: 1 !important;
-  height: 56px !important;
-  padding: 0 24px !important;
-  font-size: 14px !important;
-  font-weight: 700 !important;
-}
-
-.qualifier-back {
-  min-width: 140px !important;
-}
-
-.qualifier-next,
-.qualifier-submit {
-  flex: 1 !important;
-}
-
-.qualifier-progress {
-  margin-top: 18px !important;
-  font-size: 13px !important;
-  color: rgba(246,243,238,0.62) !important;
-}
-
-@media (max-width: 760px) {
-  .qualifier-form {
-    margin-top: 24px !important;
-    padding: 30px 20px 22px !important;
-    border-radius: 24px !important;
-  }
-
-  .qualifier-step label {
-    font-size: 28px !important;
-  }
-
-  .qualifier-actions {
-    gap: 10px !important;
-  }
-
-  .qualifier-actions button,
-  .qualifier-back,
-  .qualifier-next,
-  .qualifier-submit {
-    height: 52px !important;
-    font-size: 13px !important;
-    padding: 0 18px !important;
-  }
-
-  .qualifier-back {
-    min-width: 110px !important;
-  }
-}
-
-/* === End qualifier form polish fix === */
-
-
-/* === QUALIFIER PREMIUM V2 FINAL === */
+/* === AURUM QUALIFIER FINAL DESIGN === */
 
 #aurum-qualifier-form.qualifier-form {
-  width: min(520px, 92vw) !important;
-  min-height: auto !important;
-  margin-top: 38px !important;
-  padding: 0 !important;
+  box-sizing: border-box !important;
+  width: min(560px, 92vw) !important;
+  min-height: 0 !important;
+  margin: 70px auto 0 !important;
+  padding: 30px !important;
   overflow: hidden !important;
-  border-radius: 32px !important;
-  border: 1px solid rgba(214,181,109,.20) !important;
+  border-radius: 30px !important;
+  border: 1px solid rgba(214, 181, 109, 0.18) !important;
   background:
-    linear-gradient(180deg, rgba(25,22,19,.96), rgba(8,8,11,.98)) !important;
+    radial-gradient(circle at 12% 0%, rgba(214,181,109,0.16), transparent 34%),
+    linear-gradient(180deg, rgba(18,17,18,0.98), rgba(7,7,10,0.98)) !important;
   box-shadow:
-    0 34px 90px rgba(0,0,0,.48),
-    inset 0 1px 0 rgba(255,255,255,.05) !important;
+    0 34px 90px rgba(0,0,0,0.46),
+    inset 0 1px 0 rgba(255,255,255,0.04) !important;
+  color: #f6f3ee !important;
+}
+
+#aurum-qualifier-form *,
+#aurum-qualifier-form *::before,
+#aurum-qualifier-form *::after {
+  box-sizing: border-box !important;
 }
 
 #aurum-qualifier-form::before,
 #aurum-qualifier-form::after {
   display: none !important;
+  content: none !important;
 }
 
-.qualifier-topline {
-  padding: 22px 28px 0 !important;
+#aurum-qualifier-form .qualifier-topline {
+  margin: 0 0 28px !important;
+  padding: 0 !important;
 }
 
-.qualifier-topline span {
+#aurum-qualifier-form .qualifier-topline span {
   display: block !important;
-  margin-bottom: 14px !important;
+  margin: 0 0 14px !important;
+  text-align: center !important;
   font-size: 11px !important;
   line-height: 1 !important;
-  letter-spacing: .18em !important;
+  letter-spacing: 0.18em !important;
   text-transform: uppercase !important;
-  color: rgba(241,209,138,.74) !important;
+  color: rgba(241,209,138,0.72) !important;
   font-weight: 800 !important;
 }
 
-.qualifier-bar {
+#aurum-qualifier-form .qualifier-bar {
   width: 100% !important;
-  height: 5px !important;
+  height: 4px !important;
   border-radius: 999px !important;
   overflow: hidden !important;
-  background: rgba(255,255,255,.075) !important;
+  background: rgba(255,255,255,0.07) !important;
 }
 
-.qualifier-bar i {
+#aurum-qualifier-form .qualifier-bar i {
   display: block !important;
-  width: 9% !important;
   height: 100% !important;
   border-radius: 999px !important;
   background: linear-gradient(90deg, #d6b56d, #f1d18a) !important;
-  transition: width .25s ease !important;
+  transition: width 0.25s ease !important;
 }
 
 #aurum-qualifier-form .qualifier-step {
-  min-height: auto !important;
-  padding: 34px 28px 22px !important;
+  display: none !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#aurum-qualifier-form .qualifier-step.is-active {
+  display: block !important;
 }
 
 #aurum-qualifier-form .qualifier-step label {
-  max-width: 430px !important;
+  display: block !important;
+  max-width: 460px !important;
   margin: 0 auto 24px !important;
+  padding: 0 !important;
   text-align: center !important;
-  font-size: 33px !important;
+  font-family: "Playfair Display", serif !important;
+  font-size: 34px !important;
   line-height: 1.08 !important;
-  letter-spacing: -.025em !important;
+  letter-spacing: -0.025em !important;
+  color: #f6f3ee !important;
 }
 
 #aurum-qualifier-form .qualifier-step input,
 #aurum-qualifier-form .qualifier-step select,
 #aurum-qualifier-form .qualifier-step textarea {
-  height: 60px !important;
+  width: 100% !important;
+  height: 58px !important;
+  margin: 0 !important;
+  padding: 0 18px !important;
   border-radius: 18px !important;
-  border: 1px solid rgba(255,255,255,.12) !important;
-  background: rgba(255,255,255,.055) !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  background: rgba(255,255,255,0.055) !important;
   color: #f6f3ee !important;
   font-size: 15px !important;
-  padding: 0 18px !important;
+  outline: none !important;
   box-shadow: none !important;
+}
+
+#aurum-qualifier-form .qualifier-step input::placeholder {
+  color: rgba(246,243,238,0.42) !important;
+}
+
+#aurum-qualifier-form .qualifier-step select option {
+  color: #111 !important;
 }
 
 #aurum-qualifier-form .qualifier-step input:focus,
 #aurum-qualifier-form .qualifier-step select:focus,
 #aurum-qualifier-form .qualifier-step textarea:focus {
-  border-color: rgba(241,209,138,.68) !important;
-  background: rgba(255,255,255,.07) !important;
-  box-shadow: 0 0 0 4px rgba(214,181,109,.09) !important;
+  border-color: rgba(241,209,138,0.66) !important;
+  background: rgba(255,255,255,0.07) !important;
+  box-shadow: 0 0 0 4px rgba(214,181,109,0.09) !important;
 }
 
-#aurum-qualifier-form .qualifier-actions {
-  margin: 0 !important;
-  padding: 0 28px 22px !important;
+#aurum-qualifier-form .qualifier-step small {
+  display: block !important;
+  margin-top: 10px !important;
+  text-align: center !important;
+  color: rgba(246,243,238,0.52) !important;
+  font-size: 12.5px !important;
+  line-height: 1.45 !important;
+}
+
+#aurum-qualifier-form .qualifier-grid {
   display: grid !important;
-  grid-template-columns: 130px 1fr !important;
+  grid-template-columns: 1fr 1fr !important;
   gap: 12px !important;
 }
 
+#aurum-qualifier-form .qualifier-actions {
+  display: grid !important;
+  grid-template-columns: 118px 1fr !important;
+  gap: 12px !important;
+  margin: 28px 0 0 !important;
+  padding: 0 !important;
+  align-items: center !important;
+}
+
 #aurum-qualifier-form .qualifier-actions button {
+  appearance: none !important;
   height: 54px !important;
+  margin: 0 !important;
+  padding: 0 22px !important;
   border-radius: 999px !important;
-  display: inline-flex !important;
+  display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  text-align: center !important;
   line-height: 1 !important;
-  padding: 0 20px !important;
   font-size: 14px !important;
   font-weight: 800 !important;
-  text-align: center !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  transform: none !important;
+}
+
+#aurum-qualifier-form .qualifier-next::before,
+#aurum-qualifier-form .qualifier-submit::before {
+  content: none !important;
+  display: none !important;
 }
 
 #aurum-qualifier-form .qualifier-back {
-  min-width: 0 !important;
   width: 100% !important;
-  background: rgba(255,255,255,.035) !important;
-  color: rgba(246,243,238,.74) !important;
-  border: 1px solid rgba(255,255,255,.10) !important;
+  min-width: 0 !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  background: rgba(255,255,255,0.035) !important;
+  color: rgba(246,243,238,0.72) !important;
 }
 
 #aurum-qualifier-form .qualifier-back:disabled {
-  opacity: .30 !important;
+  opacity: 0.28 !important;
+  cursor: not-allowed !important;
 }
 
 #aurum-qualifier-form .qualifier-next,
 #aurum-qualifier-form .qualifier-submit {
   width: 100% !important;
-  flex: none !important;
+  min-width: 0 !important;
+  border: 0 !important;
   background: linear-gradient(135deg, #f1d18a, #d6b56d) !important;
   color: #0a0908 !important;
-  border: 0 !important;
-  box-shadow: 0 16px 34px rgba(214,181,109,.20) !important;
+  box-shadow: 0 14px 34px rgba(214,181,109,0.20) !important;
+}
+
+#aurum-qualifier-form .qualifier-submit {
+  display: none;
 }
 
 #aurum-qualifier-form .qualifier-progress {
-  margin: 0 !important;
-  padding: 0 28px 28px !important;
+  margin: 22px 0 0 !important;
+  padding: 0 !important;
   text-align: center !important;
-  color: rgba(246,243,238,.50) !important;
+  color: rgba(246,243,238,0.52) !important;
   font-size: 12px !important;
+  line-height: 1 !important;
 }
 
 #aurum-qualifier-form .qualifier-progress span {
@@ -6193,30 +5901,39 @@ body.legal-page ol {
   border: 0 !important;
   background: transparent !important;
   color: #f1d18a !important;
+  font-weight: 800 !important;
 }
 
 #aurum-qualifier-form .qualifier-result {
-  padding: 0 28px 28px !important;
-  margin: 0 !important;
+  margin: 18px 0 0 !important;
+  padding: 0 !important;
+  text-align: center !important;
+  color: #d6b56d !important;
+  font-weight: 700 !important;
+  line-height: 1.45 !important;
+}
+
+#aurum-qualifier-form .qualifier-result.is-negative {
+  color: rgba(246,243,238,0.72) !important;
 }
 
 @media (max-width: 760px) {
   #aurum-qualifier-form.qualifier-form {
     width: 94vw !important;
-    margin-top: 28px !important;
+    margin-top: 46px !important;
+    padding: 24px !important;
     border-radius: 26px !important;
-  }
-
-  #aurum-qualifier-form .qualifier-step {
-    padding: 30px 22px 20px !important;
   }
 
   #aurum-qualifier-form .qualifier-step label {
     font-size: 28px !important;
   }
 
+  #aurum-qualifier-form .qualifier-grid {
+    grid-template-columns: 1fr !important;
+  }
+
   #aurum-qualifier-form .qualifier-actions {
-    padding: 0 22px 20px !important;
     grid-template-columns: 105px 1fr !important;
   }
 
@@ -6226,115 +5943,5 @@ body.legal-page ol {
   }
 }
 
-/* === END QUALIFIER PREMIUM V2 FINAL === */
-
-
-/* === QUALIFIER HARD FIX: spacing + button text === */
-
-/* Más aire entre subtítulo y formulario */
-#aurum-qualifier-form.qualifier-form {
-  margin-top: 72px !important;
-  width: min(500px, 92vw) !important;
-  min-height: 390px !important;
-  padding-bottom: 22px !important;
-}
-
-/* Quitamos altura vacía innecesaria */
-#aurum-qualifier-form .qualifier-step {
-  min-height: 155px !important;
-  padding: 30px 28px 16px !important;
-}
-
-/* Título de la pregunta más fino */
-#aurum-qualifier-form .qualifier-step label {
-  font-size: 30px !important;
-  margin-bottom: 20px !important;
-}
-
-/* Botonera más cerca del campo, no tan abajo */
-#aurum-qualifier-form .qualifier-actions {
-  margin-top: 8px !important;
-  padding: 0 28px 18px !important;
-  display: grid !important;
-  grid-template-columns: 120px 1fr !important;
-  gap: 12px !important;
-}
-
-/* Fuerza centrado real de botones */
-#aurum-qualifier-form .qualifier-actions button {
-  position: relative !important;
-  height: 54px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-  line-height: 1 !important;
-  padding: 0 !important;
-  white-space: nowrap !important;
-}
-
-/* Arreglo definitivo: ocultamos el texto nativo mal alineado */
-#aurum-qualifier-form .qualifier-next {
-  font-size: 0 !important;
-}
-
-#aurum-qualifier-form .qualifier-next::before {
-  content: "Siguiente" !important;
-  font-size: 14px !important;
-  font-weight: 800 !important;
-  line-height: 1 !important;
-  color: #09090b !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 100% !important;
-  height: 100% !important;
-}
-
-/* Lo mismo para el botón final */
-#aurum-qualifier-form .qualifier-submit {
-  font-size: 0 !important;
-}
-
-#aurum-qualifier-form .qualifier-submit::before {
-  content: "Ver huecos disponibles" !important;
-  font-size: 14px !important;
-  font-weight: 800 !important;
-  line-height: 1 !important;
-  color: #09090b !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 100% !important;
-  height: 100% !important;
-}
-
-/* Contador más compacto */
-#aurum-qualifier-form .qualifier-progress {
-  padding-bottom: 22px !important;
-}
-
-/* Responsive */
-@media (max-width: 760px) {
-  #aurum-qualifier-form.qualifier-form {
-    margin-top: 48px !important;
-    min-height: 370px !important;
-  }
-
-  #aurum-qualifier-form .qualifier-step {
-    min-height: 145px !important;
-    padding: 28px 22px 14px !important;
-  }
-
-  #aurum-qualifier-form .qualifier-step label {
-    font-size: 27px !important;
-  }
-
-  #aurum-qualifier-form .qualifier-actions {
-    grid-template-columns: 105px 1fr !important;
-    padding: 0 22px 18px !important;
-  }
-}
-
-/* === END QUALIFIER HARD FIX === */
+/* === END AURUM QUALIFIER FINAL DESIGN === */
 
