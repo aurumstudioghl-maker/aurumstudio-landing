@@ -6228,3 +6228,113 @@ body.legal-page ol {
 
 /* === END QUALIFIER PREMIUM V2 FINAL === */
 
+
+/* === QUALIFIER HARD FIX: spacing + button text === */
+
+/* Más aire entre subtítulo y formulario */
+#aurum-qualifier-form.qualifier-form {
+  margin-top: 72px !important;
+  width: min(500px, 92vw) !important;
+  min-height: 390px !important;
+  padding-bottom: 22px !important;
+}
+
+/* Quitamos altura vacía innecesaria */
+#aurum-qualifier-form .qualifier-step {
+  min-height: 155px !important;
+  padding: 30px 28px 16px !important;
+}
+
+/* Título de la pregunta más fino */
+#aurum-qualifier-form .qualifier-step label {
+  font-size: 30px !important;
+  margin-bottom: 20px !important;
+}
+
+/* Botonera más cerca del campo, no tan abajo */
+#aurum-qualifier-form .qualifier-actions {
+  margin-top: 8px !important;
+  padding: 0 28px 18px !important;
+  display: grid !important;
+  grid-template-columns: 120px 1fr !important;
+  gap: 12px !important;
+}
+
+/* Fuerza centrado real de botones */
+#aurum-qualifier-form .qualifier-actions button {
+  position: relative !important;
+  height: 54px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  line-height: 1 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+}
+
+/* Arreglo definitivo: ocultamos el texto nativo mal alineado */
+#aurum-qualifier-form .qualifier-next {
+  font-size: 0 !important;
+}
+
+#aurum-qualifier-form .qualifier-next::before {
+  content: "Siguiente" !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  color: #09090b !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Lo mismo para el botón final */
+#aurum-qualifier-form .qualifier-submit {
+  font-size: 0 !important;
+}
+
+#aurum-qualifier-form .qualifier-submit::before {
+  content: "Ver huecos disponibles" !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  color: #09090b !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Contador más compacto */
+#aurum-qualifier-form .qualifier-progress {
+  padding-bottom: 22px !important;
+}
+
+/* Responsive */
+@media (max-width: 760px) {
+  #aurum-qualifier-form.qualifier-form {
+    margin-top: 48px !important;
+    min-height: 370px !important;
+  }
+
+  #aurum-qualifier-form .qualifier-step {
+    min-height: 145px !important;
+    padding: 28px 22px 14px !important;
+  }
+
+  #aurum-qualifier-form .qualifier-step label {
+    font-size: 27px !important;
+  }
+
+  #aurum-qualifier-form .qualifier-actions {
+    grid-template-columns: 105px 1fr !important;
+    padding: 0 22px 18px !important;
+  }
+}
+
+/* === END QUALIFIER HARD FIX === */
+
