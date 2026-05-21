@@ -4,7 +4,7 @@
 (() => {
   const modal = document.querySelector("[data-vsl-modal]");
   const openBtn = document.querySelector("[data-vsl-open]");
-  const iframe = document.querySelector("[data-vsl-iframe]");
+  const iframe = null; // VSL controlado por el script inline de index.html
   const closeEls = document.querySelectorAll("[data-vsl-close]");
 
   if (!modal || !openBtn || !iframe) return;
@@ -15,7 +15,7 @@
     modal.setAttribute("aria-hidden", "false");
     if (originalSrc && !originalSrc.includes("autoplay=1")) {
       const join = originalSrc.includes("?") ? "&" : "?";
-      iframe.setAttribute("src", originalSrc + join + "autoplay=1");
+      iframe.setAttribute("src", originalSrc.replace("autoplay=0", "autoplay=1"));
     }
     document.body.style.overflow = "hidden";
   };
